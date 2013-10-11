@@ -14,7 +14,7 @@ Installation
 
 ::
 
-    pip install git+https://github.com/ikegami-yukino/madoka-python.git
+    pip install madoka
 
 Usage
 =====

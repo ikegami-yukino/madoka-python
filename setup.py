@@ -8,7 +8,7 @@ import glob
 MADOKA_FILES = glob.glob('src/*.cc')
 setup (
         name = 'madoka',
-        version = '0.1.3',
+        version = '0.1',
         author = "Yukino Ikegami",
         author_email='yukino0131@me.com',
         url='https://github.com/ikegami-yukino/madoka-python',
