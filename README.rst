@@ -14,91 +14,105 @@ Installation
 
 ::
 
-    pip install madoka
+    pip install git+https://github.com/ikegami-yukino/madoka-python.git
 
 Usage
 =====
 
-Create a new sketch::
+Create a new sketch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     >>> import madoka
     >>> sketch = madoka.Sketch()
     >>> sketch.create()
 
-create(width = 0, max_value = 0, path = NULL, flags = 0, seed = 0)
+- create(width = 0, max_value = 0, path = NULL, flags = 0, seed = 0)
 
 
-Increment a key value::
+Increment a key value
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     >>> sketch.inc('mami', 6)
 
-inc(key, byte_size)
+- inc(key, byte_size)
+
 In this example, the value of the key 'mami' is 4 at this time.
 
 
-Add a value to current key value::
+Add a value to current key value
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     >>> sketch.add('mami', 6, 3)
 
-add(key, byte_size, value)
-The byte_size argument is a range of a value.
+- add(key, byte_size, value)
+    - The byte_size argument is a range of a value.
+
 In this example, the value of the key 'mami' is 3.
 
 
-Update a key value::
+Update a key value
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     >>> sketch.set('mami', 6, 2)
 
-set(key, byte_size, value)
-Note that set() does nothing when the given value is not greater than the current key value.
-Also note that the new value is saturated when the given value is greater than the upper limit.
+- set(key, byte_size, value)
+    - Note that set() does nothing when the given value is not greater than the current key value.
+    - Also note that the new value is saturated when the given value is greater than the upper limit.
 
 
-Get a key value::
+Get a key value
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     >>> sketch.get('mami', 6)
 
-get(key, byte_size)
+- get(key, byte_size)
+
 In this example, return 4 as the value of the key 'mami'.
 
 
-Save a sketch to a file::
+Save a sketch to a file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     >>> sketch.save('example.madoka')
 
-save(filename)
+- save(filename)
 
 
-Load a sketch from a file::
+Load a sketch from a file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     >>> sketch.save('example.madoka')
 
-save(filename)
+- save(filename)
 
 
-Clear a sketch::
+Clear a sketch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     >>> sketch.clear()
 
 
-Copy a sketch::
+Copy a sketch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     >>> sketch.copy(othersketch)
 
-copy(Sketch)
+- copy(Sketch)
 
-Merge two sketches::
+Merge two sketches
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     >>> sketch.merge(othersketch)
 
-merge(Sketch)
+- merge(Sketch)
 
 
-Get inner product of two sketches::
+Get inner product of two sketches
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     >>> sketch.inner_product(othersketch)
 
-inner_product(Sketch)
+- inner_product(Sketch)
 
 
 Current limitations
@@ -111,6 +125,6 @@ Contributions are welcome!
 License
 =======
 
-Wrapper code is licensed under New BSD License.
-Bundled `madoka`_ C++ library is licensed under the Simplified BSD License.
+- Wrapper code is licensed under New BSD License.
+- Bundled `madoka`_ C++ library is licensed under the Simplified BSD License.
 
