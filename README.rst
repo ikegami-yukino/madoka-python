@@ -14,7 +14,7 @@ Installation
 
 ::
 
- pip install madoka
+ $ pip install madoka
 
 Usage
 =====
@@ -27,8 +27,10 @@ Create a new sketch
  >>> import madoka
  >>> sketch = madoka.Sketch()
 
+
 - madoka.Sketch(width = 0, max_value = 0, path = NULL, flags = 0, seed = 0)
-  * madoka.Sketch() calls create(), so you don't have to explicitly call create()
+
+  - madoka.Sketch() calls create(), so you don't have to explicitly call create()
 
 
 Increment a key value
@@ -42,13 +44,14 @@ Increment a key value
 
 
 Add a value to current key value
------------------------------
+---------------------------------
 
 ::
 
  >>> sketch.add('mami', 6, 3)
 
 - add(key, byte_size, value)
+
   - The byte_size argument is a range of a value.
 
 
@@ -60,8 +63,10 @@ Update a key value
  >>> sketch.set('mami', 6, 2)
 
 - set(key, byte_size, value)
+
   * Note that set() does nothing when the given value is not greater than the current key value.
- - Also note that the new value is saturated when the given value is greater than the upper limit.
+
+  * Also note that the new value is saturated when the given value is greater than the upper limit.
 
 
 Get a key value
@@ -109,6 +114,7 @@ Initialize a sketch with settings change
 --------------------------------------------
 
 ::
+
  >>> sketch.create()
 
 - create(width = 0, max_value = 0, path = NULL, flags = 0, seed = 0)
@@ -140,7 +146,9 @@ Apply a filter to key value
  >>> sketch.filter(lambda x: x**2)
 
 - filter(function)
+
   * filter() accepts a function (def or lambda) that takes the current value and returns the filtered value.
+
   * filter() does nothing if the argument is NULL.
 
 
