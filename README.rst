@@ -26,9 +26,9 @@ Create a new sketch
 
  >>> import madoka
  >>> sketch = madoka.Sketch()
- >>> sketch.create()
 
-- create(width = 0, max_value = 0, path = NULL, flags = 0, seed = 0)
+- madoka.Sketch(width = 0, max_value = 0, path = NULL, flags = 0, seed = 0)
+  * madoka.Sketch() calls create(), so you don't have to explicitly call create()
 
 
 Increment a key value
@@ -100,6 +100,18 @@ Clear a sketch
 ::
 
  >>> sketch.clear()
+
+- clear()
+  * Delete all key-value pairs. It differs from create() in maintaining settings.
+
+
+Initialize a sketch with settings change
+--------------------------------------------
+
+::
+ >>> sketch.create()
+
+- create(width = 0, max_value = 0, path = NULL, flags = 0, seed = 0)
 
 
 Copy a sketch
