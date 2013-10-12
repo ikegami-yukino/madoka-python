@@ -311,9 +311,10 @@ class Sketch(_object):
     def add(self, *args): return _madoka.Sketch_add(self, *args)
     def clear(self): return _madoka.Sketch_clear(self)
     def copy(self, *args): return _madoka.Sketch_copy(self, *args)
-    def filter(self, filter_method):
-        assert hasattr(filter_method, '__call__'), 'madoka.Sketch.filter accepts only function'
-        self.filter_method = filter_method
+    def filter(self, filter_method=None):
+        if filter_method is not None:
+            assert hasattr(filter_method, '__call__'), 'madoka.Sketch.filter accepts only function'
+            self.filter_method = filter_method
     def shrink(self, *args): return _madoka.Sketch_shrink(self, *args)
     def merge(self, *args): return _madoka.Sketch_merge(self, *args)
     def swap(self, *args): return _madoka.Sketch_swap(self, *args)

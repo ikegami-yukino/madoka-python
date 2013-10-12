@@ -14,117 +14,142 @@ Installation
 
 ::
 
-    pip install madoka
+ pip install madoka
 
 Usage
 =====
 
 Create a new sketch
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
-    >>> import madoka
-    >>> sketch = madoka.Sketch()
-    >>> sketch.create()
+::
+
+ >>> import madoka
+ >>> sketch = madoka.Sketch()
+ >>> sketch.create()
 
 - create(width = 0, max_value = 0, path = NULL, flags = 0, seed = 0)
 
 
 Increment a key value
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
-    >>> sketch.inc('mami', 6)
+::
+
+ >>> sketch.inc('mami', 6)
 
 - inc(key, byte_size)
 
-In this example, the value of the key 'mami' is 4 at this time.
-
 
 Add a value to current key value
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
-    >>> sketch.add('mami', 6, 3)
+::
+
+ >>> sketch.add('mami', 6, 3)
 
 - add(key, byte_size, value)
-    - The byte_size argument is a range of a value.
-
-In this example, the value of the key 'mami' is 3.
+  - The byte_size argument is a range of a value.
 
 
 Update a key value
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
-    >>> sketch.set('mami', 6, 2)
+::
+
+ >>> sketch.set('mami', 6, 2)
 
 - set(key, byte_size, value)
-    - Note that set() does nothing when the given value is not greater than the current key value.
-    - Also note that the new value is saturated when the given value is greater than the upper limit.
+  * Note that set() does nothing when the given value is not greater than the current key value.
+ - Also note that the new value is saturated when the given value is greater than the upper limit.
 
 
 Get a key value
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
-    >>> sketch.get('mami', 6)
+::
+
+ >>> sketch.get('mami', 6)
 
 - get(key, byte_size)
 
-In this example, return 4 as the value of the key 'mami'.
-
 
 Save a sketch to a file
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
-    >>> sketch.save('example.madoka')
+::
+
+ >>> sketch.save('example.madoka')
 
 - save(filename)
 
 
 Load a sketch from a file
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------
 
-    >>> sketch.save('example.madoka')
+::
+
+ >>> sketch.save('example.madoka')
 
 - save(filename)
 
 
 Clear a sketch
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
-    >>> sketch.clear()
+::
+
+ >>> sketch.clear()
 
 
 Copy a sketch
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
-    >>> sketch.copy(othersketch)
+::
+
+ >>> sketch.copy(othersketch)
 
 - copy(Sketch)
 
 Merge two sketches
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
-    >>> sketch.merge(othersketch)
+::
+
+ >>> sketch.merge(othersketch)
 
 - merge(Sketch)
 
+Apply a filter to key value
+----------------------------------------
+
+::
+
+ >>> sketch.filter(lambda x: x**2)
+
+- filter(function)
+  * filter() accepts a function (def or lambda) that takes the current value and returns the filtered value.
+  * filter() does nothing if the argument is NULL.
+
 
 Get inner product of two sketches
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------
 
-    >>> sketch.inner_product(othersketch)
+::
+
+ >>> sketch.inner_product(othersketch)
 
 - inner_product(Sketch)
 
 
-Current limitations
-===================
-
-* ``Sketch.filter()`` doesn't work;
+TODO
+======================
+* Implement a function for dumping all keys.
 
 Contributions are welcome!
 
 License
-=======
-
+=========
 - Wrapper code is licensed under New BSD License.
 - Bundled `madoka`_ C++ library is licensed under the Simplified BSD License.
 
