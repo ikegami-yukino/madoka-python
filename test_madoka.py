@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from nose.tools import assert_equal, ok_
+from nose.tools import assert_equal, assert_true
 import madoka
 import os
 
