@@ -11,6 +11,7 @@ Based on `madoka`_ C++ library.
 
 NOTE: Madoka-Sketch does not have index of keys. so Madoka-Sketch can not dump all keys such as Python dict's `dict.keys()`.
 
+
 Installation
 ============
 
@@ -18,11 +19,12 @@ Installation
 
  $ pip install madoka
 
+
 Usage
 =====
 
 Create a new sketch
------------------------------
+--------------------------------------------
 
 ::
 
@@ -36,7 +38,7 @@ Create a new sketch
 
 
 Increment a key value
------------------------------
+--------------------------------------------
 
 ::
 
@@ -49,7 +51,7 @@ Increment a key value
 
 
 Add a value to the current key value
----------------------------------
+--------------------------------------------
 
 ::
 
@@ -62,7 +64,7 @@ Add a value to the current key value
 
 
 Update a key value
------------------------------
+--------------------------------------------
 
 ::
 
@@ -79,7 +81,7 @@ Update a key value
 
 
 Get a key value
------------------------------
+--------------------------------------------
 
 ::
 
@@ -92,7 +94,7 @@ Get a key value
 
 
 Save a sketch to a file
------------------------------
+--------------------------------------------
 
 ::
 
@@ -102,7 +104,7 @@ Save a sketch to a file
 
 
 Load a sketch from a file
--------------------------------
+--------------------------------------------
 
 ::
 
@@ -112,7 +114,7 @@ Load a sketch from a file
 
 
 Clear a sketch
------------------------------
+--------------------------------------------
 
 ::
 
@@ -134,7 +136,7 @@ Initialize a sketch with settings change
 
 
 Copy a sketch
------------------------------
+--------------------------------------------
 
 ::
 
@@ -142,8 +144,9 @@ Copy a sketch
 
 - copy(Sketch)
 
+
 Merge two sketches
------------------------------
+--------------------------------------------
 
 ::
 
@@ -153,11 +156,11 @@ Merge two sketches
 
 
 Get inner product of two sketches
-----------------------------------------
+--------------------------------------------
 
 ::
 
- >>> sketch.inner_product(othersketch)
+ >>> sketch.inner_product(other_sketch)
 
 - inner_product(Sketch)
 
@@ -168,8 +171,11 @@ TODO
 
 Contributions are welcome!
 
+
 License
 =========
+
 - Wrapper code is licensed under New BSD License.
 - Bundled `madoka`_ C++ library is licensed under the Simplified BSD License.
+
 

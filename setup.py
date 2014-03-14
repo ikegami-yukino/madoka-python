@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 from setuptools import setup
 from distutils.command.build_ext import build_ext
 from distutils.extension import Extension
@@ -8,23 +7,25 @@ import glob
 MADOKA_FILES = glob.glob('src/*.cc')
 setup (
         name = 'madoka',
-        version = '0.1',
+        version = '0.3',
         author = "Yukino Ikegami",
-        author_email='yukino0131@me.com',
+        author_email='yukinoik@icloud.com',
         url='https://github.com/ikegami-yukino/madoka-python',
-        description = """Memory-efficient key-value structure for Python (based on Madoka C++ library)""",
+        description = """Memory-efficient CountMin Sketch key-value structure (based on Madoka C++ library)""",
         long_description = open('README.rst').read() + "\n\n" + open('CHANGES.rst').read(),
 
         py_modules = ["madoka"],
         ext_modules = [
             Extension('_madoka',
             sources=['madoka_swig_wrap.cxx'] + MADOKA_FILES,
-            #language = "c++"
+            language = "c++"
             ),
         ],
-        
+
         cmdclass = {'build_ext': build_ext },
 
+        license = 'New BSD License',
+        keywords = ['Count-Min Sketch', 'counter', 'word count'],
         classifiers=[
             'Development Status :: 3 - Alpha',
             'Intended Audience :: Developers',
