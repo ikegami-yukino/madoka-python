@@ -67,15 +67,6 @@ except AttributeError:
     _newclass = 0
 
 MADOKA_LINE_STR = _madoka.MADOKA_LINE_STR
-MADOKA_FILE_CREATE = _madoka.MADOKA_FILE_CREATE
-MADOKA_FILE_TRUNCATE = _madoka.MADOKA_FILE_TRUNCATE
-MADOKA_FILE_READONLY = _madoka.MADOKA_FILE_READONLY
-MADOKA_FILE_WRITABLE = _madoka.MADOKA_FILE_WRITABLE
-MADOKA_FILE_SHARED = _madoka.MADOKA_FILE_SHARED
-MADOKA_FILE_PRIVATE = _madoka.MADOKA_FILE_PRIVATE
-MADOKA_FILE_ANONYMOUS = _madoka.MADOKA_FILE_ANONYMOUS
-MADOKA_FILE_HUGETLB = _madoka.MADOKA_FILE_HUGETLB
-MADOKA_FILE_PRELOAD = _madoka.MADOKA_FILE_PRELOAD
 FILE_CREATE = _madoka.FILE_CREATE
 FILE_TRUNCATE = _madoka.FILE_TRUNCATE
 FILE_READONLY = _madoka.FILE_READONLY
@@ -101,7 +92,8 @@ class Sketch(_object):
         return _madoka.Sketch_create(self, width, max_value, path, flags, seed)
     __swig_destroy__ = _madoka.delete_Sketch
     __del__ = lambda self : None;
-    def create(self, width=0, max_value=0, path=None, flags=0, seed=0): return _madoka.Sketch_create(self, width, max_value, path, flags, seed)
+    def create(self, width=0, max_value=0, path=None, flags=0, seed=0):
+        return _madoka.Sketch_create(self, width, max_value, path, flags, seed)
     def open(self, *args): return _madoka.Sketch_open(self, *args)
     def close(self): return _madoka.Sketch_close(self)
     def load(self, *args): return _madoka.Sketch_load(self, *args)
@@ -117,11 +109,22 @@ class Sketch(_object):
     def file_size(self): return _madoka.Sketch_file_size(self)
     def flags(self): return _madoka.Sketch_flags(self)
     def mode(self): return _madoka.Sketch_mode(self)
-    def get(self, *args):
-        return _madoka.Sketch_get(self, *args)
-    def set(self, *args): return _madoka.Sketch_set(self, *args)
-    def inc(self, *args): return _madoka.Sketch_inc(self, *args)
-    def add(self, *args): return _madoka.Sketch_add(self, *args)
+    def get(self, key, key_length=0):
+        if key_length < 1:
+            key_length = len(key)
+        return _madoka.Sketch_get(self, key, key_length)
+    def set(self, key, value, key_length=0):
+        if key_length < 1:
+            key_length = len(key)
+        return _madoka.Sketch_set(self, key, key_length, value)
+    def inc(self, key, key_length=0):
+        if key_length < 1:
+            key_length = len(key)
+        return _madoka.Sketch_inc(self, key, key_length)    
+    def add(self, key, value, key_length=0):
+        if key_length < 1:
+            key_length = len(key)
+        return _madoka.Sketch_add(self, key, key_length, value)
     def clear(self): return _madoka.Sketch_clear(self)
     def copy(self, *args): return _madoka.Sketch_copy(self, *args)
     def shrink(self, *args): return _madoka.Sketch_shrink(self, *args)
