@@ -75,10 +75,13 @@ class Test_madoka(object):
             sketch = madoka.Sketch()
             sketch.set('mami', 14)
             sketch.save(filename)
-            ok_(os.path.exists(filename))
+            assert_true(os.path.exists(filename))
 
             sketch = madoka.Sketch()
             sketch.load(filename)
+            assert_equal(14, sketch.get('mami'))
+            sketch = madoka.Sketch()
+            sketch.open(filename)
             assert_equal(14, sketch.get('mami'))
         finally:
             os.remove(filename)
