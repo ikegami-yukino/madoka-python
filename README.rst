@@ -119,6 +119,7 @@ Clear a sketch
  >>> sketch.clear()
 
 - clear()
+
   * Delete all key-value pairs. It differs from create() in maintaining settings.
 
 
