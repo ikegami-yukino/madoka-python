@@ -41,8 +41,7 @@ Increment a key value
 ::
 
  >>> sketch.inc('mami')
- or
- >>> sketch.inc('mami', 4)
+
 
 - inc(key[, key_length])
 
@@ -55,8 +54,7 @@ Add a value to the current key value
 ::
 
  >>> sketch.add('mami', 6)
- or
- >>> sketch.inc('mami', 6, 4)
+
 
 - add(key, value[, key_length])
 
@@ -69,8 +67,7 @@ Update a key value
 ::
 
  >>> sketch.set('mami', 6)
- or
- >>> sketch.inc('mami', 6, 4)
+
 
 - set(key, value[, key_length])
 
@@ -86,7 +83,8 @@ Get a key value
 
 ::
 
- >>> sketch.get('mami', 6)
+ >>> sketch.get('mami')
+
 
 - get(key[, key_length])
 
