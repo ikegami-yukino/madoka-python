@@ -279,7 +279,6 @@ class Sketch(_object):
     __getattr__ = lambda self, name: _swig_getattr(self, Sketch, name)
     __repr__ = _swig_repr
     def __init__(self, width=0, max_value=0, path=None, flags=0, seed=0): 
-        self.filter_method = None
         this = _madoka.new_Sketch()
         try: self.this.append(this)
         except: self.this = this
@@ -303,19 +302,12 @@ class Sketch(_object):
     def flags(self): return _madoka.Sketch_flags(self)
     def mode(self): return _madoka.Sketch_mode(self)
     def get(self, *args):
-        value = _madoka.Sketch_get(self, *args)
-        if self.filter_method is not None:
-            return self.filter_method(value)
-        return value
+        return _madoka.Sketch_get(self, *args)
     def set(self, *args): return _madoka.Sketch_set(self, *args)
     def inc(self, *args): return _madoka.Sketch_inc(self, *args)
     def add(self, *args): return _madoka.Sketch_add(self, *args)
     def clear(self): return _madoka.Sketch_clear(self)
     def copy(self, *args): return _madoka.Sketch_copy(self, *args)
-    def filter(self, filter_method=None):
-        if filter_method is not None:
-            assert hasattr(filter_method, '__call__'), 'madoka.Sketch.filter accepts only function'
-            self.filter_method = filter_method
     def shrink(self, *args): return _madoka.Sketch_shrink(self, *args)
     def merge(self, *args): return _madoka.Sketch_merge(self, *args)
     def swap(self, *args): return _madoka.Sketch_swap(self, *args)

@@ -138,19 +138,6 @@ Merge two sketches
 
 - merge(Sketch)
 
-Apply a filter to key value
-----------------------------------------
-
-::
-
- >>> sketch.filter(lambda x: x**2)
-
-- filter(function)
-
-  * filter() accepts a function (def or lambda) that takes the current value and returns the filtered value.
-
-  * filter() does nothing if the argument is NULL.
-
 
 Get inner product of two sketches
 ----------------------------------------
@@ -164,7 +151,7 @@ Get inner product of two sketches
 
 TODO
 ======================
-* Implement a function for dumping all keys.
+* Filter function performing same behavior with original C++ madoka library
 
 Contributions are welcome!
 

@@ -55,12 +55,6 @@ class Test_madoka(object):
         new_sketch.merge(sketch)
         eq_(28, new_sketch.get('mami', 3))
 
-    def test_filter(self):
-        sketch = madoka.Sketch()
-        sketch.set('mami', 3, 3)
-        sketch.filter(lambda x: x**2)
-        eq_(9, sketch.get('mami', 3))
-
     def test_inner_product(self):
         sketch = madoka.Sketch()
         sketch.set('mami', 3, 2)
