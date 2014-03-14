@@ -66,6 +66,23 @@ except AttributeError:
     class _object : pass
     _newclass = 0
 
+class Exception(Exception):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Exception, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, Exception, name)
+    __repr__ = _swig_repr
+    __swig_destroy__ = _madoka.delete_Exception
+    __del__ = lambda self : None;
+    def __init__(self, *args): 
+        this = _madoka.new_Exception(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def what(self): return _madoka.Exception_what(self)
+Exception_swigregister = _madoka.Exception_swigregister
+Exception_swigregister(Exception)
+
+
 MADOKA_LINE_STR = _madoka.MADOKA_LINE_STR
 FILE_CREATE = _madoka.FILE_CREATE
 FILE_TRUNCATE = _madoka.FILE_TRUNCATE
@@ -92,12 +109,180 @@ class Sketch(_object):
         return _madoka.Sketch_create(self, width, max_value, path, flags, seed)
     __swig_destroy__ = _madoka.delete_Sketch
     __del__ = lambda self : None;
+
+    def __len__(self):
+        return self.file_size()
+
     def create(self, width=0, max_value=0, path=None, flags=0, seed=0):
+        """Create new sketch
+        Params:
+            <int> width
+            <int> max_value
+            <str> path            
+            <int> flags
+            <int> seed
+        """
         return _madoka.Sketch_create(self, width, max_value, path, flags, seed)
-    def open(self, *args): return _madoka.Sketch_open(self, *args)
-    def close(self): return _madoka.Sketch_close(self)
-    def load(self, *args): return _madoka.Sketch_load(self, *args)
-    def save(self, *args): return _madoka.Sketch_save(self, *args)
+
+    def open(self, *args):
+        """Load sketch from file
+
+        open() uses memory mapped I/O instead of reading the whole sketch into memory
+
+        file_flag as following:
+            FILE_CREATE    = 0,
+            FILE_TRUNCATE  = 1,
+            FILE_READONLY  = 2,
+            FILE_WRITABLE  = 3,
+            FILE_SHARED    = 4,
+            FILE_PRIVATE   = 5,
+            FILE_ANONYMOUS = 6,
+            FILE_HUGETLB   = 7,
+            FILE_PRELOAD   = 8
+
+        Params:
+            <str> filepath
+            <int> file_flag
+        """
+        _madoka.Sketch_open(self, *args)
+
+    def close(self):
+        return _madoka.Sketch_close(self)
+
+    def load(self, *args):
+        """Load sketch from file
+
+        file_flag as following:
+            FILE_CREATE    = 0,
+            FILE_TRUNCATE  = 1,
+            FILE_READONLY  = 2,
+            FILE_WRITABLE  = 3,
+            FILE_SHARED    = 4,
+            FILE_PRIVATE   = 5,
+            FILE_ANONYMOUS = 6,
+            FILE_HUGETLB   = 7,
+            FILE_PRELOAD   = 8
+
+        Params:
+            <str> filepath
+            <int> file_flag
+        """
+        return _madoka.Sketch_load(self, *args)
+
+    def save(self, *args):
+        """Save sketch to file
+
+        file_flag as following:
+            FILE_CREATE    = 0,
+            FILE_TRUNCATE  = 1,
+            FILE_READONLY  = 2,
+            FILE_WRITABLE  = 3,
+            FILE_SHARED    = 4,
+            FILE_PRIVATE   = 5,
+            FILE_ANONYMOUS = 6,
+            FILE_HUGETLB   = 7,
+            FILE_PRELOAD   = 8
+
+        Params:
+            <str> filepath
+            <int> file_flag
+        """
+        return _madoka.Sketch_save(self, *args)
+
+    def get(self, key, key_length=0):
+        """Add key-value
+        Params:
+            <str> key
+            <int> key_length
+        Return:
+            <int> key_value
+        """        
+        if key_length < 1:
+            key_length = len(key)
+        return _madoka.Sketch_get(self, key, key_length)
+
+    def set(self, key, value, key_length=0):
+        """Set value to key-value
+        Params:
+            <str> key
+            <int> value
+            <int> key_length
+        Return:
+            <int> key_value
+        """        
+        if key_length < 1:
+            key_length = len(key)
+        return _madoka.Sketch_set(self, key, key_length, value)
+
+    def inc(self, key, key_length=0):
+        """Increment key-value
+        Params:
+            <str> key
+            <int> key_length
+        Return:
+            <int> key_value
+        """
+        if key_length < 1:
+            key_length = len(key)
+        return _madoka.Sketch_inc(self, key, key_length)
+
+    def add(self, key, value, key_length=0):
+        """Add value to key-value
+        Params:
+            <str> key
+            <int> value
+            <int> key_length
+        Return:
+            <int> key_value
+        """
+        if key_length < 1:
+            key_length = len(key)
+        return _madoka.Sketch_add(self, key, key_length, value)
+
+    def clear(self):
+        """Clear sketch"""
+        return _madoka.Sketch_clear(self)
+
+    def copy(self, *args):
+        """Copy this sketch
+        Return:
+            <Sketch> sketch
+        """
+        return _madoka.Sketch_copy(self, *args)
+
+    def shrink(self, *args):
+        """Shrink sketche
+        Params:
+            <Sketch> src_sketch
+            <int> width
+            <int> max_value
+        """
+        return _madoka.Sketch_shrink(self, *args)
+
+    def merge(self, *args):
+        """Merge two sketches
+        Params:
+            <Sketch> sketch
+        """
+        return _madoka.Sketch_merge(self, *args)
+
+    def swap(self, *args):
+        """Swap sketches
+        Params:
+            <Sketch> sketch
+        """
+        return _madoka.Sketch_swap(self, *args)
+
+    def inner_product(self, *args):
+        """Inner product of two sketches
+        Params:
+            <Sketch> sketch1
+            <Sketch> sketch2
+        Return:
+            <int> inner_product
+        """
+        return _madoka.Sketch_inner_product(self, *args)
+
     def width(self): return _madoka.Sketch_width(self)
     def width_mask(self): return _madoka.Sketch_width_mask(self)
     def depth(self): return _madoka.Sketch_depth(self)
@@ -109,28 +294,7 @@ class Sketch(_object):
     def file_size(self): return _madoka.Sketch_file_size(self)
     def flags(self): return _madoka.Sketch_flags(self)
     def mode(self): return _madoka.Sketch_mode(self)
-    def get(self, key, key_length=0):
-        if key_length < 1:
-            key_length = len(key)
-        return _madoka.Sketch_get(self, key, key_length)
-    def set(self, key, value, key_length=0):
-        if key_length < 1:
-            key_length = len(key)
-        return _madoka.Sketch_set(self, key, key_length, value)
-    def inc(self, key, key_length=0):
-        if key_length < 1:
-            key_length = len(key)
-        return _madoka.Sketch_inc(self, key, key_length)    
-    def add(self, key, value, key_length=0):
-        if key_length < 1:
-            key_length = len(key)
-        return _madoka.Sketch_add(self, key, key_length, value)
-    def clear(self): return _madoka.Sketch_clear(self)
-    def copy(self, *args): return _madoka.Sketch_copy(self, *args)
-    def shrink(self, *args): return _madoka.Sketch_shrink(self, *args)
-    def merge(self, *args): return _madoka.Sketch_merge(self, *args)
-    def swap(self, *args): return _madoka.Sketch_swap(self, *args)
-    def inner_product(self, *args): return _madoka.Sketch_inner_product(self, *args)
+
 Sketch_swigregister = _madoka.Sketch_swigregister
 Sketch_swigregister(Sketch)
 cvar = _madoka.cvar

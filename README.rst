@@ -1,13 +1,15 @@
 madoka
 ===========
 
-Madoka is an implementation of a Count-Min sketch, a data structure for summarizing data streams.
+Madoka is an implementation of a Count-Min sketch data structure for summarizing data streams.
 
 String-int pairs in a Madoka-Sketch may take less memory than in a standard Python dict.
 
 Based on `madoka`_ C++ library.
 
 .. _madoka: https://github.com/s-yata/madoka
+
+NOTE: Madoka-Sketch does not have index of keys. so Madoka-Sketch can not dump all keys such as Python dict's `dict.keys()`.
 
 Installation
 ============
@@ -28,9 +30,9 @@ Create a new sketch
  >>> sketch = madoka.Sketch()
 
 
-- madoka.Sketch(width = 0, max_value = 0, path = NULL, flags = 0, seed = 0)
+- madoka.Sketch(width=0, max_value=0, path=NULL, flags=0, seed=0)
 
-  - madoka.Sketch() calls create(), so you don't have to explicitly call create()
+  - `madoka.Sketch()` calls `madoka.Sketch.create()`, so you don't have to explicitly call `create()`
 
 
 Increment a key value
@@ -38,21 +40,27 @@ Increment a key value
 
 ::
 
- >>> sketch.inc('mami', 6)
+ >>> sketch.inc('mami')
+ or
+ >>> sketch.inc('mami', 4)
 
-- inc(key, byte_size)
+- inc(key[, key_length])
+
+  - Note that `key_length` is automatically determined when not giving `key_length`. Thus, the order of parameters differs from original madoka C++ library.
 
 
-Add a value to current key value
+Add a value to the current key value
 ---------------------------------
 
 ::
 
- >>> sketch.add('mami', 6, 3)
+ >>> sketch.add('mami', 6)
+ or
+ >>> sketch.inc('mami', 6, 4)
 
-- add(key, byte_size, value)
+- add(key, value[, key_length])
 
-  - The byte_size argument is a range of a value.
+  - Note that `key_length` is automatically determined when not giving `key_length`. Thus, the order of parameters differs from original madoka C++ library.
 
 
 Update a key value
@@ -60,13 +68,17 @@ Update a key value
 
 ::
 
- >>> sketch.set('mami', 6, 2)
+ >>> sketch.set('mami', 6)
+ or
+ >>> sketch.inc('mami', 6, 4)
 
-- set(key, byte_size, value)
+- set(key, value[, key_length])
 
-  * Note that set() does nothing when the given value is not greater than the current key value.
+  * Note that `set()` does nothing when the given value is not greater than the current key value.
 
   * Also note that the new value is saturated when the given value is greater than the upper limit.
+
+  * Additionally note that `key_length` is automatically determined when not giving `key_length`. Thus, the order of parameters differs from original madoka C++ library.
 
 
 Get a key value
@@ -76,7 +88,9 @@ Get a key value
 
  >>> sketch.get('mami', 6)
 
-- get(key, byte_size)
+- get(key[, key_length])
+
+  - Note that `key_length` is automatically determined when not giving `key_length`. Thus, the order of parameters differs from original madoka C++ library.
 
 
 Save a sketch to a file
@@ -117,7 +131,7 @@ Initialize a sketch with settings change
 
  >>> sketch.create()
 
-- create(width = 0, max_value = 0, path = NULL, flags = 0, seed = 0)
+- create(width=0, max_value=0, path=NULL, flags=0, seed=0)
 
 
 Copy a sketch
