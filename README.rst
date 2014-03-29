@@ -112,9 +112,9 @@ Load a sketch from a file
 
 ::
 
- >>> sketch.save('example.madoka')
+ >>> sketch.load('example.madoka')
 
-- save(filename)
+- load(filename)
 
 
 Clear a sketch
