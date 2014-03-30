@@ -36,7 +36,7 @@ Create a new sketch
  >>> sketch = madoka.Sketch()
 
 
-- madoka.Sketch(width=0, max_value=0, path=NULL, flags=0, seed=0)
+- Sketch madoka.Sketch([width=0, max_value=0, path='', flags=0, seed=0])
 
   - `madoka.Sketch()` calls `madoka.Sketch.create()`, so you don't have to explicitly call `create()`
 
@@ -48,12 +48,14 @@ Increment a key value
 
  >>> sketch['mami'] += 1
  
- or
- 
+or
+
+:: 
+
  >>> sketch.inc('mami')
 
 
-- inc(key[, key_length])
+- int inc(key[, key_length=0])
 
   - Note that `key_length` is automatically determined when not giving `key_length`. Thus, the order of parameters differs from original madoka C++ library.
 
@@ -65,12 +67,14 @@ Add a value to the current key value
 
  >>> sketch['mami'] += 6
  
- or
- 
+or
+
+::
+
  >>> sketch.add('mami', 6)
 
 
-- add(key, value[, key_length])
+- int add(key, value[, key_length=0])
 
   - Note that `key_length` is automatically determined when not giving `key_length`. Thus, the order of parameters differs from original madoka C++ library.
 
@@ -82,12 +86,14 @@ Update a key value
 
  >>> sketch['mami'] = 6
  
- or
+or
+
+::
 
  >>> sketch.set('mami', 6)
 
 
-- set(key, value[, key_length])
+- void set(key, value[, key_length=0])
 
   * Note that `set()` does nothing when the given value is not greater than the current key value.
 
@@ -103,12 +109,14 @@ Get a key value
 
  >>> sketch['mami']
  
- or
- 
+or
+
+::
+
  >>> sketch.get('mami')
 
 
-- get(key[, key_length])
+- int get(key[, key_length=0])
 
   - Note that `key_length` is automatically determined when not giving `key_length`. Thus, the order of parameters differs from original madoka C++ library.
 
@@ -120,9 +128,8 @@ Get all values
  >>> sketch.values()
 
 
-- values()
+- generator<int> values()
 
-  - `values()` returns a generator
   - Note that processing time increases according to sketch's width. If you feel slow, I recommend setting width to less than 1000000 when creating sketch.
 
 Save a sketch to a file
@@ -132,7 +139,7 @@ Save a sketch to a file
 
  >>> sketch.save('example.madoka')
 
-- save(filename)
+- void save(filename)
 
 
 Load a sketch from a file
@@ -142,7 +149,7 @@ Load a sketch from a file
 
  >>> sketch.load('example.madoka')
 
-- load(filename)
+- void load(filename)
 
 
 Clear a sketch
@@ -152,9 +159,9 @@ Clear a sketch
 
  >>> sketch.clear()
 
-- clear()
+- void clear()
 
-  * Delete all key-value pairs. It differs from create() in maintaining settings.
+  * Delete all key-value pairs. It differs from create() in maintaining current settings.
 
 
 Initialize a sketch with settings change
@@ -164,7 +171,7 @@ Initialize a sketch with settings change
 
  >>> sketch.create()
 
-- create(width=0, max_value=0, path=NULL, flags=0, seed=0)
+- void create([width=0, max_value=0, path=NULL, flags=0, seed=0])
 
 
 Copy a sketch
@@ -174,20 +181,24 @@ Copy a sketch
 
  >>> sketch.copy(othersketch)
 
-- copy(Sketch)
+- void copy(Sketch)
 
 
 Merge two sketches
 --------------------------------------------
 
 ::
+
  >>> sketch += other_sketch
 
- or
+or
+
+::
 
  >>> sketch.merge(othersketch)
 
 - void merge(Sketch[, lhs_filter=None, rhs_filter=None])
+
   - lhs_filter is applied for self.sketch, rhs_filter is applied for given sketch
 
 
@@ -195,9 +206,11 @@ Shrink a sketch
 --------------------------------------------
 
 ::
+
  >>> sketch.shrink(sketch, width=1000)
 
 - void shrink(Sketch[, width=0, max_value=0, filter=None, path=None, flags=0])
+
   - When width > 0, width must be less than source sketch
 
 
@@ -205,6 +218,7 @@ Get summed sketch
 -----------------------
 
 ::
+
  >>> summed_sketch = sketch + other_sketch
 
 - It does not break original sketches
@@ -213,6 +227,7 @@ Check whether sketch contains key value
 -----------------------------------------
 
 ::
+
  >>> 'mami' in sketch
 
 
@@ -223,7 +238,7 @@ Get inner product of two sketches
 
  >>> sketch.inner_product(other_sketch)
 
-- inner_product(Sketch)
+- int inner_product(Sketch)
 
 Apply filter into all values
 --------------------------------------------
@@ -232,14 +247,11 @@ Apply filter into all values
 
  >>> sketch.filter(lambda x: x + 1)
 
-- filter(Callable[, only_nonzero=False])
+- void filter(Callable[, only_nonzero=False])
+
   - Note that processing time increases according to sketch's width. If you feel this method is slow, I recommend setting width to less than 1000000 when creating sketch
 
 
-
-TODO
-======================
-* Filter function performing same behavior with original C++ madoka library
 
 Contributions are welcome!
 
