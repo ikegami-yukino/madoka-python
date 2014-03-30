@@ -390,6 +390,19 @@ class Sketch(_object):
             if val:
                 yield val
 
+    def fromdict(self, src_dict):
+        """Set values from dict
+        Params:
+            <dict> <str> <int> src_dict
+        """
+        set = _madoka.Sketch_set
+        if hasattr(src_dict, 'iteritems'):
+            for (key, val) in src_dict.iteritems():
+                set(self, key, len(key), val)
+        else:
+            for (key, val) in src_dict.items():
+                set(self, key, len(key), val)
+
     def width(self): return _madoka.Sketch_width(self)
     def width_mask(self): return _madoka.Sketch_width_mask(self)
     def depth(self): return _madoka.Sketch_depth(self)

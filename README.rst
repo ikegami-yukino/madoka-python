@@ -251,7 +251,20 @@ Apply filter into all values
 
   - Note that processing time increases according to sketch's width. If you feel this method is slow, I recommend setting width to less than 1000000 when creating sketch
 
+Set values from dict
+--------------------------------------------
 
+::
+
+ >>> sketch.fromdict({'mami': 14, 'madoka': 13})
+
+- void fromdict(dict)
+
+TODO
+=========
+
+- Implement getting sketch length on inner_product method
+- Support storing float or double value by Croquis class
 
 Contributions are welcome!
 
