@@ -189,6 +189,12 @@ class Sketch(_object):
         """
         return _madoka.Sketch_save(self, *args)
 
+    def __getitem__(self, key):
+        return _madoka.Sketch_get(self, key, len(key))
+
+    def __setitem__(self, key, value):
+        return _madoka.Sketch_set(self, key, len(key), value)
+
     def get(self, key, key_length=0):
         """Add key-value
         Params:
