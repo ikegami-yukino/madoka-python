@@ -112,6 +112,18 @@ Get a key value
 
   - Note that `key_length` is automatically determined when not giving `key_length`. Thus, the order of parameters differs from original madoka C++ library.
 
+Get all values
+--------------------------------------------
+
+::
+
+ >>> sketch.values()
+
+
+- values()
+
+  - `values()` returns a generator
+  - Note that processing time increases according to sketch's width. If you feel slow, I recommend setting width to less than 1000000 when creating sketch.
 
 Save a sketch to a file
 --------------------------------------------
