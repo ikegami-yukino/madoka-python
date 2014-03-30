@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 from setuptools import setup
 from distutils.command.build_ext import build_ext
 from distutils.extension import Extension
@@ -7,7 +6,7 @@ import glob
 MADOKA_FILES = glob.glob('src/*.cc')
 setup (
         name = 'madoka',
-        version = '0.3',
+        version = '0.3.1',
         author = "Yukino Ikegami",
         author_email='yukinoik@icloud.com',
         url='https://github.com/ikegami-yukino/madoka-python',
@@ -17,7 +16,7 @@ setup (
         py_modules = ["madoka"],
         ext_modules = [
             Extension('_madoka',
-            sources=['madoka_swig_wrap.cxx'] + MADOKA_FILES,
+            sources=['madoka_wrap.cxx'] + MADOKA_FILES,
             language = "c++"
             ),
         ],

@@ -80,8 +80,13 @@ class Test_madoka(object):
         new_sketch['mami'] = 2
         new_sketch['kyouko'] = 3
         new_sketch['sayaka'] = 10
-
         assert_equal(new_sketch.inner_product(sketch), 30)
+
+    def test_values(self):
+        sketch = madoka.Sketch(width=10000)
+        sketch['mami'] = 2
+        sketch['madoka'] = 3
+        assert_equal({i for i in sketch.values()}, {2, 3})
 
     def test_save_and_load(self):
         try:
