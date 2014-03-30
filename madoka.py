@@ -29,7 +29,7 @@ if version_info >= (2,6,0):
     del swig_import_helper
 else:
     import _madoka
-if version_info < (3):
+if version_info < (3,):
     range = xrange
 del version_info
 try:

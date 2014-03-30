@@ -86,7 +86,8 @@ class Test_madoka(object):
         sketch = madoka.Sketch(width=10000)
         sketch['mami'] = 2
         sketch['madoka'] = 3
-        assert_equal({i for i in sketch.values()}, {2, 3})
+        got = [i for i in sketch.values()]
+        assert_equal(set(got), set([2, 3]))
 
     def test_save_and_load(self):
         try:
