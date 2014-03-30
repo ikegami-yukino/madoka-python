@@ -134,6 +134,12 @@ class Test_madoka(object):
         got = [i for i in sketch.values()]
         assert_equal(set(got), set([2, 3]))
 
+    def test_fromdict(self):
+        sketch = madoka.Sketch()
+        src_dict = {'mami': 14, 'madoka': 13}
+        sketch.fromdict(src_dict)
+        assert_equal(sketch['mami'], 14)
+
     def test_save_and_load(self):
         try:
             filename = 'test.madoka'
