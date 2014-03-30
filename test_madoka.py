@@ -9,47 +9,47 @@ class Test_madoka(object):
     def test___setitem__(self):
         sketch = madoka.Sketch()
         sketch['mami'] += 20
-        assert_equal(20, sketch.get('mami'))
+        assert_equal(sketch.get('mami'), 20)
         sketch['mami'] *= 2
-        assert_equal(40, sketch.get('mami'))
+        assert_equal(sketch.get('mami'), 40)
 
     def test___getitem__(self):
         sketch = madoka.Sketch()
         sketch.inc('mami')
-        assert_equal(1, sketch['mami'])
+        assert_equal(sketch['mami'], 1)
 
     def test_inc(self):
         sketch = madoka.Sketch()
         sketch.inc('mami')
-        assert_equal(1, sketch['mami'])
+        assert_equal(sketch['mami'], 1)
         sketch.inc('mami')
-        assert_equal(2, sketch['mami'])
+        assert_equal(sketch['mami'], 2)
 
     def test_add(self):
         sketch = madoka.Sketch()
         sketch.add('mami', 2)
-        assert_equal(2, sketch['mami'])
+        assert_equal(sketch['mami'], 2)
         sketch.add('mami', 8)
-        assert_equal(10, sketch['mami'])
+        assert_equal(sketch['mami'], 10)
         sketch['mami'] += 10
-        assert_equal(20, sketch['mami'])
+        assert_equal(sketch['mami'], 20)
 
     def test_set(self):
         sketch = madoka.Sketch()
         sketch.set('mami', 14)
-        assert_equal(14, sketch['mami'])
+        assert_equal(sketch['mami'], 14)
 
     def test_clear(self):
         sketch = madoka.Sketch()
-        sketch.set('mami', 14)
+        sketch['mami'] = 14
         sketch.clear()
-        assert_equal(0, sketch['mami'])
+        assert_equal(sketch['mami'], 0)
 
     def test_create(self):
         sketch = madoka.Sketch()
         sketch.create(max_value=4)
-        sketch.set('mami', 100)
-        assert_equal(15, sketch['mami'])
+        sketch['mami'] = 100
+        assert_equal(sketch['mami'], 15)
 
     def test_copy(self):
         sketch = madoka.Sketch()
@@ -57,7 +57,7 @@ class Test_madoka(object):
 
         new_sketch = madoka.Sketch()
         new_sketch.copy(sketch)
-        assert_equal(14, new_sketch['mami'])
+        assert_equal(new_sketch['mami'], 14)
 
     def test_merge(self):
         sketch = madoka.Sketch()
@@ -67,7 +67,7 @@ class Test_madoka(object):
         new_sketch['mami'] = 14
 
         new_sketch.merge(sketch)
-        assert_equal(28, new_sketch['mami'])
+        assert_equal(new_sketch['mami'], 28)
 
     def test_inner_product(self):
         sketch = madoka.Sketch()
@@ -81,7 +81,7 @@ class Test_madoka(object):
         new_sketch['kyouko'] = 3
         new_sketch['sayaka'] = 10
 
-        assert_equal(30, new_sketch.inner_product(sketch))
+        assert_equal(new_sketch.inner_product(sketch), 30)
 
     def test_save_and_load(self):
         try:
@@ -93,9 +93,9 @@ class Test_madoka(object):
 
             sketch = madoka.Sketch()
             sketch.load(filename)
-            assert_equal(14, sketch['mami'])
+            assert_equal(sketch['mami'], 14)
             sketch = madoka.Sketch()
             sketch.open(filename)
-            assert_equal(14, sketch['mami'])
+            assert_equal(sketch['mami'], 14)
         finally:
             os.remove(filename)
