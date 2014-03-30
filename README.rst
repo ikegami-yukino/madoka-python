@@ -187,7 +187,18 @@ Merge two sketches
 
  >>> sketch.merge(othersketch)
 
-- merge(Sketch)
+- void merge(Sketch[, lhs_filter=None, rhs_filter=None])
+  - lhs_filter is applied for self.sketch, rhs_filter is applied for given sketch
+
+
+Shrink a sketch
+--------------------------------------------
+
+::
+ >>> sketch.shrink(sketch, width=1000)
+
+- void shrink(Sketch[, width=0, max_value=0, filter=None, path=None, flags=0])
+  - When width > 0, width must be less than source sketch
 
 
 Get summed sketch
@@ -213,6 +224,17 @@ Get inner product of two sketches
  >>> sketch.inner_product(other_sketch)
 
 - inner_product(Sketch)
+
+Apply filter into all values
+--------------------------------------------
+
+::
+
+ >>> sketch.filter(lambda x: x + 1)
+
+- filter(Callable[, only_nonzero=False])
+  - Note that processing time increases according to sketch's width. If you feel this method is slow, I recommend setting width to less than 1000000 when creating sketch
+
 
 
 TODO

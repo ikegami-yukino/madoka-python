@@ -84,14 +84,16 @@ class Test_madoka(object):
         assert_equal(new_sketch['mami'], 14)
 
     def test_merge(self):
-        sketch = madoka.Sketch()
+        sketch = madoka.Sketch(width=10000)
         sketch['mami'] = 14
-
-        new_sketch = madoka.Sketch()
+        new_sketch = madoka.Sketch(width=10000)
         new_sketch['mami'] = 14
-
         new_sketch.merge(sketch)
         assert_equal(new_sketch['mami'], 28)
+
+        filter = lambda x: x // 10
+        new_sketch.merge(new_sketch, filter, filter)
+        assert_equal(new_sketch['mami'], 4)
 
     def test_inner_product(self):
         sketch = madoka.Sketch()
@@ -105,6 +107,25 @@ class Test_madoka(object):
         new_sketch['kyouko'] = 3
         new_sketch['sayaka'] = 10
         assert_equal(new_sketch.inner_product(sketch), 30)
+
+    def test_filter(self):
+        sketch = madoka.Sketch(width=1000)
+        sketch['mami'] = 2
+        filter_method = lambda x: x * 2
+        sketch.filter(filter_method)
+        assert_equal(sketch['mami'], 4)
+        sketch.filter(filter_method, only_nonzero=True)
+        assert_equal(sketch['mami'], 8)
+
+    def test_shrink(self):
+        sketch = madoka.Sketch(width=10000)
+        sketch['mami'] = 2
+        sketch.shrink(sketch, width=1000, max_value=100)
+        assert_equal(sketch['mami'], 2)
+        assert_equal(sketch.width(), 1000)
+        filter_method = lambda x: x * 2
+        sketch.shrink(sketch, width=100, max_value=100, filter=filter_method)
+        assert_equal(sketch['mami'], 4)
 
     def test_values(self):
         sketch = madoka.Sketch(width=10000)

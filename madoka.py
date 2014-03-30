@@ -291,21 +291,58 @@ class Sketch(_object):
         """
         return _madoka.Sketch_copy(self, *args)
 
-    def shrink(self, *args):
-        """Shrink sketche
+    def shrink(self, src, width=0, max_value=0, filter=None, path=None, flags=0):
+        """Shrink sketch
         Params:
             <Sketch> src_sketch
             <int> width
             <int> max_value
+            <lambda> | <function> lhs_filter
+            <str> path
+            <int> flags
         """
-        return _madoka.Sketch_shrink(self, *args)
+        if filter:
+            get_ = _madoka.Sketch__get_
+            set_ = _madoka.Sketch__set_
+            new_sketch = Sketch(width, max_value, path, flags, src.seed())
+            for table_id in range(SKETCH_DEPTH):
+                for offset in range(width, src.width(), width):
+                    for cell_id in range(width):
+                        val = get_(src, table_id, offset + cell_id)
+                        val = filter(val)
+                        val = max_value if val > max_value else val
+                        if val > get_(new_sketch, table_id, cell_id):
+                            set_(new_sketch, table_id, cell_id, val)
+            self.swap(new_sketch)
+        else:
+            _madoka.Sketch_shrink(self, src, width, max_value, filter, path, flags)
 
-    def merge(self, *args):
+    def merge(self, rhs, lhs_filter=None, rhs_filter=None):
         """Merge two sketches
         Params:
             <Sketch> sketch
+            <lambda> | <function> lhs_filter
+            <lambda> | <function> rhs_filter
         """
-        return _madoka.Sketch_merge(self, *args)
+        if lhs_filter or rhs_filter:
+            get_ = _madoka.Sketch__get_
+            set_ = _madoka.Sketch__set_
+            max_value = _madoka.Sketch_max_value(self)
+            for table_id in range(self.depth()):
+                for cell_id in range(self.width()):
+                    lhs_val = get_(self, table_id, cell_id)
+                    rhs_val = get_(rhs, table_id, cell_id)
+                    if lhs_filter:
+                        lhs_val = lhs_filter(lhs_val)
+                    if rhs_filter:
+                        rhs_val = rhs_filter(rhs_val)
+                    if (lhs_val >= max_value) or (rhs_val >= (max_value - lhs_val)):
+                        lhs_val = self.max_value
+                    else:
+                        lhs_val += rhs_val
+                    set_(self, table_id, cell_id, lhs_val)
+        else:
+            _madoka.Sketch_merge(self, rhs)
 
     def swap(self, *args):
         """Swap sketches
@@ -323,6 +360,23 @@ class Sketch(_object):
             <int> inner_product
         """
         return _madoka.Sketch_inner_product(self, *args)
+
+    def filter(self, given_filter, only_nonzero=False):
+        """Apply filter into all values
+        Params
+            <lambda> | <function> given_filter
+            <bool> only_nonzero
+        """
+        get_ = _madoka.Sketch__get_
+        set_ = _madoka.Sketch__set_
+        max_value = _madoka.Sketch_max_value(self)
+        for table_id in range(self.depth()):
+            for cell_id in range(self.width()):
+                val = get_(self, table_id, cell_id)
+                if only_nonzero is False or (only_nonzero and val > 0):
+                    val = given_filter(val)
+                    val = val if val <= max_value else max_value
+                    set_(self, table_id, cell_id, val)
 
     def values(self):
         """Dump all values
