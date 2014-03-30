@@ -518,7 +518,23 @@ UInt64 Sketch::get_(UInt64 table_id, UInt64 cell_id) const throw() {
   }
 }
 
+UInt64 Sketch::_get_(UInt64 table_id, UInt64 cell_id) const throw() {
+  if (mode() == SKETCH_EXACT_MODE) {
+    return exact_get_((width() * table_id) + cell_id);
+  } else {
+    return Approx::decode(approx_get_(table_id, cell_id), random_);
+  }
+}
+
 void Sketch::set_(UInt64 table_id, UInt64 cell_id, UInt64 value) throw() {
+  if (mode() == SKETCH_EXACT_MODE) {
+    exact_set_((width() * table_id) + cell_id, value);
+  } else {
+    approx_set_(table_id, cell_id, Approx::encode(value));
+  }
+}
+
+void Sketch::_set_(UInt64 table_id, UInt64 cell_id, UInt64 value) throw() {
   if (mode() == SKETCH_EXACT_MODE) {
     exact_set_((width() * table_id) + cell_id, value);
   } else {
