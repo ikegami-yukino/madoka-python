@@ -104,6 +104,30 @@ class Sketch(_object):
     def __len__(self):
         return self.file_size()
 
+    def __add__(self, given_sketch):
+        """Get merged sketch
+        summed_sketch = sketch + sketch
+        Param:
+            <Sketch> given_sketch
+        Return:
+            <Sketch> summed_sketch
+        """
+        summed_sketch = Sketch(width=self.width(), max_value=self.max_value(), seed=self.seed())
+        summed_sketch.copy(self)
+        _madoka.Sketch_merge(summed_sketch, given_sketch)
+        return summed_sketch
+
+    def __iadd__(self, given_sketch):
+        """Merge sketch
+        sketch += sketch
+        Param:
+            <Sketch> given_sketch
+        Return:
+            <Sketch> sketch
+        """
+        _madoka.Sketch_merge(self, given_sketch)
+        return self
+
     def create(self, width=0, max_value=0, path=None, flags=0, seed=0):
         """Create new sketch
         Params:
@@ -181,10 +205,30 @@ class Sketch(_object):
         return _madoka.Sketch_save(self, *args)
 
     def __getitem__(self, key):
+        """
+        Param:
+            <str> key
+        Return:
+            <int> value
+        """
         return _madoka.Sketch_get(self, key, len(key))
 
     def __setitem__(self, key, value):
+        """
+        Param:
+            <str> key
+            <int> value
+        """
         return _madoka.Sketch_set(self, key, len(key), value)
+
+    def __contains__(self, key):
+        """
+        Param:
+            <str> key
+        Return:
+            <bool>
+        """
+        return _madoka.Sketch_get(self, key, len(key)) > 0
 
     def get(self, key, key_length=0):
         """Add key-value
@@ -281,6 +325,10 @@ class Sketch(_object):
         return _madoka.Sketch_inner_product(self, *args)
 
     def values(self):
+        """Dump all values
+        Return:
+            <generator> <int> val
+        """
         table_id = 0
         get = _madoka.Sketch__get_
         for cell_id in range(_madoka.Sketch_width(self)):

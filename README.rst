@@ -181,10 +181,28 @@ Merge two sketches
 --------------------------------------------
 
 ::
+ >>> sketch += other_sketch
+
+ or
 
  >>> sketch.merge(othersketch)
 
 - merge(Sketch)
+
+
+Get summed sketch
+-----------------------
+
+::
+ >>> summed_sketch = sketch + other_sketch
+
+- It does not break original sketches
+
+Check whether sketch contains key value
+-----------------------------------------
+
+::
+ >>> 'mami' in sketch
 
 
 Get inner product of two sketches

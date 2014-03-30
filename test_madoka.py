@@ -18,6 +18,30 @@ class Test_madoka(object):
         sketch.inc('mami')
         assert_equal(sketch['mami'], 1)
 
+    def test___contains__(self):
+        sketch = madoka.Sketch()
+        sketch.inc('mami')
+        assert_true('mami' in sketch)
+
+    def test___add__(self):
+        sketch = madoka.Sketch()
+        sketch.inc('mami')
+        other_sketch = madoka.Sketch()
+        other_sketch.inc('mami')
+        new_sketch = sketch + other_sketch
+        assert_equal(new_sketch['mami'], 2)
+        assert_equal(sketch['mami'], 1)
+        assert_equal(other_sketch['mami'], 1)
+
+    def test___iadd__(self):
+        sketch = madoka.Sketch()
+        sketch.inc('mami')
+        other_sketch = madoka.Sketch()
+        other_sketch.inc('mami')
+        sketch += other_sketch
+        assert_equal(sketch['mami'], 2)
+        assert_equal(other_sketch['mami'], 1)
+
     def test_inc(self):
         sketch = madoka.Sketch()
         sketch.inc('mami')
