@@ -23,9 +23,35 @@ Installation
 
  $ pip install madoka
 
+Class
+============
+
+Madoka has some classes having same interface. So you can choose for your purpose.
+
+For example, if you wants to count float data, it's preferable to choose CroquisFloat class or CroquisDouble class.
+
+- Sketch
+  - storing unsigned long long (64bit) and fast implementation
+- CroquisFloat
+  - storing float (32bit)
+- CroquisDouble
+  - storing double (64bit)
+- CroquisUint8
+  - storing unsigned char (8bit)
+- CroquisUint16
+  - storing unsigned short (16bit)
+- CroquisUint32
+  - storing unsigned int (32bit)
+- CroquisUint64
+  - storing unsigned long long (64bit)
+
 
 Usage
 =====
+
+I will describe about Sketch class.
+You can use other classes by the same way as Sketch class.
+In that case, you should replace to intended class from "Sketch".
 
 Create a new sketch
 --------------------------------------------
@@ -264,7 +290,6 @@ TODO
 =========
 
 - Implement getting sketch length on inner_product method
-- Support storing float or double value by Croquis class
 
 Contributions are welcome!
 
