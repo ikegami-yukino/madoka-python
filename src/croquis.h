@@ -133,6 +133,10 @@ class Croquis {
     return min_value;
   }
 
+  T get__(UInt64 table_id, UInt64 cell_id) const throw() {
+    return table_[(width() * table_id) + cell_id];
+  }
+
   void set(const void *key_addr, std::size_t key_size, T value) throw() {
     UInt64 cell_ids[CROQUIS_MAX_DEPTH + CROQUIS_HASH_SIZE - 1];
     hash(key_addr, key_size, cell_ids);
@@ -145,6 +149,11 @@ class Croquis {
       }
       table += width();
     }
+  }
+
+  void set__(UInt64 table_id, UInt64 cell_id, T value) const throw() {
+    T *table = table_;
+    table[(width() * table_id) + cell_id] = value;
   }
 
   T add(const void *key_addr, std::size_t key_size, T value) throw() {
@@ -183,6 +192,76 @@ class Croquis {
     file_.swap(&sketch->file_);
     util::swap(header_, sketch->header_);
     util::swap(table_, sketch->table_);
+  }
+
+  void copy(Croquis &src, const char *path = NULL,
+            int flags = 0) throw(Exception) {
+    create_(src.width(), src.depth(), path, flags, src.seed());
+    std::memcpy(table_, src.table_, static_cast<std::size_t>(src.table_size()));
+  }
+
+  void shrink(Croquis &src, UInt64 width = 0,
+              const char *path = NULL, int flags = 0) throw(Exception) {
+    Croquis<T> new_sketch;
+    new_sketch.shrink_(src, width, src.depth(), path, flags);
+    new_sketch.swap(this);
+  }
+
+  void merge(const Croquis &rhs) throw(Exception){
+    MADOKA_THROW_IF(width() != rhs.width());
+    MADOKA_THROW_IF(depth() != rhs.depth());
+    MADOKA_THROW_IF(seed() != rhs.seed());
+      for (UInt64 table_id = 0; table_id < depth(); ++table_id) {
+        for (UInt64 cell_id = 0; cell_id < width(); ++cell_id) {
+        T lhs_value = get__(table_id, cell_id);
+        T rhs_value = rhs.get__(table_id, cell_id);
+
+        if ((lhs_value >= max_value()) ||
+            (rhs_value >= (max_value() - lhs_value))) {
+          lhs_value = max_value();
+        } else {
+          lhs_value += rhs_value;
+        }
+        set__(table_id, cell_id, lhs_value);
+      }
+    }
+  }
+
+  double inner_product(const Croquis &rhs, double *lhs_square_length = NULL,
+                       double *rhs_square_length = NULL) const throw(Exception){
+    MADOKA_THROW_IF(width() != rhs.width());
+    MADOKA_THROW_IF(depth() != rhs.depth());
+    MADOKA_THROW_IF(seed() != rhs.seed());
+
+    double inner_product = std::numeric_limits<double>::max();
+    for (UInt64 table_id = 0; table_id < depth(); ++table_id) {
+      double current_inner_product = 0.0;
+      double current_lhs_square_length = 0.0;
+      double current_rhs_square_length = 0.0;
+      for (UInt64 cell_id = 0; cell_id < width(); ++cell_id) {
+        const double lhs_value =
+            static_cast<double>(get__(table_id, cell_id));
+        const double rhs_value =
+            static_cast<double>(rhs.get__(table_id, cell_id));
+        current_inner_product += lhs_value * rhs_value;
+        if (lhs_square_length != NULL) {
+          current_lhs_square_length += lhs_value * lhs_value;
+        }
+        if (rhs_square_length != NULL) {
+          current_rhs_square_length += rhs_value * rhs_value;
+        }
+      }
+      if (current_inner_product < inner_product) {
+        inner_product = current_inner_product;
+        if (lhs_square_length != NULL) {
+          *lhs_square_length = current_lhs_square_length;
+        }
+        if (rhs_square_length != NULL) {
+          *rhs_square_length = current_rhs_square_length;
+        }
+      }
+    }
+    return inner_product;
   }
 
  private:
@@ -284,6 +363,37 @@ class Croquis {
       cell_ids[0] %= width();
       cell_ids[1] %= width();
       cell_ids[2] %= width();
+    }
+  }
+
+  void shrink_(const Croquis &src, UInt64 width, UInt64 depth,
+               const char *path, int flags) throw(Exception) {
+    if (width == 0) {
+      width = src.width();
+    }
+
+    MADOKA_THROW_IF(src.width() == 0);
+    MADOKA_THROW_IF(width > src.width());
+    MADOKA_THROW_IF((src.width() % width) != 0);
+
+    create_(width, depth, path, flags, src.seed());
+
+    width = this->width();
+
+    for (UInt64 table_id = 0; table_id < src.depth(); ++table_id) {
+      for (UInt64 cell_id = 0; cell_id < width; ++cell_id) {
+        T value = src.get__(table_id, cell_id);
+        set__(table_id, cell_id, value);
+      }
+
+      for (UInt64 offset = width; offset < src.width(); offset += width) {
+        for (UInt64 cell_id = 0; cell_id < width; ++cell_id) {
+          T value = src.get__(table_id, offset + cell_id);
+          if (value > get__(table_id, cell_id)) {
+            set__(table_id, cell_id, value);
+          }
+        }
+      }
     }
   }
 
