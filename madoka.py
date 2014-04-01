@@ -5,11 +5,8 @@
 # the SWIG interface file instead.
 
 
-
-
-
 from sys import version_info
-if version_info >= (2,6,0):
+if version_info >= (2, 6, 0):
     def swig_import_helper():
         from os.path import dirname
         import imp
@@ -35,74 +32,155 @@ del version_info
 try:
     _swig_property = property
 except NameError:
-    pass # Python < 2.2 doesn't have 'property'.
-def _swig_setattr_nondynamic(self,class_type,name,value,static=1):
-    if (name == "thisown"): return self.this.own(value)
+    pass  # Python < 2.2 doesn't have 'property'.
+
+
+def _swig_setattr_nondynamic(self, class_type, name, value, static=1):
+    if (name == "thisown"):
+        return self.this.own(value)
     if (name == "this"):
         if type(value).__name__ == 'SwigPyObject':
             self.__dict__[name] = value
             return
-    method = class_type.__swig_setmethods__.get(name,None)
-    if method: return method(self,value)
+    method = class_type.__swig_setmethods__.get(name, None)
+    if method:
+        return method(self, value)
     if (not static):
         self.__dict__[name] = value
     else:
         raise AttributeError("You cannot add attributes to %s" % self)
 
-def _swig_setattr(self,class_type,name,value):
-    return _swig_setattr_nondynamic(self,class_type,name,value,0)
 
-def _swig_getattr(self,class_type,name):
-    if (name == "thisown"): return self.this.own()
-    method = class_type.__swig_getmethods__.get(name,None)
-    if method: return method(self)
+def _swig_setattr(self, class_type, name, value):
+    return _swig_setattr_nondynamic(self, class_type, name, value, 0)
+
+
+def _swig_getattr(self, class_type, name):
+    if (name == "thisown"):
+        return self.this.own()
+    method = class_type.__swig_getmethods__.get(name, None)
+    if method:
+        return method(self)
     raise AttributeError(name)
 
+
 def _swig_repr(self):
-    try: strthis = "proxy of " + self.this.__repr__()
-    except: strthis = ""
+    try:
+        strthis = "proxy of " + self.this.__repr__()
+    except:
+        strthis = ""
     return "<%s.%s; %s >" % (self.__class__.__module__, self.__class__.__name__, strthis,)
 
 try:
     _object = object
     _newclass = 1
 except AttributeError:
-    class _object : pass
+    class _object:
+        pass
     _newclass = 0
 
-def bit_scan_reverse(*args):
-  return _madoka.bit_scan_reverse(*args)
-bit_scan_reverse = _madoka.bit_scan_reverse
-MADOKA_LINE_STR = _madoka.MADOKA_LINE_STR
 
-FILE_CREATE    = 1 << 0
-FILE_TRUNCATE  = 1 << 1
-FILE_READONLY  = 1 << 2
-FILE_WRITABLE  = 1 << 3
-FILE_SHARED    = 1 << 4
-FILE_PRIVATE   = 1 << 5
+FILE_CREATE = 1 << 0
+FILE_TRUNCATE = 1 << 1
+FILE_READONLY = 1 << 2
+FILE_WRITABLE = 1 << 3
+FILE_SHARED = 1 << 4
+FILE_PRIVATE = 1 << 5
 FILE_ANONYMOUS = 1 << 6
-FILE_HUGETLB   = 1 << 7
-FILE_PRELOAD   = 1 << 8
+FILE_HUGETLB = 1 << 7
+FILE_PRELOAD = 1 << 8
 
+cvar = _madoka.cvar
+SKETCH_ID_SIZE = cvar.SKETCH_ID_SIZE
+SKETCH_MAX_ID = cvar.SKETCH_MAX_ID
+SKETCH_ID_MASK = cvar.SKETCH_ID_MASK
+SKETCH_MIN_WIDTH = cvar.SKETCH_MIN_WIDTH
+SKETCH_MAX_WIDTH = cvar.SKETCH_MAX_WIDTH
+SKETCH_DEFAULT_WIDTH = cvar.SKETCH_DEFAULT_WIDTH
+SKETCH_MAX_MAX_VALUE = cvar.SKETCH_MAX_MAX_VALUE
+SKETCH_DEFAULT_MAX_VALUE = cvar.SKETCH_DEFAULT_MAX_VALUE
+SKETCH_DEPTH = cvar.SKETCH_DEPTH
+SKETCH_APPROX_VALUE_SIZE = cvar.SKETCH_APPROX_VALUE_SIZE
+SKETCH_OWNER_OFFSET = cvar.SKETCH_OWNER_OFFSET
+SKETCH_OWNER_MASK = cvar.SKETCH_OWNER_MASK
 SKETCH_EXACT_MODE = _madoka.SKETCH_EXACT_MODE
 SKETCH_APPROX_MODE = _madoka.SKETCH_APPROX_MODE
-class Sketch(_object):
+
+CROQUIS_HASH_SIZE = cvar.CROQUIS_HASH_SIZE
+CROQUIS_ID_SIZE = cvar.CROQUIS_ID_SIZE
+CROQUIS_MAX_ID = cvar.CROQUIS_MAX_ID
+CROQUIS_ID_MASK = cvar.CROQUIS_ID_MASK
+CROQUIS_MIN_WIDTH = cvar.CROQUIS_MIN_WIDTH
+CROQUIS_MAX_WIDTH = cvar.CROQUIS_MAX_WIDTH
+CROQUIS_DEFAULT_WIDTH = cvar.CROQUIS_DEFAULT_WIDTH
+CROQUIS_MIN_DEPTH = cvar.CROQUIS_MIN_DEPTH
+CROQUIS_MAX_DEPTH = cvar.CROQUIS_MAX_DEPTH
+CROQUIS_DEFAULT_DEPTH = cvar.CROQUIS_DEFAULT_DEPTH
+
+_COMMON_METHODS = ('open', 'load', 'close', 'save', 'clear', 'get',
+                   'get__', 'set', 'set__', 'add', 'create', 'copy',
+                   'swap', 'inner_product', 'merge', 'shrink',
+                   'width', 'width_mask', 'depth', 'max_value',
+                   'value_size', 'seed', 'table_size', 'file_size',
+                   'flags')
+
+
+class _Madoka(_object):
     __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, Sketch, name, value)
     __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, Sketch, name)
     __repr__ = _swig_repr
-    def __init__(self, width=0, max_value=0, path=None, flags=0, seed=0): 
-        this = _madoka.new_Sketch()
-        try: self.this.append(this)
-        except: self.this = this
-        return _madoka.Sketch_create(self, width, max_value, path, flags, seed)
-    __swig_destroy__ = _madoka.delete_Sketch
-    __del__ = lambda self : None;
+    __del__ = lambda self: None
+
+    def __setattr__(self, name, value):
+        _swig_setattr(self, self.__class__, name, value)
+
+    def __getattr__(self, name):
+        _swig_getattr(self, self.__class__, name)
+
+    def __init__(self, width=0, depth=0, path=None, flags=0, seed=0):
+        self.setattrs()
+        this = getattr(_madoka, 'new_%s' % self.__class__.__name__)()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+        return self.create_method(self, width, depth, path, flags, seed)
+
+    def setattrs(self):
+        class_name = self.__class__.__name__
+        for method_name in _COMMON_METHODS:
+            method = getattr(_madoka, '%s_%s' % (class_name, method_name))
+            method_name += '_method'
+            setattr(self, method_name, method)
 
     def __len__(self):
         return self.file_size()
+
+    def __getitem__(self, key):
+        """
+        Param:
+            <str> key
+        Return:
+            <int> value
+        """
+        return self.get_method(self, key, len(key))
+
+    def __setitem__(self, key, value):
+        """
+        Param:
+            <str> key
+            <int> value
+        """
+        return self.set_method(self, key, len(key), value)
+
+    def __contains__(self, key):
+        """
+        Param:
+            <str> key
+        Return:
+            <bool>
+        """
+        return self.get_method(self, key, len(key)) > 0
 
     def __add__(self, given_sketch):
         """Get merged sketch
@@ -112,9 +190,9 @@ class Sketch(_object):
         Return:
             <Sketch> summed_sketch
         """
-        summed_sketch = Sketch(width=self.width(), max_value=self.max_value(), seed=self.seed())
+        summed_sketch = self.__class__(width=self.width(), depth=self.depth(), seed=self.seed())
         summed_sketch.copy(self)
-        _madoka.Sketch_merge(summed_sketch, given_sketch)
+        self.merge_method(summed_sketch, given_sketch)
         return summed_sketch
 
     def __iadd__(self, given_sketch):
@@ -125,19 +203,18 @@ class Sketch(_object):
         Return:
             <Sketch> sketch
         """
-        _madoka.Sketch_merge(self, given_sketch)
+        self.merge_method(self, given_sketch)
         return self
 
-    def create(self, width=0, max_value=0, path=None, flags=0, seed=0):
+    def create(self, width=0, depth=0, path=None, flags=0, seed=0):
         """Create new sketch
         Params:
             <int> width
-            <int> max_value
-            <str> path            
+            <str> path
             <int> flags
             <int> seed
         """
-        return _madoka.Sketch_create(self, width, max_value, path, flags, seed)
+        return self.create_method(self, width, depth, path, flags, seed)
 
     def open(self, *args):
         """Load sketch from file
@@ -145,90 +222,64 @@ class Sketch(_object):
         open() uses memory mapped I/O instead of reading the whole sketch into memory
 
         file_flag as following:
-            FILE_CREATE    = 0,
-            FILE_TRUNCATE  = 1,
-            FILE_READONLY  = 2,
-            FILE_WRITABLE  = 3,
-            FILE_SHARED    = 4,
-            FILE_PRIVATE   = 5,
-            FILE_ANONYMOUS = 6,
-            FILE_HUGETLB   = 7,
-            FILE_PRELOAD   = 8
+            FILE_CREATE    1 << 0,
+            FILE_TRUNCATE  1 << 1,
+            FILE_READONLY  1 << 2,
+            FILE_WRITABLE  1 << 3,
+            FILE_SHARED    1 << 4,
+            FILE_PRIVATE   1 << 5,
+            FILE_ANONYMOUS 1 << 6,
+            FILE_HUGETLB   1 << 7,
+            FILE_PRELOAD   1 << 8
 
         Params:
             <str> filepath
             <int> file_flag
         """
-        _madoka.Sketch_open(self, *args)
+        return self.open_method(self, *args)
 
     def close(self):
-        return _madoka.Sketch_close(self)
+        return self.close_method(self)
 
     def load(self, *args):
         """Load sketch from file
 
         file_flag as following:
-            FILE_CREATE    = 0,
-            FILE_TRUNCATE  = 1,
-            FILE_READONLY  = 2,
-            FILE_WRITABLE  = 3,
-            FILE_SHARED    = 4,
-            FILE_PRIVATE   = 5,
-            FILE_ANONYMOUS = 6,
-            FILE_HUGETLB   = 7,
-            FILE_PRELOAD   = 8
+            FILE_CREATE    1 << 0,
+            FILE_TRUNCATE  1 << 1,
+            FILE_READONLY  1 << 2,
+            FILE_WRITABLE  1 << 3,
+            FILE_SHARED    1 << 4,
+            FILE_PRIVATE   1 << 5,
+            FILE_ANONYMOUS 1 << 6,
+            FILE_HUGETLB   1 << 7,
+            FILE_PRELOAD   1 << 8
 
         Params:
             <str> filepath
             <int> file_flag
         """
-        return _madoka.Sketch_load(self, *args)
+        return self.load_method(self, *args)
 
     def save(self, *args):
         """Save sketch to file
 
         file_flag as following:
-            FILE_CREATE    = 0,
-            FILE_TRUNCATE  = 1,
-            FILE_READONLY  = 2,
-            FILE_WRITABLE  = 3,
-            FILE_SHARED    = 4,
-            FILE_PRIVATE   = 5,
-            FILE_ANONYMOUS = 6,
-            FILE_HUGETLB   = 7,
-            FILE_PRELOAD   = 8
+            FILE_CREATE    1 << 0,
+            FILE_TRUNCATE  1 << 1,
+            FILE_READONLY  1 << 2,
+            FILE_WRITABLE  1 << 3,
+            FILE_SHARED    1 << 4,
+            FILE_PRIVATE   1 << 5,
+            FILE_ANONYMOUS 1 << 6,
+            FILE_HUGETLB   1 << 7,
+            FILE_PRELOAD   1 << 8
 
         Params:
             <str> filepath
             <int> file_flag
         """
-        return _madoka.Sketch_save(self, *args)
-
-    def __getitem__(self, key):
-        """
-        Param:
-            <str> key
-        Return:
-            <int> value
-        """
-        return _madoka.Sketch_get(self, key, len(key))
-
-    def __setitem__(self, key, value):
-        """
-        Param:
-            <str> key
-            <int> value
-        """
-        return _madoka.Sketch_set(self, key, len(key), value)
-
-    def __contains__(self, key):
-        """
-        Param:
-            <str> key
-        Return:
-            <bool>
-        """
-        return _madoka.Sketch_get(self, key, len(key)) > 0
+        return self.save_method(self, *args)
 
     def get(self, key, key_length=0):
         """Add key-value
@@ -237,10 +288,10 @@ class Sketch(_object):
             <int> key_length
         Return:
             <int> key_value
-        """        
+        """
         if key_length < 1:
             key_length = len(key)
-        return _madoka.Sketch_get(self, key, key_length)
+        return self.get_method(self, key, key_length)
 
     def set(self, key, value, key_length=0):
         """Set value to key-value
@@ -250,22 +301,10 @@ class Sketch(_object):
             <int> key_length
         Return:
             <int> key_value
-        """        
-        if key_length < 1:
-            key_length = len(key)
-        return _madoka.Sketch_set(self, key, key_length, value)
-
-    def inc(self, key, key_length=0):
-        """Increment key-value
-        Params:
-            <str> key
-            <int> key_length
-        Return:
-            <int> key_value
         """
         if key_length < 1:
             key_length = len(key)
-        return _madoka.Sketch_inc(self, key, key_length)
+        return self.set_method(self, key, key_length, value)
 
     def add(self, key, value, key_length=0):
         """Add value to key-value
@@ -278,44 +317,65 @@ class Sketch(_object):
         """
         if key_length < 1:
             key_length = len(key)
-        return _madoka.Sketch_add(self, key, key_length, value)
+        return self.add_method(self, key, key_length, value)
+
+    def inc(self, key, key_length=0):
+        """Add value to key-value
+        Params:
+            <str> key
+            <int> value
+            <int> key_length
+        Return:
+            <int> key_value
+        """
+        if key_length < 1:
+            key_length = len(key)
+        return self.add_method(self, key, key_length, 1)
 
     def clear(self):
         """Clear sketch"""
-        return _madoka.Sketch_clear(self)
+        return self.clear_method(self)
 
     def copy(self, *args):
         """Copy this sketch
         Return:
             <Sketch> sketch
         """
-        return _madoka.Sketch_copy(self, *args)
+        return self.copy_method(self, *args)
 
-    def shrink(self, src, width=0, max_value=0, filter=None, path=None, flags=0):
+    def swap(self, *args):
+        """Swap sketches
+        Params:
+            <Sketch> sketch
+        """
+        return self.swap_method(self, *args)
+
+    def shrink(self, src, width=0, max_value=0, filter_method=None,
+               path=None, flags=0):
         """Shrink sketch
         Params:
             <Sketch> src_sketch
             <int> width
             <int> max_value
-            <lambda> | <function> lhs_filter
+            <lambda> | <function> filter_method
             <str> path
             <int> flags
         """
-        if filter:
-            get_ = _madoka.Sketch__get_
-            set_ = _madoka.Sketch__set_
+        if filter_method:
+            get_ = self.get__method
+            set_ = self.set__method
             new_sketch = Sketch(width, max_value, path, flags, src.seed())
-            for table_id in range(SKETCH_DEPTH):
+            for table_id in range(self.depth()):
                 for offset in range(width, src.width(), width):
                     for cell_id in range(width):
                         val = get_(src, table_id, offset + cell_id)
-                        val = filter(val)
+                        val = filter_method(val)
                         val = max_value if val > max_value else val
                         if val > get_(new_sketch, table_id, cell_id):
                             set_(new_sketch, table_id, cell_id, val)
             self.swap(new_sketch)
         else:
-            _madoka.Sketch_shrink(self, src, width, max_value, filter, path, flags)
+            self.shrink_method(self, src, width, max_value, None, path, flags)
 
     def merge(self, rhs, lhs_filter=None, rhs_filter=None):
         """Merge two sketches
@@ -325,8 +385,8 @@ class Sketch(_object):
             <lambda> | <function> rhs_filter
         """
         if lhs_filter or rhs_filter:
-            get_ = _madoka.Sketch__get_
-            set_ = _madoka.Sketch__set_
+            get_ = self.get___method
+            set_ = self.set___method
             max_value = _madoka.Sketch_max_value(self)
             for table_id in range(self.depth()):
                 for cell_id in range(self.width()):
@@ -342,24 +402,16 @@ class Sketch(_object):
                         lhs_val += rhs_val
                     set_(self, table_id, cell_id, lhs_val)
         else:
-            _madoka.Sketch_merge(self, rhs)
+            self.merge_method(self, rhs)
 
-    def swap(self, *args):
-        """Swap sketches
-        Params:
-            <Sketch> sketch
-        """
-        return _madoka.Sketch_swap(self, *args)
-
-    def inner_product(self, *args):
+    def inner_product(self, sketch):
         """Inner product of two sketches
         Params:
-            <Sketch> sketch1
-            <Sketch> sketch2
+            <Sketch> sketch
         Return:
-            <int> inner_product
+            <float> inner_product
         """
-        return _madoka.Sketch_inner_product(self, *args)
+        return self.inner_product_method(self, sketch)
 
     def filter(self, given_filter, only_nonzero=False):
         """Apply filter into all values
@@ -367,9 +419,9 @@ class Sketch(_object):
             <lambda> | <function> given_filter
             <bool> only_nonzero
         """
-        get_ = _madoka.Sketch__get_
-        set_ = _madoka.Sketch__set_
-        max_value = _madoka.Sketch_max_value(self)
+        get_ = self.get___method
+        set_ = self.set___method
+        max_value = self.max_value()
         for table_id in range(self.depth()):
             for cell_id in range(self.width()):
                 val = get_(self, table_id, cell_id)
@@ -384,8 +436,8 @@ class Sketch(_object):
             <generator> <int> val
         """
         table_id = 0
-        get = _madoka.Sketch__get_
-        for cell_id in range(_madoka.Sketch_width(self)):
+        get = self.get___method
+        for cell_id in range(self.width()):
             val = get(self, table_id, cell_id)
             if val:
                 yield val
@@ -395,41 +447,166 @@ class Sketch(_object):
         Params:
             <dict> <str> <int> src_dict
         """
-        set = _madoka.Sketch_set
+        set_method = self.set_method
         if hasattr(src_dict, 'iteritems'):
             for (key, val) in src_dict.iteritems():
-                set(self, key, len(key), val)
+                set_method(self, key, len(key), val)
         else:
             for (key, val) in src_dict.items():
-                set(self, key, len(key), val)
+                set_method(self, key, len(key), val)
 
-    def width(self): return _madoka.Sketch_width(self)
-    def width_mask(self): return _madoka.Sketch_width_mask(self)
-    def depth(self): return _madoka.Sketch_depth(self)
-    def max_value(self): return _madoka.Sketch_max_value(self)
-    def value_mask(self): return _madoka.Sketch_value_mask(self)
-    def value_size(self): return _madoka.Sketch_value_size(self)
-    def seed(self): return _madoka.Sketch_seed(self)
-    def table_size(self): return _madoka.Sketch_table_size(self)
-    def file_size(self): return _madoka.Sketch_file_size(self)
-    def flags(self): return _madoka.Sketch_flags(self)
-    def mode(self): return _madoka.Sketch_mode(self)
+    def width(self):
+        return self.width_method(self)
+
+    def width_mask(self):
+        return self.width_mask_method(self)
+
+    def depth(self):
+        return self.depth_method(self)
+
+    def max_value(self):
+        return self.max_value_method(self)
+
+    def value_size(self):
+        return self.value_size_method(self)
+
+    def seed(self):
+        return self.seed_method(self)
+
+    def table_size(self):
+        return self.table_size_method(self)
+
+    def file_size(self):
+        return self.file_size_method(self)
+
+    def flags(self):
+        return self.flags_method(self)
+
+
+class Sketch(_Madoka):
+    __swig_destroy__ = _madoka.delete_Sketch
+
+    def __init__(self, width=0, max_value=0, path=None, flags=0, seed=0):
+        this = _madoka.new_Sketch()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+        self.setattrs()
+        return _madoka.Sketch_create(self, width, max_value, path, flags, seed)
+
+    def __add__(self, given_sketch):
+        """Get merged sketch
+        summed_sketch = sketch + sketch
+        Param:
+            <Sketch> given_sketch
+        Return:
+            <Sketch> summed_sketch
+        """
+        summed_sketch = Sketch(width=self.width(), max_value=self.max_value(), seed=self.seed())
+        summed_sketch.copy(self)
+        _madoka.Sketch_merge(summed_sketch, given_sketch)
+        return summed_sketch
+
+    def create(self, width=0, max_value=0, path=None, flags=0, seed=0):
+        """Create new sketch
+        Params:
+            <int> width
+            <int> max_value
+            <str> path
+            <int> flags
+            <int> seed
+        """
+        return _madoka.Sketch_create(self, width, max_value, path, flags, seed)
+
+    def inc(self, key, key_length=0):
+        """Increment key-value
+        Params:
+            <str> key
+            <int> key_length
+        Return:
+            <int> key_value
+        """
+        if key_length < 1:
+            key_length = len(key)
+        return _madoka.Sketch_inc(self, key, key_length)
+
+    def shrink(self, src, width=0, max_value=0, filter_method=None,
+               path=None, flags=0):
+        """Shrink sketch
+        Params:
+            <Sketch> src_sketch
+            <int> width
+            <int> max_value
+            <lambda> | <function> filter
+            <str> path
+            <int> flags
+        """
+        if filter_method:
+            get_ = _madoka.Sketch_get__
+            set_ = _madoka.Sketch_set__
+            new_sketch = Sketch(width, max_value, path, flags, src.seed())
+            for table_id in range(SKETCH_DEPTH):
+                for offset in range(width, src.width(), width):
+                    for cell_id in range(width):
+                        val = get_(src, table_id, offset + cell_id)
+                        val = filter_method(val)
+                        val = max_value if val > max_value else val
+                        if val > get_(new_sketch, table_id, cell_id):
+                            set_(new_sketch, table_id, cell_id, val)
+            self.swap(new_sketch)
+        else:
+            _madoka.Sketch_shrink(self, src, width, max_value, None, path, flags)
+
+    def value_mask(self):
+        return _madoka.Sketch_value_mask(self)
+
+    def mode(self):
+        return _madoka.Sketch_mode(self)
+
 Sketch_swigregister = _madoka.Sketch_swigregister
 Sketch_swigregister(Sketch)
-cvar = _madoka.cvar
-SKETCH_ID_SIZE = cvar.SKETCH_ID_SIZE
-SKETCH_MAX_ID = cvar.SKETCH_MAX_ID
-SKETCH_ID_MASK = cvar.SKETCH_ID_MASK
-SKETCH_MIN_WIDTH = cvar.SKETCH_MIN_WIDTH
-SKETCH_MAX_WIDTH = cvar.SKETCH_MAX_WIDTH
-SKETCH_DEFAULT_WIDTH = cvar.SKETCH_DEFAULT_WIDTH
-SKETCH_MAX_MAX_VALUE = cvar.SKETCH_MAX_MAX_VALUE
-SKETCH_DEFAULT_MAX_VALUE = cvar.SKETCH_DEFAULT_MAX_VALUE
-SKETCH_DEPTH = cvar.SKETCH_DEPTH
-SKETCH_APPROX_VALUE_SIZE = cvar.SKETCH_APPROX_VALUE_SIZE
-SKETCH_OWNER_OFFSET = cvar.SKETCH_OWNER_OFFSET
-SKETCH_OWNER_MASK = cvar.SKETCH_OWNER_MASK
+
+
+class CroquisUint8(_Madoka):
+    __swig_destroy__ = _madoka.delete_CroquisUint8
+
+CroquisUint8_swigregister = _madoka.CroquisUint8_swigregister
+CroquisUint8_swigregister(CroquisUint8)
+
+
+class CroquisUint16(_Madoka):
+    __swig_destroy__ = _madoka.delete_CroquisUint16
+
+CroquisUint16_swigregister = _madoka.CroquisUint16_swigregister
+CroquisUint16_swigregister(CroquisUint16)
+
+
+class CroquisUint32(_Madoka):
+    __swig_destroy__ = _madoka.delete_CroquisUint32
+
+CroquisUint32_swigregister = _madoka.CroquisUint32_swigregister
+CroquisUint32_swigregister(CroquisUint32)
+
+
+class CroquisUint64(_Madoka):
+    __swig_destroy__ = _madoka.delete_CroquisUint64
+
+CroquisUint64_swigregister = _madoka.CroquisUint64_swigregister
+CroquisUint64_swigregister(CroquisUint64)
+
+
+class CroquisFloat(_Madoka):
+    __swig_destroy__ = _madoka.delete_CroquisFloat
+
+CroquisFloat_swigregister = _madoka.CroquisFloat_swigregister
+CroquisFloat_swigregister(CroquisFloat)
+
+
+class CroquisDouble(_Madoka):
+    __swig_destroy__ = _madoka.delete_CroquisDouble
+
+CroquisDouble_swigregister = _madoka.CroquisDouble_swigregister
+CroquisDouble_swigregister(CroquisDouble)
 
 # This file is compatible with both classic and new-style classes.
-
-

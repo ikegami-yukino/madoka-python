@@ -2934,23 +2934,31 @@ SWIG_Python_NonDynamicSetAttr(PyObject *obj, PyObject *name, PyObject *value) {
 
 /* -------- TYPES TABLE (BEGIN) -------- */
 
-#define SWIGTYPE_p_Filter swig_types[0]
-#define SWIGTYPE_p_Mode swig_types[1]
-#define SWIGTYPE_p_char swig_types[2]
-#define SWIGTYPE_p_double swig_types[3]
-#define SWIGTYPE_p_f_unsigned_long_long__unsigned_long_long swig_types[4]
-#define SWIGTYPE_p_madoka__Exception swig_types[5]
-#define SWIGTYPE_p_madoka__Sketch swig_types[6]
-#define SWIGTYPE_p_madoka_sketch_ swig_types[7]
-#define SWIGTYPE_p_madoka_sketch_mode swig_types[8]
-#define SWIGTYPE_p_p_char swig_types[9]
-#define SWIGTYPE_p_p_f_unsigned_long_long__unsigned_long_long swig_types[10]
-#define SWIGTYPE_p_uint16_t swig_types[11]
-#define SWIGTYPE_p_uint8_t swig_types[12]
-#define SWIGTYPE_p_unsigned_int swig_types[13]
-#define SWIGTYPE_p_unsigned_long_long swig_types[14]
-static swig_type_info *swig_types[16];
-static swig_module_info swig_module = {swig_types, 15, 0, 0, 0, 0};
+#define SWIGTYPE_p_Croquis swig_types[0]
+#define SWIGTYPE_p_Filter swig_types[1]
+#define SWIGTYPE_p_Mode swig_types[2]
+#define SWIGTYPE_p_UInt64 swig_types[3]
+#define SWIGTYPE_p_char swig_types[4]
+#define SWIGTYPE_p_double swig_types[5]
+#define SWIGTYPE_p_f_unsigned_long_long__unsigned_long_long swig_types[6]
+#define SWIGTYPE_p_madoka__CroquisT_double_t swig_types[7]
+#define SWIGTYPE_p_madoka__CroquisT_float_t swig_types[8]
+#define SWIGTYPE_p_madoka__CroquisT_unsigned_char_t swig_types[9]
+#define SWIGTYPE_p_madoka__CroquisT_unsigned_int_t swig_types[10]
+#define SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t swig_types[11]
+#define SWIGTYPE_p_madoka__CroquisT_unsigned_short_t swig_types[12]
+#define SWIGTYPE_p_madoka__Exception swig_types[13]
+#define SWIGTYPE_p_madoka__Sketch swig_types[14]
+#define SWIGTYPE_p_madoka_sketch_ swig_types[15]
+#define SWIGTYPE_p_madoka_sketch_mode swig_types[16]
+#define SWIGTYPE_p_p_char swig_types[17]
+#define SWIGTYPE_p_p_f_unsigned_long_long__unsigned_long_long swig_types[18]
+#define SWIGTYPE_p_uint16_t swig_types[19]
+#define SWIGTYPE_p_uint8_t swig_types[20]
+#define SWIGTYPE_p_unsigned_int swig_types[21]
+#define SWIGTYPE_p_unsigned_long_long swig_types[22]
+static swig_type_info *swig_types[24];
+static swig_module_info swig_module = {swig_types, 23, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -3455,6 +3463,127 @@ SWIG_AsVal_size_t (PyObject * obj, size_t *val)
 
 
   #define SWIG_From_double   PyFloat_FromDouble 
+
+
+SWIGINTERNINLINE PyObject* 
+SWIG_From_unsigned_SS_long  (unsigned long value)
+{
+  return (value > LONG_MAX) ?
+    PyLong_FromUnsignedLong(value) : PyLong_FromLong(static_cast< long >(value)); 
+}
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_unsigned_SS_char  (unsigned char value)
+{    
+  return SWIG_From_unsigned_SS_long  (value);
+}
+
+
+SWIGINTERN int
+SWIG_AsVal_unsigned_SS_char (PyObject * obj, unsigned char *val)
+{
+  unsigned long v;
+  int res = SWIG_AsVal_unsigned_SS_long (obj, &v);
+  if (SWIG_IsOK(res)) {
+    if ((v > UCHAR_MAX)) {
+      return SWIG_OverflowError;
+    } else {
+      if (val) *val = static_cast< unsigned char >(v);
+    }
+  }  
+  return res;
+}
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_unsigned_SS_short  (unsigned short value)
+{    
+  return SWIG_From_unsigned_SS_long  (value);
+}
+
+
+SWIGINTERN int
+SWIG_AsVal_unsigned_SS_short (PyObject * obj, unsigned short *val)
+{
+  unsigned long v;
+  int res = SWIG_AsVal_unsigned_SS_long (obj, &v);
+  if (SWIG_IsOK(res)) {
+    if ((v > USHRT_MAX)) {
+      return SWIG_OverflowError;
+    } else {
+      if (val) *val = static_cast< unsigned short >(v);
+    }
+  }  
+  return res;
+}
+
+
+SWIGINTERNINLINE PyObject*
+  SWIG_From_unsigned_SS_int  (unsigned int value)
+{
+  return PyInt_FromSize_t((size_t) value);
+}
+
+
+SWIGINTERN int
+SWIG_AsVal_unsigned_SS_int (PyObject * obj, unsigned int *val)
+{
+  unsigned long v;
+  int res = SWIG_AsVal_unsigned_SS_long (obj, &v);
+  if (SWIG_IsOK(res)) {
+    if ((v > UINT_MAX)) {
+      return SWIG_OverflowError;
+    } else {
+      if (val) *val = static_cast< unsigned int >(v);
+    }
+  }  
+  return res;
+}
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_float  (float value)
+{    
+  return SWIG_From_double  (value);
+}
+
+
+/* Getting isfinite working pre C99 across multiple platforms is non-trivial. Users can provide SWIG_isfinite on older platforms. */
+#ifndef SWIG_isfinite
+# if defined(isfinite)
+#  define SWIG_isfinite(X) (isfinite(X))
+# elif defined(_MSC_VER)
+#  define SWIG_isfinite(X) (_finite(X))
+# elif defined(__sun) && defined(__SVR4)
+#  include <ieeefp.h>
+#  define SWIG_isfinite(X) (finite(X))
+# endif
+#endif
+
+
+/* Accept infinite as a valid float value unless we are unable to check if a value is finite */
+#ifdef SWIG_isfinite
+# define SWIG_Float_Overflow_Check(X) ((X < -FLT_MAX || X > FLT_MAX) && SWIG_isfinite(X))
+#else
+# define SWIG_Float_Overflow_Check(X) ((X < -FLT_MAX || X > FLT_MAX))
+#endif
+
+
+SWIGINTERN int
+SWIG_AsVal_float (PyObject * obj, float *val)
+{
+  double v;
+  int res = SWIG_AsVal_double (obj, &v);
+  if (SWIG_IsOK(res)) {
+    if (SWIG_Float_Overflow_Check(v)) {
+      return SWIG_OverflowError;
+    } else {
+      if (val) *val = static_cast< float >(v);
+    }
+  }  
+  return res;
+}
 
 #ifdef __cplusplus
 extern "C" {
@@ -7449,7 +7578,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Sketch__get_(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Sketch_get__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   madoka::Sketch *arg1 = (madoka::Sketch *) 0 ;
   madoka::UInt64 arg2 ;
@@ -7465,23 +7594,23 @@ SWIGINTERN PyObject *_wrap_Sketch__get_(PyObject *SWIGUNUSEDPARM(self), PyObject
   PyObject * obj2 = 0 ;
   madoka::UInt64 result;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:Sketch__get_",&obj0,&obj1,&obj2)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"OOO:Sketch_get__",&obj0,&obj1,&obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__Sketch, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Sketch__get_" "', argument " "1"" of type '" "madoka::Sketch const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Sketch_get__" "', argument " "1"" of type '" "madoka::Sketch const *""'"); 
   }
   arg1 = reinterpret_cast< madoka::Sketch * >(argp1);
   ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Sketch__get_" "', argument " "2"" of type '" "madoka::UInt64""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Sketch_get__" "', argument " "2"" of type '" "madoka::UInt64""'");
   } 
   arg2 = static_cast< madoka::UInt64 >(val2);
   ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Sketch__get_" "', argument " "3"" of type '" "madoka::UInt64""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Sketch_get__" "', argument " "3"" of type '" "madoka::UInt64""'");
   } 
   arg3 = static_cast< madoka::UInt64 >(val3);
-  result = (madoka::UInt64)((madoka::Sketch const *)arg1)->_get_(arg2,arg3);
+  result = (madoka::UInt64)((madoka::Sketch const *)arg1)->get__(arg2,arg3);
   resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
   return resultobj;
 fail:
@@ -7489,7 +7618,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Sketch__set_(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Sketch_set__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   madoka::Sketch *arg1 = (madoka::Sketch *) 0 ;
   madoka::UInt64 arg2 ;
@@ -7508,28 +7637,28 @@ SWIGINTERN PyObject *_wrap_Sketch__set_(PyObject *SWIGUNUSEDPARM(self), PyObject
   PyObject * obj2 = 0 ;
   PyObject * obj3 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOOO:Sketch__set_",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:Sketch_set__",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__Sketch, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Sketch__set_" "', argument " "1"" of type '" "madoka::Sketch *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Sketch_set__" "', argument " "1"" of type '" "madoka::Sketch *""'"); 
   }
   arg1 = reinterpret_cast< madoka::Sketch * >(argp1);
   ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Sketch__set_" "', argument " "2"" of type '" "madoka::UInt64""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Sketch_set__" "', argument " "2"" of type '" "madoka::UInt64""'");
   } 
   arg2 = static_cast< madoka::UInt64 >(val2);
   ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Sketch__set_" "', argument " "3"" of type '" "madoka::UInt64""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Sketch_set__" "', argument " "3"" of type '" "madoka::UInt64""'");
   } 
   arg3 = static_cast< madoka::UInt64 >(val3);
   ecode4 = SWIG_AsVal_unsigned_SS_long_SS_long(obj3, &val4);
   if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "Sketch__set_" "', argument " "4"" of type '" "madoka::UInt64""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "Sketch_set__" "', argument " "4"" of type '" "madoka::UInt64""'");
   } 
   arg4 = static_cast< madoka::UInt64 >(val4);
-  (arg1)->_set_(arg2,arg3,arg4);
+  (arg1)->set__(arg2,arg3,arg4);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -7541,6 +7670,13574 @@ SWIGINTERN PyObject *Sketch_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObjec
   PyObject *obj;
   if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
   SWIG_TypeNewClientData(SWIGTYPE_p_madoka__Sketch, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN int Swig_var_CROQUIS_HASH_SIZE_set(PyObject *) {
+  SWIG_Error(SWIG_AttributeError,"Variable CROQUIS_HASH_SIZE is read-only.");
+  return 1;
+}
+
+
+SWIGINTERN PyObject *Swig_var_CROQUIS_HASH_SIZE_get(void) {
+  PyObject *pyobj = 0;
+  
+  pyobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(madoka::CROQUIS_HASH_SIZE));
+  return pyobj;
+}
+
+
+SWIGINTERN int Swig_var_CROQUIS_ID_SIZE_set(PyObject *) {
+  SWIG_Error(SWIG_AttributeError,"Variable CROQUIS_ID_SIZE is read-only.");
+  return 1;
+}
+
+
+SWIGINTERN PyObject *Swig_var_CROQUIS_ID_SIZE_get(void) {
+  PyObject *pyobj = 0;
+  
+  pyobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(madoka::CROQUIS_ID_SIZE));
+  return pyobj;
+}
+
+
+SWIGINTERN int Swig_var_CROQUIS_MAX_ID_set(PyObject *) {
+  SWIG_Error(SWIG_AttributeError,"Variable CROQUIS_MAX_ID is read-only.");
+  return 1;
+}
+
+
+SWIGINTERN PyObject *Swig_var_CROQUIS_MAX_ID_get(void) {
+  PyObject *pyobj = 0;
+  
+  pyobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(madoka::CROQUIS_MAX_ID));
+  return pyobj;
+}
+
+
+SWIGINTERN int Swig_var_CROQUIS_ID_MASK_set(PyObject *) {
+  SWIG_Error(SWIG_AttributeError,"Variable CROQUIS_ID_MASK is read-only.");
+  return 1;
+}
+
+
+SWIGINTERN PyObject *Swig_var_CROQUIS_ID_MASK_get(void) {
+  PyObject *pyobj = 0;
+  
+  pyobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(madoka::CROQUIS_ID_MASK));
+  return pyobj;
+}
+
+
+SWIGINTERN int Swig_var_CROQUIS_MIN_WIDTH_set(PyObject *) {
+  SWIG_Error(SWIG_AttributeError,"Variable CROQUIS_MIN_WIDTH is read-only.");
+  return 1;
+}
+
+
+SWIGINTERN PyObject *Swig_var_CROQUIS_MIN_WIDTH_get(void) {
+  PyObject *pyobj = 0;
+  
+  pyobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(madoka::CROQUIS_MIN_WIDTH));
+  return pyobj;
+}
+
+
+SWIGINTERN int Swig_var_CROQUIS_MAX_WIDTH_set(PyObject *) {
+  SWIG_Error(SWIG_AttributeError,"Variable CROQUIS_MAX_WIDTH is read-only.");
+  return 1;
+}
+
+
+SWIGINTERN PyObject *Swig_var_CROQUIS_MAX_WIDTH_get(void) {
+  PyObject *pyobj = 0;
+  
+  pyobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(madoka::CROQUIS_MAX_WIDTH));
+  return pyobj;
+}
+
+
+SWIGINTERN int Swig_var_CROQUIS_DEFAULT_WIDTH_set(PyObject *) {
+  SWIG_Error(SWIG_AttributeError,"Variable CROQUIS_DEFAULT_WIDTH is read-only.");
+  return 1;
+}
+
+
+SWIGINTERN PyObject *Swig_var_CROQUIS_DEFAULT_WIDTH_get(void) {
+  PyObject *pyobj = 0;
+  
+  pyobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(madoka::CROQUIS_DEFAULT_WIDTH));
+  return pyobj;
+}
+
+
+SWIGINTERN int Swig_var_CROQUIS_MIN_DEPTH_set(PyObject *) {
+  SWIG_Error(SWIG_AttributeError,"Variable CROQUIS_MIN_DEPTH is read-only.");
+  return 1;
+}
+
+
+SWIGINTERN PyObject *Swig_var_CROQUIS_MIN_DEPTH_get(void) {
+  PyObject *pyobj = 0;
+  
+  pyobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(madoka::CROQUIS_MIN_DEPTH));
+  return pyobj;
+}
+
+
+SWIGINTERN int Swig_var_CROQUIS_MAX_DEPTH_set(PyObject *) {
+  SWIG_Error(SWIG_AttributeError,"Variable CROQUIS_MAX_DEPTH is read-only.");
+  return 1;
+}
+
+
+SWIGINTERN PyObject *Swig_var_CROQUIS_MAX_DEPTH_get(void) {
+  PyObject *pyobj = 0;
+  
+  pyobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(madoka::CROQUIS_MAX_DEPTH));
+  return pyobj;
+}
+
+
+SWIGINTERN int Swig_var_CROQUIS_DEFAULT_DEPTH_set(PyObject *) {
+  SWIG_Error(SWIG_AttributeError,"Variable CROQUIS_DEFAULT_DEPTH is read-only.");
+  return 1;
+}
+
+
+SWIGINTERN PyObject *Swig_var_CROQUIS_DEFAULT_DEPTH_get(void) {
+  PyObject *pyobj = 0;
+  
+  pyobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(madoka::CROQUIS_DEFAULT_DEPTH));
+  return pyobj;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_CroquisUint8(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_CroquisUint8")) SWIG_fail;
+  result = (madoka::Croquis< unsigned char > *)new madoka::Croquis< unsigned char >();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_CroquisUint8(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_CroquisUint8",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_CroquisUint8" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_create__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  madoka::UInt64 arg6 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  unsigned long long val6 ;
+  int ecode6 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  PyObject * obj5 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOOO:CroquisUint8_create",&obj0,&obj1,&obj2,&obj3,&obj4,&obj5)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint8_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint8_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint8_create" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  ecode5 = SWIG_AsVal_int(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "CroquisUint8_create" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = static_cast< int >(val5);
+  ecode6 = SWIG_AsVal_unsigned_SS_long_SS_long(obj5, &val6);
+  if (!SWIG_IsOK(ecode6)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode6), "in method '" "CroquisUint8_create" "', argument " "6"" of type '" "madoka::UInt64""'");
+  } 
+  arg6 = static_cast< madoka::UInt64 >(val6);
+  try {
+    (arg1)->create(arg2,arg3,(char const *)arg4,arg5,arg6);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_create__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOO:CroquisUint8_create",&obj0,&obj1,&obj2,&obj3,&obj4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint8_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint8_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint8_create" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  ecode5 = SWIG_AsVal_int(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "CroquisUint8_create" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = static_cast< int >(val5);
+  try {
+    (arg1)->create(arg2,arg3,(char const *)arg4,arg5);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_create__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint8_create",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint8_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint8_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint8_create" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  try {
+    (arg1)->create(arg2,arg3,(char const *)arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_create__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint8_create",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint8_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint8_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  try {
+    (arg1)->create(arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_create__SWIG_4(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  madoka::UInt64 arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint8_create",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint8_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  try {
+    (arg1)->create(arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_create__SWIG_5(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint8_create",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  try {
+    (arg1)->create();
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_create(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[7];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 6) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_CroquisUint8_create__SWIG_5(self, args);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_CroquisUint8_create__SWIG_4(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint8_create__SWIG_3(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_CroquisUint8_create__SWIG_2(self, args);
+          }
+        }
+      }
+    }
+  }
+  if (argc == 5) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            {
+              int res = SWIG_AsVal_int(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              return _wrap_CroquisUint8_create__SWIG_1(self, args);
+            }
+          }
+        }
+      }
+    }
+  }
+  if (argc == 6) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            {
+              int res = SWIG_AsVal_int(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              {
+                int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[5], NULL);
+                _v = SWIG_CheckState(res);
+              }
+              if (_v) {
+                return _wrap_CroquisUint8_create__SWIG_0(self, args);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint8_create'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned char >::create(madoka::UInt64,madoka::UInt64,char const *,int,madoka::UInt64)\n"
+    "    madoka::Croquis< unsigned char >::create(madoka::UInt64,madoka::UInt64,char const *,int)\n"
+    "    madoka::Croquis< unsigned char >::create(madoka::UInt64,madoka::UInt64,char const *)\n"
+    "    madoka::Croquis< unsigned char >::create(madoka::UInt64,madoka::UInt64)\n"
+    "    madoka::Croquis< unsigned char >::create(madoka::UInt64)\n"
+    "    madoka::Croquis< unsigned char >::create()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_open__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint8_open",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_open" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_open" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint8_open" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  try {
+    (arg1)->open((char const *)arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_open__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint8_open",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_open" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_open" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  try {
+    (arg1)->open((char const *)arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_open(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint8_open__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint8_open__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint8_open'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned char >::open(char const *,int)\n"
+    "    madoka::Croquis< unsigned char >::open(char const *)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_close(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint8_close",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_close" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  (arg1)->close();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_load__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint8_load",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_load" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_load" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint8_load" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  try {
+    (arg1)->load((char const *)arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_load__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint8_load",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_load" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_load" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  try {
+    (arg1)->load((char const *)arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_load(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint8_load__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint8_load__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint8_load'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned char >::load(char const *,int)\n"
+    "    madoka::Croquis< unsigned char >::load(char const *)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_save__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint8_save",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_save" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_save" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint8_save" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  try {
+    ((madoka::Croquis< unsigned char > const *)arg1)->save((char const *)arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_save__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint8_save",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_save" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_save" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  try {
+    ((madoka::Croquis< unsigned char > const *)arg1)->save((char const *)arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_save(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint8_save__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint8_save__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint8_save'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned char >::save(char const *,int) const\n"
+    "    madoka::Croquis< unsigned char >::save(char const *) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_width(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint8_width",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_width" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned char > const *)arg1)->width();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_width_mask(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint8_width_mask",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_width_mask" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned char > const *)arg1)->width_mask();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_depth(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint8_depth",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_depth" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned char > const *)arg1)->depth();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_max_value(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  unsigned char result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint8_max_value",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_max_value" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  result = (unsigned char)((madoka::Croquis< unsigned char > const *)arg1)->max_value();
+  resultobj = SWIG_From_unsigned_SS_char(static_cast< unsigned char >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_value_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint8_value_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_value_size" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned char > const *)arg1)->value_size();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_seed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint8_seed",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_seed" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned char > const *)arg1)->seed();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_table_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint8_table_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_table_size" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned char > const *)arg1)->table_size();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_file_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint8_file_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_file_size" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned char > const *)arg1)->file_size();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_flags(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint8_flags",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_flags" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  result = (int)((madoka::Croquis< unsigned char > const *)arg1)->flags();
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  void *arg2 = (void *) 0 ;
+  std::size_t arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  unsigned char result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint8_get",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_get" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_get" "', argument " "2"" of type '" "void const *""'");
+  }
+  arg2 = reinterpret_cast< void * >(buf2);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint8_get" "', argument " "3"" of type '" "std::size_t""'");
+  } 
+  arg3 = static_cast< std::size_t >(val3);
+  result = (unsigned char)((madoka::Croquis< unsigned char > const *)arg1)->get((void const *)arg2,arg3);
+  resultobj = SWIG_From_unsigned_SS_char(static_cast< unsigned char >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_get__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  unsigned char result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint8_get__",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_get__" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint8_get__" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint8_get__" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  result = (unsigned char)((madoka::Croquis< unsigned char > const *)arg1)->get__(arg2,arg3);
+  resultobj = SWIG_From_unsigned_SS_char(static_cast< unsigned char >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  void *arg2 = (void *) 0 ;
+  std::size_t arg3 ;
+  unsigned char arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  unsigned char val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint8_set",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_set" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_set" "', argument " "2"" of type '" "void const *""'");
+  }
+  arg2 = reinterpret_cast< void * >(buf2);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint8_set" "', argument " "3"" of type '" "std::size_t""'");
+  } 
+  arg3 = static_cast< std::size_t >(val3);
+  ecode4 = SWIG_AsVal_unsigned_SS_char(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisUint8_set" "', argument " "4"" of type '" "unsigned char""'");
+  } 
+  arg4 = static_cast< unsigned char >(val4);
+  (arg1)->set((void const *)arg2,arg3,arg4);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_set__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  unsigned char arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  unsigned char val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint8_set__",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_set__" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint8_set__" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint8_set__" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  ecode4 = SWIG_AsVal_unsigned_SS_char(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisUint8_set__" "', argument " "4"" of type '" "unsigned char""'");
+  } 
+  arg4 = static_cast< unsigned char >(val4);
+  ((madoka::Croquis< unsigned char > const *)arg1)->set__(arg2,arg3,arg4);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_add(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  void *arg2 = (void *) 0 ;
+  std::size_t arg3 ;
+  unsigned char arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  unsigned char val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  unsigned char result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint8_add",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_add" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_add" "', argument " "2"" of type '" "void const *""'");
+  }
+  arg2 = reinterpret_cast< void * >(buf2);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint8_add" "', argument " "3"" of type '" "std::size_t""'");
+  } 
+  arg3 = static_cast< std::size_t >(val3);
+  ecode4 = SWIG_AsVal_unsigned_SS_char(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisUint8_add" "', argument " "4"" of type '" "unsigned char""'");
+  } 
+  arg4 = static_cast< unsigned char >(val4);
+  result = (unsigned char)(arg1)->add((void const *)arg2,arg3,arg4);
+  resultobj = SWIG_From_unsigned_SS_char(static_cast< unsigned char >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_clear(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint8_clear",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_clear" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  (arg1)->clear();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_swap(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  madoka::Croquis< unsigned char > *arg2 = (madoka::Croquis< unsigned char > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint8_swap",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_swap" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_swap" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp2);
+  (arg1)->swap(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_copy__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  madoka::Croquis< unsigned char > *arg2 = 0 ;
+  char *arg3 = (char *) 0 ;
+  int arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int res3 ;
+  char *buf3 = 0 ;
+  int alloc3 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint8_copy",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_copy" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint8_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp2);
+  res3 = SWIG_AsCharPtrAndSize(obj2, &buf3, NULL, &alloc3);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisUint8_copy" "', argument " "3"" of type '" "char const *""'");
+  }
+  arg3 = reinterpret_cast< char * >(buf3);
+  ecode4 = SWIG_AsVal_int(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisUint8_copy" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = static_cast< int >(val4);
+  try {
+    (arg1)->copy(*arg2,(char const *)arg3,arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return resultobj;
+fail:
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_copy__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  madoka::Croquis< unsigned char > *arg2 = 0 ;
+  char *arg3 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int res3 ;
+  char *buf3 = 0 ;
+  int alloc3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint8_copy",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_copy" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint8_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp2);
+  res3 = SWIG_AsCharPtrAndSize(obj2, &buf3, NULL, &alloc3);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisUint8_copy" "', argument " "3"" of type '" "char const *""'");
+  }
+  arg3 = reinterpret_cast< char * >(buf3);
+  try {
+    (arg1)->copy(*arg2,(char const *)arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return resultobj;
+fail:
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_copy__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  madoka::Croquis< unsigned char > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint8_copy",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_copy" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint8_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp2);
+  try {
+    (arg1)->copy(*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_copy(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[5];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint8_copy__SWIG_2(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_AsCharPtrAndSize(argv[2], 0, NULL, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_CroquisUint8_copy__SWIG_1(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_AsCharPtrAndSize(argv[2], 0, NULL, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          {
+            int res = SWIG_AsVal_int(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_CroquisUint8_copy__SWIG_0(self, args);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint8_copy'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned char >::copy(madoka::Croquis< unsigned char > &,char const *,int)\n"
+    "    madoka::Croquis< unsigned char >::copy(madoka::Croquis< unsigned char > &,char const *)\n"
+    "    madoka::Croquis< unsigned char >::copy(madoka::Croquis< unsigned char > &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_shrink__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  madoka::Croquis< unsigned char > *arg2 = 0 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOO:CroquisUint8_shrink",&obj0,&obj1,&obj2,&obj3,&obj4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_shrink" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint8_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint8_shrink" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint8_shrink" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  ecode5 = SWIG_AsVal_int(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "CroquisUint8_shrink" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = static_cast< int >(val5);
+  try {
+    (arg1)->shrink(*arg2,arg3,(char const *)arg4,arg5);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_shrink__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  madoka::Croquis< unsigned char > *arg2 = 0 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint8_shrink",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_shrink" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint8_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint8_shrink" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint8_shrink" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  try {
+    (arg1)->shrink(*arg2,arg3,(char const *)arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_shrink__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  madoka::Croquis< unsigned char > *arg2 = 0 ;
+  madoka::UInt64 arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint8_shrink",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_shrink" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint8_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint8_shrink" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  try {
+    (arg1)->shrink(*arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_shrink__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  madoka::Croquis< unsigned char > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint8_shrink",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_shrink" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint8_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp2);
+  try {
+    (arg1)->shrink(*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_shrink(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[6];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 5) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint8_shrink__SWIG_3(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint8_shrink__SWIG_2(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_CroquisUint8_shrink__SWIG_1(self, args);
+          }
+        }
+      }
+    }
+  }
+  if (argc == 5) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            {
+              int res = SWIG_AsVal_int(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              return _wrap_CroquisUint8_shrink__SWIG_0(self, args);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint8_shrink'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned char >::shrink(madoka::Croquis< unsigned char > &,madoka::UInt64,char const *,int)\n"
+    "    madoka::Croquis< unsigned char >::shrink(madoka::Croquis< unsigned char > &,madoka::UInt64,char const *)\n"
+    "    madoka::Croquis< unsigned char >::shrink(madoka::Croquis< unsigned char > &,madoka::UInt64)\n"
+    "    madoka::Croquis< unsigned char >::shrink(madoka::Croquis< unsigned char > &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_merge(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  madoka::Croquis< unsigned char > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint8_merge",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_merge" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_merge" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint8_merge" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp2);
+  try {
+    (arg1)->merge((madoka::Croquis< unsigned char > const &)*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_inner_product__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  madoka::Croquis< unsigned char > *arg2 = 0 ;
+  double *arg3 = (double *) 0 ;
+  double *arg4 = (double *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint8_inner_product",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_inner_product" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint8_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisUint8_inner_product" "', argument " "3"" of type '" "double *""'"); 
+  }
+  arg3 = reinterpret_cast< double * >(argp3);
+  res4 = SWIG_ConvertPtr(obj3, &argp4,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint8_inner_product" "', argument " "4"" of type '" "double *""'"); 
+  }
+  arg4 = reinterpret_cast< double * >(argp4);
+  try {
+    result = (double)((madoka::Croquis< unsigned char > const *)arg1)->inner_product((madoka::Croquis< unsigned char > const &)*arg2,arg3,arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_inner_product__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  madoka::Croquis< unsigned char > *arg2 = 0 ;
+  double *arg3 = (double *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint8_inner_product",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_inner_product" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint8_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisUint8_inner_product" "', argument " "3"" of type '" "double *""'"); 
+  }
+  arg3 = reinterpret_cast< double * >(argp3);
+  try {
+    result = (double)((madoka::Croquis< unsigned char > const *)arg1)->inner_product((madoka::Croquis< unsigned char > const &)*arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_inner_product__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned char > *arg1 = (madoka::Croquis< unsigned char > *) 0 ;
+  madoka::Croquis< unsigned char > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint8_inner_product",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint8_inner_product" "', argument " "1"" of type '" "madoka::Croquis< unsigned char > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint8_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint8_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned char > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned char > * >(argp2);
+  try {
+    result = (double)((madoka::Croquis< unsigned char > const *)arg1)->inner_product((madoka::Croquis< unsigned char > const &)*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint8_inner_product(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[5];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint8_inner_product__SWIG_2(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_CroquisUint8_inner_product__SWIG_1(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          void *vptr = 0;
+          int res = SWIG_ConvertPtr(argv[3], &vptr, SWIGTYPE_p_double, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_CroquisUint8_inner_product__SWIG_0(self, args);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint8_inner_product'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned char >::inner_product(madoka::Croquis< unsigned char > const &,double *,double *) const\n"
+    "    madoka::Croquis< unsigned char >::inner_product(madoka::Croquis< unsigned char > const &,double *) const\n"
+    "    madoka::Croquis< unsigned char >::inner_product(madoka::Croquis< unsigned char > const &) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *CroquisUint8_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_madoka__CroquisT_unsigned_char_t, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_new_CroquisUint16(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_CroquisUint16")) SWIG_fail;
+  result = (madoka::Croquis< unsigned short > *)new madoka::Croquis< unsigned short >();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_CroquisUint16(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_CroquisUint16",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_CroquisUint16" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_create__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  madoka::UInt64 arg6 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  unsigned long long val6 ;
+  int ecode6 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  PyObject * obj5 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOOO:CroquisUint16_create",&obj0,&obj1,&obj2,&obj3,&obj4,&obj5)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint16_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint16_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint16_create" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  ecode5 = SWIG_AsVal_int(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "CroquisUint16_create" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = static_cast< int >(val5);
+  ecode6 = SWIG_AsVal_unsigned_SS_long_SS_long(obj5, &val6);
+  if (!SWIG_IsOK(ecode6)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode6), "in method '" "CroquisUint16_create" "', argument " "6"" of type '" "madoka::UInt64""'");
+  } 
+  arg6 = static_cast< madoka::UInt64 >(val6);
+  try {
+    (arg1)->create(arg2,arg3,(char const *)arg4,arg5,arg6);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_create__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOO:CroquisUint16_create",&obj0,&obj1,&obj2,&obj3,&obj4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint16_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint16_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint16_create" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  ecode5 = SWIG_AsVal_int(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "CroquisUint16_create" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = static_cast< int >(val5);
+  try {
+    (arg1)->create(arg2,arg3,(char const *)arg4,arg5);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_create__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint16_create",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint16_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint16_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint16_create" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  try {
+    (arg1)->create(arg2,arg3,(char const *)arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_create__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint16_create",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint16_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint16_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  try {
+    (arg1)->create(arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_create__SWIG_4(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  madoka::UInt64 arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint16_create",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint16_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  try {
+    (arg1)->create(arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_create__SWIG_5(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint16_create",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  try {
+    (arg1)->create();
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_create(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[7];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 6) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_CroquisUint16_create__SWIG_5(self, args);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_CroquisUint16_create__SWIG_4(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint16_create__SWIG_3(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_CroquisUint16_create__SWIG_2(self, args);
+          }
+        }
+      }
+    }
+  }
+  if (argc == 5) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            {
+              int res = SWIG_AsVal_int(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              return _wrap_CroquisUint16_create__SWIG_1(self, args);
+            }
+          }
+        }
+      }
+    }
+  }
+  if (argc == 6) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            {
+              int res = SWIG_AsVal_int(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              {
+                int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[5], NULL);
+                _v = SWIG_CheckState(res);
+              }
+              if (_v) {
+                return _wrap_CroquisUint16_create__SWIG_0(self, args);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint16_create'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned short >::create(madoka::UInt64,madoka::UInt64,char const *,int,madoka::UInt64)\n"
+    "    madoka::Croquis< unsigned short >::create(madoka::UInt64,madoka::UInt64,char const *,int)\n"
+    "    madoka::Croquis< unsigned short >::create(madoka::UInt64,madoka::UInt64,char const *)\n"
+    "    madoka::Croquis< unsigned short >::create(madoka::UInt64,madoka::UInt64)\n"
+    "    madoka::Croquis< unsigned short >::create(madoka::UInt64)\n"
+    "    madoka::Croquis< unsigned short >::create()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_open__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint16_open",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_open" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_open" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint16_open" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  try {
+    (arg1)->open((char const *)arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_open__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint16_open",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_open" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_open" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  try {
+    (arg1)->open((char const *)arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_open(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint16_open__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint16_open__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint16_open'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned short >::open(char const *,int)\n"
+    "    madoka::Croquis< unsigned short >::open(char const *)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_close(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint16_close",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_close" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  (arg1)->close();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_load__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint16_load",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_load" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_load" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint16_load" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  try {
+    (arg1)->load((char const *)arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_load__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint16_load",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_load" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_load" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  try {
+    (arg1)->load((char const *)arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_load(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint16_load__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint16_load__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint16_load'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned short >::load(char const *,int)\n"
+    "    madoka::Croquis< unsigned short >::load(char const *)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_save__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint16_save",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_save" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_save" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint16_save" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  try {
+    ((madoka::Croquis< unsigned short > const *)arg1)->save((char const *)arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_save__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint16_save",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_save" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_save" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  try {
+    ((madoka::Croquis< unsigned short > const *)arg1)->save((char const *)arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_save(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint16_save__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint16_save__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint16_save'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned short >::save(char const *,int) const\n"
+    "    madoka::Croquis< unsigned short >::save(char const *) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_width(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint16_width",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_width" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned short > const *)arg1)->width();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_width_mask(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint16_width_mask",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_width_mask" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned short > const *)arg1)->width_mask();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_depth(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint16_depth",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_depth" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned short > const *)arg1)->depth();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_max_value(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  unsigned short result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint16_max_value",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_max_value" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  result = (unsigned short)((madoka::Croquis< unsigned short > const *)arg1)->max_value();
+  resultobj = SWIG_From_unsigned_SS_short(static_cast< unsigned short >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_value_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint16_value_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_value_size" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned short > const *)arg1)->value_size();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_seed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint16_seed",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_seed" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned short > const *)arg1)->seed();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_table_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint16_table_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_table_size" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned short > const *)arg1)->table_size();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_file_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint16_file_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_file_size" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned short > const *)arg1)->file_size();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_flags(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint16_flags",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_flags" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  result = (int)((madoka::Croquis< unsigned short > const *)arg1)->flags();
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  void *arg2 = (void *) 0 ;
+  std::size_t arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  unsigned short result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint16_get",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_get" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_get" "', argument " "2"" of type '" "void const *""'");
+  }
+  arg2 = reinterpret_cast< void * >(buf2);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint16_get" "', argument " "3"" of type '" "std::size_t""'");
+  } 
+  arg3 = static_cast< std::size_t >(val3);
+  result = (unsigned short)((madoka::Croquis< unsigned short > const *)arg1)->get((void const *)arg2,arg3);
+  resultobj = SWIG_From_unsigned_SS_short(static_cast< unsigned short >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_get__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  unsigned short result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint16_get__",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_get__" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint16_get__" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint16_get__" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  result = (unsigned short)((madoka::Croquis< unsigned short > const *)arg1)->get__(arg2,arg3);
+  resultobj = SWIG_From_unsigned_SS_short(static_cast< unsigned short >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  void *arg2 = (void *) 0 ;
+  std::size_t arg3 ;
+  unsigned short arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  unsigned short val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint16_set",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_set" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_set" "', argument " "2"" of type '" "void const *""'");
+  }
+  arg2 = reinterpret_cast< void * >(buf2);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint16_set" "', argument " "3"" of type '" "std::size_t""'");
+  } 
+  arg3 = static_cast< std::size_t >(val3);
+  ecode4 = SWIG_AsVal_unsigned_SS_short(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisUint16_set" "', argument " "4"" of type '" "unsigned short""'");
+  } 
+  arg4 = static_cast< unsigned short >(val4);
+  (arg1)->set((void const *)arg2,arg3,arg4);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_set__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  unsigned short arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  unsigned short val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint16_set__",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_set__" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint16_set__" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint16_set__" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  ecode4 = SWIG_AsVal_unsigned_SS_short(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisUint16_set__" "', argument " "4"" of type '" "unsigned short""'");
+  } 
+  arg4 = static_cast< unsigned short >(val4);
+  ((madoka::Croquis< unsigned short > const *)arg1)->set__(arg2,arg3,arg4);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_add(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  void *arg2 = (void *) 0 ;
+  std::size_t arg3 ;
+  unsigned short arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  unsigned short val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  unsigned short result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint16_add",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_add" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_add" "', argument " "2"" of type '" "void const *""'");
+  }
+  arg2 = reinterpret_cast< void * >(buf2);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint16_add" "', argument " "3"" of type '" "std::size_t""'");
+  } 
+  arg3 = static_cast< std::size_t >(val3);
+  ecode4 = SWIG_AsVal_unsigned_SS_short(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisUint16_add" "', argument " "4"" of type '" "unsigned short""'");
+  } 
+  arg4 = static_cast< unsigned short >(val4);
+  result = (unsigned short)(arg1)->add((void const *)arg2,arg3,arg4);
+  resultobj = SWIG_From_unsigned_SS_short(static_cast< unsigned short >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_clear(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint16_clear",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_clear" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  (arg1)->clear();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_swap(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  madoka::Croquis< unsigned short > *arg2 = (madoka::Croquis< unsigned short > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint16_swap",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_swap" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_swap" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp2);
+  (arg1)->swap(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_copy__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  madoka::Croquis< unsigned short > *arg2 = 0 ;
+  char *arg3 = (char *) 0 ;
+  int arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int res3 ;
+  char *buf3 = 0 ;
+  int alloc3 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint16_copy",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_copy" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint16_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp2);
+  res3 = SWIG_AsCharPtrAndSize(obj2, &buf3, NULL, &alloc3);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisUint16_copy" "', argument " "3"" of type '" "char const *""'");
+  }
+  arg3 = reinterpret_cast< char * >(buf3);
+  ecode4 = SWIG_AsVal_int(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisUint16_copy" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = static_cast< int >(val4);
+  try {
+    (arg1)->copy(*arg2,(char const *)arg3,arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return resultobj;
+fail:
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_copy__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  madoka::Croquis< unsigned short > *arg2 = 0 ;
+  char *arg3 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int res3 ;
+  char *buf3 = 0 ;
+  int alloc3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint16_copy",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_copy" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint16_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp2);
+  res3 = SWIG_AsCharPtrAndSize(obj2, &buf3, NULL, &alloc3);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisUint16_copy" "', argument " "3"" of type '" "char const *""'");
+  }
+  arg3 = reinterpret_cast< char * >(buf3);
+  try {
+    (arg1)->copy(*arg2,(char const *)arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return resultobj;
+fail:
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_copy__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  madoka::Croquis< unsigned short > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint16_copy",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_copy" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint16_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp2);
+  try {
+    (arg1)->copy(*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_copy(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[5];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint16_copy__SWIG_2(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_AsCharPtrAndSize(argv[2], 0, NULL, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_CroquisUint16_copy__SWIG_1(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_AsCharPtrAndSize(argv[2], 0, NULL, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          {
+            int res = SWIG_AsVal_int(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_CroquisUint16_copy__SWIG_0(self, args);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint16_copy'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned short >::copy(madoka::Croquis< unsigned short > &,char const *,int)\n"
+    "    madoka::Croquis< unsigned short >::copy(madoka::Croquis< unsigned short > &,char const *)\n"
+    "    madoka::Croquis< unsigned short >::copy(madoka::Croquis< unsigned short > &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_shrink__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  madoka::Croquis< unsigned short > *arg2 = 0 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOO:CroquisUint16_shrink",&obj0,&obj1,&obj2,&obj3,&obj4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_shrink" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint16_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint16_shrink" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint16_shrink" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  ecode5 = SWIG_AsVal_int(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "CroquisUint16_shrink" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = static_cast< int >(val5);
+  try {
+    (arg1)->shrink(*arg2,arg3,(char const *)arg4,arg5);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_shrink__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  madoka::Croquis< unsigned short > *arg2 = 0 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint16_shrink",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_shrink" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint16_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint16_shrink" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint16_shrink" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  try {
+    (arg1)->shrink(*arg2,arg3,(char const *)arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_shrink__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  madoka::Croquis< unsigned short > *arg2 = 0 ;
+  madoka::UInt64 arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint16_shrink",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_shrink" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint16_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint16_shrink" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  try {
+    (arg1)->shrink(*arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_shrink__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  madoka::Croquis< unsigned short > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint16_shrink",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_shrink" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint16_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp2);
+  try {
+    (arg1)->shrink(*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_shrink(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[6];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 5) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint16_shrink__SWIG_3(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint16_shrink__SWIG_2(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_CroquisUint16_shrink__SWIG_1(self, args);
+          }
+        }
+      }
+    }
+  }
+  if (argc == 5) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            {
+              int res = SWIG_AsVal_int(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              return _wrap_CroquisUint16_shrink__SWIG_0(self, args);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint16_shrink'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned short >::shrink(madoka::Croquis< unsigned short > &,madoka::UInt64,char const *,int)\n"
+    "    madoka::Croquis< unsigned short >::shrink(madoka::Croquis< unsigned short > &,madoka::UInt64,char const *)\n"
+    "    madoka::Croquis< unsigned short >::shrink(madoka::Croquis< unsigned short > &,madoka::UInt64)\n"
+    "    madoka::Croquis< unsigned short >::shrink(madoka::Croquis< unsigned short > &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_merge(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  madoka::Croquis< unsigned short > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint16_merge",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_merge" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_merge" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint16_merge" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp2);
+  try {
+    (arg1)->merge((madoka::Croquis< unsigned short > const &)*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_inner_product__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  madoka::Croquis< unsigned short > *arg2 = 0 ;
+  double *arg3 = (double *) 0 ;
+  double *arg4 = (double *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint16_inner_product",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_inner_product" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint16_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisUint16_inner_product" "', argument " "3"" of type '" "double *""'"); 
+  }
+  arg3 = reinterpret_cast< double * >(argp3);
+  res4 = SWIG_ConvertPtr(obj3, &argp4,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint16_inner_product" "', argument " "4"" of type '" "double *""'"); 
+  }
+  arg4 = reinterpret_cast< double * >(argp4);
+  try {
+    result = (double)((madoka::Croquis< unsigned short > const *)arg1)->inner_product((madoka::Croquis< unsigned short > const &)*arg2,arg3,arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_inner_product__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  madoka::Croquis< unsigned short > *arg2 = 0 ;
+  double *arg3 = (double *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint16_inner_product",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_inner_product" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint16_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisUint16_inner_product" "', argument " "3"" of type '" "double *""'"); 
+  }
+  arg3 = reinterpret_cast< double * >(argp3);
+  try {
+    result = (double)((madoka::Croquis< unsigned short > const *)arg1)->inner_product((madoka::Croquis< unsigned short > const &)*arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_inner_product__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned short > *arg1 = (madoka::Croquis< unsigned short > *) 0 ;
+  madoka::Croquis< unsigned short > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint16_inner_product",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint16_inner_product" "', argument " "1"" of type '" "madoka::Croquis< unsigned short > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint16_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint16_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned short > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned short > * >(argp2);
+  try {
+    result = (double)((madoka::Croquis< unsigned short > const *)arg1)->inner_product((madoka::Croquis< unsigned short > const &)*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint16_inner_product(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[5];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint16_inner_product__SWIG_2(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_CroquisUint16_inner_product__SWIG_1(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          void *vptr = 0;
+          int res = SWIG_ConvertPtr(argv[3], &vptr, SWIGTYPE_p_double, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_CroquisUint16_inner_product__SWIG_0(self, args);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint16_inner_product'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned short >::inner_product(madoka::Croquis< unsigned short > const &,double *,double *) const\n"
+    "    madoka::Croquis< unsigned short >::inner_product(madoka::Croquis< unsigned short > const &,double *) const\n"
+    "    madoka::Croquis< unsigned short >::inner_product(madoka::Croquis< unsigned short > const &) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *CroquisUint16_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_madoka__CroquisT_unsigned_short_t, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_new_CroquisUint32(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_CroquisUint32")) SWIG_fail;
+  result = (madoka::Croquis< unsigned int > *)new madoka::Croquis< unsigned int >();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_CroquisUint32(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_CroquisUint32",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_CroquisUint32" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_create__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  madoka::UInt64 arg6 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  unsigned long long val6 ;
+  int ecode6 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  PyObject * obj5 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOOO:CroquisUint32_create",&obj0,&obj1,&obj2,&obj3,&obj4,&obj5)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint32_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint32_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint32_create" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  ecode5 = SWIG_AsVal_int(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "CroquisUint32_create" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = static_cast< int >(val5);
+  ecode6 = SWIG_AsVal_unsigned_SS_long_SS_long(obj5, &val6);
+  if (!SWIG_IsOK(ecode6)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode6), "in method '" "CroquisUint32_create" "', argument " "6"" of type '" "madoka::UInt64""'");
+  } 
+  arg6 = static_cast< madoka::UInt64 >(val6);
+  try {
+    (arg1)->create(arg2,arg3,(char const *)arg4,arg5,arg6);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_create__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOO:CroquisUint32_create",&obj0,&obj1,&obj2,&obj3,&obj4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint32_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint32_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint32_create" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  ecode5 = SWIG_AsVal_int(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "CroquisUint32_create" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = static_cast< int >(val5);
+  try {
+    (arg1)->create(arg2,arg3,(char const *)arg4,arg5);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_create__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint32_create",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint32_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint32_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint32_create" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  try {
+    (arg1)->create(arg2,arg3,(char const *)arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_create__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint32_create",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint32_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint32_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  try {
+    (arg1)->create(arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_create__SWIG_4(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  madoka::UInt64 arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint32_create",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint32_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  try {
+    (arg1)->create(arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_create__SWIG_5(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint32_create",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  try {
+    (arg1)->create();
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_create(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[7];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 6) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_CroquisUint32_create__SWIG_5(self, args);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_CroquisUint32_create__SWIG_4(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint32_create__SWIG_3(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_CroquisUint32_create__SWIG_2(self, args);
+          }
+        }
+      }
+    }
+  }
+  if (argc == 5) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            {
+              int res = SWIG_AsVal_int(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              return _wrap_CroquisUint32_create__SWIG_1(self, args);
+            }
+          }
+        }
+      }
+    }
+  }
+  if (argc == 6) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            {
+              int res = SWIG_AsVal_int(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              {
+                int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[5], NULL);
+                _v = SWIG_CheckState(res);
+              }
+              if (_v) {
+                return _wrap_CroquisUint32_create__SWIG_0(self, args);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint32_create'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned int >::create(madoka::UInt64,madoka::UInt64,char const *,int,madoka::UInt64)\n"
+    "    madoka::Croquis< unsigned int >::create(madoka::UInt64,madoka::UInt64,char const *,int)\n"
+    "    madoka::Croquis< unsigned int >::create(madoka::UInt64,madoka::UInt64,char const *)\n"
+    "    madoka::Croquis< unsigned int >::create(madoka::UInt64,madoka::UInt64)\n"
+    "    madoka::Croquis< unsigned int >::create(madoka::UInt64)\n"
+    "    madoka::Croquis< unsigned int >::create()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_open__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint32_open",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_open" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_open" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint32_open" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  try {
+    (arg1)->open((char const *)arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_open__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint32_open",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_open" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_open" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  try {
+    (arg1)->open((char const *)arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_open(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint32_open__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint32_open__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint32_open'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned int >::open(char const *,int)\n"
+    "    madoka::Croquis< unsigned int >::open(char const *)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_close(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint32_close",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_close" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  (arg1)->close();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_load__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint32_load",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_load" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_load" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint32_load" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  try {
+    (arg1)->load((char const *)arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_load__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint32_load",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_load" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_load" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  try {
+    (arg1)->load((char const *)arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_load(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint32_load__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint32_load__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint32_load'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned int >::load(char const *,int)\n"
+    "    madoka::Croquis< unsigned int >::load(char const *)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_save__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint32_save",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_save" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_save" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint32_save" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  try {
+    ((madoka::Croquis< unsigned int > const *)arg1)->save((char const *)arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_save__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint32_save",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_save" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_save" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  try {
+    ((madoka::Croquis< unsigned int > const *)arg1)->save((char const *)arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_save(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint32_save__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint32_save__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint32_save'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned int >::save(char const *,int) const\n"
+    "    madoka::Croquis< unsigned int >::save(char const *) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_width(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint32_width",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_width" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned int > const *)arg1)->width();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_width_mask(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint32_width_mask",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_width_mask" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned int > const *)arg1)->width_mask();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_depth(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint32_depth",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_depth" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned int > const *)arg1)->depth();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_max_value(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  unsigned int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint32_max_value",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_max_value" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  result = (unsigned int)((madoka::Croquis< unsigned int > const *)arg1)->max_value();
+  resultobj = SWIG_From_unsigned_SS_int(static_cast< unsigned int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_value_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint32_value_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_value_size" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned int > const *)arg1)->value_size();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_seed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint32_seed",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_seed" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned int > const *)arg1)->seed();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_table_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint32_table_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_table_size" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned int > const *)arg1)->table_size();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_file_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint32_file_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_file_size" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned int > const *)arg1)->file_size();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_flags(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint32_flags",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_flags" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  result = (int)((madoka::Croquis< unsigned int > const *)arg1)->flags();
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  void *arg2 = (void *) 0 ;
+  std::size_t arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  unsigned int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint32_get",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_get" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_get" "', argument " "2"" of type '" "void const *""'");
+  }
+  arg2 = reinterpret_cast< void * >(buf2);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint32_get" "', argument " "3"" of type '" "std::size_t""'");
+  } 
+  arg3 = static_cast< std::size_t >(val3);
+  result = (unsigned int)((madoka::Croquis< unsigned int > const *)arg1)->get((void const *)arg2,arg3);
+  resultobj = SWIG_From_unsigned_SS_int(static_cast< unsigned int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_get__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  unsigned int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint32_get__",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_get__" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint32_get__" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint32_get__" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  result = (unsigned int)((madoka::Croquis< unsigned int > const *)arg1)->get__(arg2,arg3);
+  resultobj = SWIG_From_unsigned_SS_int(static_cast< unsigned int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  void *arg2 = (void *) 0 ;
+  std::size_t arg3 ;
+  unsigned int arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  unsigned int val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint32_set",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_set" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_set" "', argument " "2"" of type '" "void const *""'");
+  }
+  arg2 = reinterpret_cast< void * >(buf2);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint32_set" "', argument " "3"" of type '" "std::size_t""'");
+  } 
+  arg3 = static_cast< std::size_t >(val3);
+  ecode4 = SWIG_AsVal_unsigned_SS_int(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisUint32_set" "', argument " "4"" of type '" "unsigned int""'");
+  } 
+  arg4 = static_cast< unsigned int >(val4);
+  (arg1)->set((void const *)arg2,arg3,arg4);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_set__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  unsigned int arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  unsigned int val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint32_set__",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_set__" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint32_set__" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint32_set__" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  ecode4 = SWIG_AsVal_unsigned_SS_int(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisUint32_set__" "', argument " "4"" of type '" "unsigned int""'");
+  } 
+  arg4 = static_cast< unsigned int >(val4);
+  ((madoka::Croquis< unsigned int > const *)arg1)->set__(arg2,arg3,arg4);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_add(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  void *arg2 = (void *) 0 ;
+  std::size_t arg3 ;
+  unsigned int arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  unsigned int val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  unsigned int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint32_add",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_add" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_add" "', argument " "2"" of type '" "void const *""'");
+  }
+  arg2 = reinterpret_cast< void * >(buf2);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint32_add" "', argument " "3"" of type '" "std::size_t""'");
+  } 
+  arg3 = static_cast< std::size_t >(val3);
+  ecode4 = SWIG_AsVal_unsigned_SS_int(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisUint32_add" "', argument " "4"" of type '" "unsigned int""'");
+  } 
+  arg4 = static_cast< unsigned int >(val4);
+  result = (unsigned int)(arg1)->add((void const *)arg2,arg3,arg4);
+  resultobj = SWIG_From_unsigned_SS_int(static_cast< unsigned int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_clear(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint32_clear",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_clear" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  (arg1)->clear();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_swap(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  madoka::Croquis< unsigned int > *arg2 = (madoka::Croquis< unsigned int > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint32_swap",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_swap" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_swap" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp2);
+  (arg1)->swap(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_copy__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  madoka::Croquis< unsigned int > *arg2 = 0 ;
+  char *arg3 = (char *) 0 ;
+  int arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int res3 ;
+  char *buf3 = 0 ;
+  int alloc3 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint32_copy",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_copy" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint32_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp2);
+  res3 = SWIG_AsCharPtrAndSize(obj2, &buf3, NULL, &alloc3);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisUint32_copy" "', argument " "3"" of type '" "char const *""'");
+  }
+  arg3 = reinterpret_cast< char * >(buf3);
+  ecode4 = SWIG_AsVal_int(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisUint32_copy" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = static_cast< int >(val4);
+  try {
+    (arg1)->copy(*arg2,(char const *)arg3,arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return resultobj;
+fail:
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_copy__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  madoka::Croquis< unsigned int > *arg2 = 0 ;
+  char *arg3 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int res3 ;
+  char *buf3 = 0 ;
+  int alloc3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint32_copy",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_copy" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint32_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp2);
+  res3 = SWIG_AsCharPtrAndSize(obj2, &buf3, NULL, &alloc3);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisUint32_copy" "', argument " "3"" of type '" "char const *""'");
+  }
+  arg3 = reinterpret_cast< char * >(buf3);
+  try {
+    (arg1)->copy(*arg2,(char const *)arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return resultobj;
+fail:
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_copy__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  madoka::Croquis< unsigned int > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint32_copy",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_copy" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint32_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp2);
+  try {
+    (arg1)->copy(*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_copy(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[5];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint32_copy__SWIG_2(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_AsCharPtrAndSize(argv[2], 0, NULL, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_CroquisUint32_copy__SWIG_1(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_AsCharPtrAndSize(argv[2], 0, NULL, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          {
+            int res = SWIG_AsVal_int(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_CroquisUint32_copy__SWIG_0(self, args);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint32_copy'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned int >::copy(madoka::Croquis< unsigned int > &,char const *,int)\n"
+    "    madoka::Croquis< unsigned int >::copy(madoka::Croquis< unsigned int > &,char const *)\n"
+    "    madoka::Croquis< unsigned int >::copy(madoka::Croquis< unsigned int > &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_shrink__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  madoka::Croquis< unsigned int > *arg2 = 0 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOO:CroquisUint32_shrink",&obj0,&obj1,&obj2,&obj3,&obj4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_shrink" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint32_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint32_shrink" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint32_shrink" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  ecode5 = SWIG_AsVal_int(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "CroquisUint32_shrink" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = static_cast< int >(val5);
+  try {
+    (arg1)->shrink(*arg2,arg3,(char const *)arg4,arg5);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_shrink__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  madoka::Croquis< unsigned int > *arg2 = 0 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint32_shrink",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_shrink" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint32_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint32_shrink" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint32_shrink" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  try {
+    (arg1)->shrink(*arg2,arg3,(char const *)arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_shrink__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  madoka::Croquis< unsigned int > *arg2 = 0 ;
+  madoka::UInt64 arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint32_shrink",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_shrink" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint32_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint32_shrink" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  try {
+    (arg1)->shrink(*arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_shrink__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  madoka::Croquis< unsigned int > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint32_shrink",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_shrink" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint32_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp2);
+  try {
+    (arg1)->shrink(*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_shrink(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[6];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 5) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint32_shrink__SWIG_3(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint32_shrink__SWIG_2(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_CroquisUint32_shrink__SWIG_1(self, args);
+          }
+        }
+      }
+    }
+  }
+  if (argc == 5) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            {
+              int res = SWIG_AsVal_int(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              return _wrap_CroquisUint32_shrink__SWIG_0(self, args);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint32_shrink'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned int >::shrink(madoka::Croquis< unsigned int > &,madoka::UInt64,char const *,int)\n"
+    "    madoka::Croquis< unsigned int >::shrink(madoka::Croquis< unsigned int > &,madoka::UInt64,char const *)\n"
+    "    madoka::Croquis< unsigned int >::shrink(madoka::Croquis< unsigned int > &,madoka::UInt64)\n"
+    "    madoka::Croquis< unsigned int >::shrink(madoka::Croquis< unsigned int > &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_merge(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  madoka::Croquis< unsigned int > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint32_merge",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_merge" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_merge" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint32_merge" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp2);
+  try {
+    (arg1)->merge((madoka::Croquis< unsigned int > const &)*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_inner_product__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  madoka::Croquis< unsigned int > *arg2 = 0 ;
+  double *arg3 = (double *) 0 ;
+  double *arg4 = (double *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint32_inner_product",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_inner_product" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint32_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisUint32_inner_product" "', argument " "3"" of type '" "double *""'"); 
+  }
+  arg3 = reinterpret_cast< double * >(argp3);
+  res4 = SWIG_ConvertPtr(obj3, &argp4,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint32_inner_product" "', argument " "4"" of type '" "double *""'"); 
+  }
+  arg4 = reinterpret_cast< double * >(argp4);
+  try {
+    result = (double)((madoka::Croquis< unsigned int > const *)arg1)->inner_product((madoka::Croquis< unsigned int > const &)*arg2,arg3,arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_inner_product__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  madoka::Croquis< unsigned int > *arg2 = 0 ;
+  double *arg3 = (double *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint32_inner_product",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_inner_product" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint32_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisUint32_inner_product" "', argument " "3"" of type '" "double *""'"); 
+  }
+  arg3 = reinterpret_cast< double * >(argp3);
+  try {
+    result = (double)((madoka::Croquis< unsigned int > const *)arg1)->inner_product((madoka::Croquis< unsigned int > const &)*arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_inner_product__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned int > *arg1 = (madoka::Croquis< unsigned int > *) 0 ;
+  madoka::Croquis< unsigned int > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint32_inner_product",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint32_inner_product" "', argument " "1"" of type '" "madoka::Croquis< unsigned int > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint32_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint32_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned int > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned int > * >(argp2);
+  try {
+    result = (double)((madoka::Croquis< unsigned int > const *)arg1)->inner_product((madoka::Croquis< unsigned int > const &)*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint32_inner_product(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[5];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint32_inner_product__SWIG_2(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_CroquisUint32_inner_product__SWIG_1(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          void *vptr = 0;
+          int res = SWIG_ConvertPtr(argv[3], &vptr, SWIGTYPE_p_double, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_CroquisUint32_inner_product__SWIG_0(self, args);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint32_inner_product'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned int >::inner_product(madoka::Croquis< unsigned int > const &,double *,double *) const\n"
+    "    madoka::Croquis< unsigned int >::inner_product(madoka::Croquis< unsigned int > const &,double *) const\n"
+    "    madoka::Croquis< unsigned int >::inner_product(madoka::Croquis< unsigned int > const &) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *CroquisUint32_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_madoka__CroquisT_unsigned_int_t, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_new_CroquisUint64(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_CroquisUint64")) SWIG_fail;
+  result = (madoka::Croquis< unsigned long long > *)new madoka::Croquis< unsigned long long >();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_CroquisUint64(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_CroquisUint64",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_CroquisUint64" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_create__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  madoka::UInt64 arg6 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  unsigned long long val6 ;
+  int ecode6 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  PyObject * obj5 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOOO:CroquisUint64_create",&obj0,&obj1,&obj2,&obj3,&obj4,&obj5)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint64_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint64_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint64_create" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  ecode5 = SWIG_AsVal_int(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "CroquisUint64_create" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = static_cast< int >(val5);
+  ecode6 = SWIG_AsVal_unsigned_SS_long_SS_long(obj5, &val6);
+  if (!SWIG_IsOK(ecode6)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode6), "in method '" "CroquisUint64_create" "', argument " "6"" of type '" "madoka::UInt64""'");
+  } 
+  arg6 = static_cast< madoka::UInt64 >(val6);
+  try {
+    (arg1)->create(arg2,arg3,(char const *)arg4,arg5,arg6);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_create__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOO:CroquisUint64_create",&obj0,&obj1,&obj2,&obj3,&obj4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint64_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint64_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint64_create" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  ecode5 = SWIG_AsVal_int(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "CroquisUint64_create" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = static_cast< int >(val5);
+  try {
+    (arg1)->create(arg2,arg3,(char const *)arg4,arg5);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_create__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint64_create",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint64_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint64_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint64_create" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  try {
+    (arg1)->create(arg2,arg3,(char const *)arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_create__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint64_create",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint64_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint64_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  try {
+    (arg1)->create(arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_create__SWIG_4(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  madoka::UInt64 arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint64_create",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint64_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  try {
+    (arg1)->create(arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_create__SWIG_5(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint64_create",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_create" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  try {
+    (arg1)->create();
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_create(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[7];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 6) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_CroquisUint64_create__SWIG_5(self, args);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_CroquisUint64_create__SWIG_4(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint64_create__SWIG_3(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_CroquisUint64_create__SWIG_2(self, args);
+          }
+        }
+      }
+    }
+  }
+  if (argc == 5) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            {
+              int res = SWIG_AsVal_int(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              return _wrap_CroquisUint64_create__SWIG_1(self, args);
+            }
+          }
+        }
+      }
+    }
+  }
+  if (argc == 6) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            {
+              int res = SWIG_AsVal_int(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              {
+                int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[5], NULL);
+                _v = SWIG_CheckState(res);
+              }
+              if (_v) {
+                return _wrap_CroquisUint64_create__SWIG_0(self, args);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint64_create'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned long long >::create(madoka::UInt64,madoka::UInt64,char const *,int,madoka::UInt64)\n"
+    "    madoka::Croquis< unsigned long long >::create(madoka::UInt64,madoka::UInt64,char const *,int)\n"
+    "    madoka::Croquis< unsigned long long >::create(madoka::UInt64,madoka::UInt64,char const *)\n"
+    "    madoka::Croquis< unsigned long long >::create(madoka::UInt64,madoka::UInt64)\n"
+    "    madoka::Croquis< unsigned long long >::create(madoka::UInt64)\n"
+    "    madoka::Croquis< unsigned long long >::create()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_open__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint64_open",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_open" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_open" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint64_open" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  try {
+    (arg1)->open((char const *)arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_open__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint64_open",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_open" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_open" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  try {
+    (arg1)->open((char const *)arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_open(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint64_open__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint64_open__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint64_open'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned long long >::open(char const *,int)\n"
+    "    madoka::Croquis< unsigned long long >::open(char const *)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_close(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint64_close",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_close" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  (arg1)->close();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_load__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint64_load",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_load" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_load" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint64_load" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  try {
+    (arg1)->load((char const *)arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_load__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint64_load",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_load" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_load" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  try {
+    (arg1)->load((char const *)arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_load(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint64_load__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint64_load__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint64_load'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned long long >::load(char const *,int)\n"
+    "    madoka::Croquis< unsigned long long >::load(char const *)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_save__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint64_save",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_save" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_save" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint64_save" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  try {
+    ((madoka::Croquis< unsigned long long > const *)arg1)->save((char const *)arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_save__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint64_save",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_save" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_save" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  try {
+    ((madoka::Croquis< unsigned long long > const *)arg1)->save((char const *)arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_save(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint64_save__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint64_save__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint64_save'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned long long >::save(char const *,int) const\n"
+    "    madoka::Croquis< unsigned long long >::save(char const *) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_width(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint64_width",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_width" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned long long > const *)arg1)->width();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_width_mask(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint64_width_mask",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_width_mask" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned long long > const *)arg1)->width_mask();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_depth(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint64_depth",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_depth" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned long long > const *)arg1)->depth();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_max_value(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  unsigned long long result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint64_max_value",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_max_value" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  result = (unsigned long long)((madoka::Croquis< unsigned long long > const *)arg1)->max_value();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_value_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint64_value_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_value_size" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned long long > const *)arg1)->value_size();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_seed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint64_seed",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_seed" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned long long > const *)arg1)->seed();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_table_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint64_table_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_table_size" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned long long > const *)arg1)->table_size();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_file_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint64_file_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_file_size" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< unsigned long long > const *)arg1)->file_size();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_flags(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint64_flags",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_flags" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  result = (int)((madoka::Croquis< unsigned long long > const *)arg1)->flags();
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  void *arg2 = (void *) 0 ;
+  std::size_t arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  unsigned long long result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint64_get",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_get" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_get" "', argument " "2"" of type '" "void const *""'");
+  }
+  arg2 = reinterpret_cast< void * >(buf2);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint64_get" "', argument " "3"" of type '" "std::size_t""'");
+  } 
+  arg3 = static_cast< std::size_t >(val3);
+  result = (unsigned long long)((madoka::Croquis< unsigned long long > const *)arg1)->get((void const *)arg2,arg3);
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_get__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  unsigned long long result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint64_get__",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_get__" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint64_get__" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint64_get__" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  result = (unsigned long long)((madoka::Croquis< unsigned long long > const *)arg1)->get__(arg2,arg3);
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  void *arg2 = (void *) 0 ;
+  std::size_t arg3 ;
+  unsigned long long arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  unsigned long long val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint64_set",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_set" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_set" "', argument " "2"" of type '" "void const *""'");
+  }
+  arg2 = reinterpret_cast< void * >(buf2);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint64_set" "', argument " "3"" of type '" "std::size_t""'");
+  } 
+  arg3 = static_cast< std::size_t >(val3);
+  ecode4 = SWIG_AsVal_unsigned_SS_long_SS_long(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisUint64_set" "', argument " "4"" of type '" "unsigned long long""'");
+  } 
+  arg4 = static_cast< unsigned long long >(val4);
+  (arg1)->set((void const *)arg2,arg3,arg4);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_set__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  unsigned long long arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  unsigned long long val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint64_set__",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_set__" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisUint64_set__" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint64_set__" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  ecode4 = SWIG_AsVal_unsigned_SS_long_SS_long(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisUint64_set__" "', argument " "4"" of type '" "unsigned long long""'");
+  } 
+  arg4 = static_cast< unsigned long long >(val4);
+  ((madoka::Croquis< unsigned long long > const *)arg1)->set__(arg2,arg3,arg4);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_add(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  void *arg2 = (void *) 0 ;
+  std::size_t arg3 ;
+  unsigned long long arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  unsigned long long val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  unsigned long long result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint64_add",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_add" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_add" "', argument " "2"" of type '" "void const *""'");
+  }
+  arg2 = reinterpret_cast< void * >(buf2);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint64_add" "', argument " "3"" of type '" "std::size_t""'");
+  } 
+  arg3 = static_cast< std::size_t >(val3);
+  ecode4 = SWIG_AsVal_unsigned_SS_long_SS_long(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisUint64_add" "', argument " "4"" of type '" "unsigned long long""'");
+  } 
+  arg4 = static_cast< unsigned long long >(val4);
+  result = (unsigned long long)(arg1)->add((void const *)arg2,arg3,arg4);
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_clear(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisUint64_clear",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_clear" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  (arg1)->clear();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_swap(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  madoka::Croquis< unsigned long long > *arg2 = (madoka::Croquis< unsigned long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint64_swap",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_swap" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_swap" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp2);
+  (arg1)->swap(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_copy__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  madoka::Croquis< unsigned long long > *arg2 = 0 ;
+  char *arg3 = (char *) 0 ;
+  int arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int res3 ;
+  char *buf3 = 0 ;
+  int alloc3 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint64_copy",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_copy" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint64_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp2);
+  res3 = SWIG_AsCharPtrAndSize(obj2, &buf3, NULL, &alloc3);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisUint64_copy" "', argument " "3"" of type '" "char const *""'");
+  }
+  arg3 = reinterpret_cast< char * >(buf3);
+  ecode4 = SWIG_AsVal_int(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisUint64_copy" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = static_cast< int >(val4);
+  try {
+    (arg1)->copy(*arg2,(char const *)arg3,arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return resultobj;
+fail:
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_copy__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  madoka::Croquis< unsigned long long > *arg2 = 0 ;
+  char *arg3 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int res3 ;
+  char *buf3 = 0 ;
+  int alloc3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint64_copy",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_copy" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint64_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp2);
+  res3 = SWIG_AsCharPtrAndSize(obj2, &buf3, NULL, &alloc3);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisUint64_copy" "', argument " "3"" of type '" "char const *""'");
+  }
+  arg3 = reinterpret_cast< char * >(buf3);
+  try {
+    (arg1)->copy(*arg2,(char const *)arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return resultobj;
+fail:
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_copy__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  madoka::Croquis< unsigned long long > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint64_copy",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_copy" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint64_copy" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp2);
+  try {
+    (arg1)->copy(*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_copy(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[5];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint64_copy__SWIG_2(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_AsCharPtrAndSize(argv[2], 0, NULL, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_CroquisUint64_copy__SWIG_1(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_AsCharPtrAndSize(argv[2], 0, NULL, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          {
+            int res = SWIG_AsVal_int(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_CroquisUint64_copy__SWIG_0(self, args);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint64_copy'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned long long >::copy(madoka::Croquis< unsigned long long > &,char const *,int)\n"
+    "    madoka::Croquis< unsigned long long >::copy(madoka::Croquis< unsigned long long > &,char const *)\n"
+    "    madoka::Croquis< unsigned long long >::copy(madoka::Croquis< unsigned long long > &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_shrink__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  madoka::Croquis< unsigned long long > *arg2 = 0 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOO:CroquisUint64_shrink",&obj0,&obj1,&obj2,&obj3,&obj4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_shrink" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint64_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint64_shrink" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint64_shrink" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  ecode5 = SWIG_AsVal_int(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "CroquisUint64_shrink" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = static_cast< int >(val5);
+  try {
+    (arg1)->shrink(*arg2,arg3,(char const *)arg4,arg5);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_shrink__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  madoka::Croquis< unsigned long long > *arg2 = 0 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint64_shrink",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_shrink" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint64_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint64_shrink" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint64_shrink" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  try {
+    (arg1)->shrink(*arg2,arg3,(char const *)arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_shrink__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  madoka::Croquis< unsigned long long > *arg2 = 0 ;
+  madoka::UInt64 arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint64_shrink",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_shrink" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint64_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisUint64_shrink" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  try {
+    (arg1)->shrink(*arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_shrink__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  madoka::Croquis< unsigned long long > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint64_shrink",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_shrink" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint64_shrink" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp2);
+  try {
+    (arg1)->shrink(*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_shrink(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[6];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 5) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint64_shrink__SWIG_3(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisUint64_shrink__SWIG_2(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_CroquisUint64_shrink__SWIG_1(self, args);
+          }
+        }
+      }
+    }
+  }
+  if (argc == 5) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            {
+              int res = SWIG_AsVal_int(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              return _wrap_CroquisUint64_shrink__SWIG_0(self, args);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint64_shrink'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned long long >::shrink(madoka::Croquis< unsigned long long > &,madoka::UInt64,char const *,int)\n"
+    "    madoka::Croquis< unsigned long long >::shrink(madoka::Croquis< unsigned long long > &,madoka::UInt64,char const *)\n"
+    "    madoka::Croquis< unsigned long long >::shrink(madoka::Croquis< unsigned long long > &,madoka::UInt64)\n"
+    "    madoka::Croquis< unsigned long long >::shrink(madoka::Croquis< unsigned long long > &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_merge(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  madoka::Croquis< unsigned long long > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint64_merge",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_merge" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_merge" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint64_merge" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp2);
+  try {
+    (arg1)->merge((madoka::Croquis< unsigned long long > const &)*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_inner_product__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  madoka::Croquis< unsigned long long > *arg2 = 0 ;
+  double *arg3 = (double *) 0 ;
+  double *arg4 = (double *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisUint64_inner_product",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_inner_product" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint64_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisUint64_inner_product" "', argument " "3"" of type '" "double *""'"); 
+  }
+  arg3 = reinterpret_cast< double * >(argp3);
+  res4 = SWIG_ConvertPtr(obj3, &argp4,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisUint64_inner_product" "', argument " "4"" of type '" "double *""'"); 
+  }
+  arg4 = reinterpret_cast< double * >(argp4);
+  try {
+    result = (double)((madoka::Croquis< unsigned long long > const *)arg1)->inner_product((madoka::Croquis< unsigned long long > const &)*arg2,arg3,arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_inner_product__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  madoka::Croquis< unsigned long long > *arg2 = 0 ;
+  double *arg3 = (double *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisUint64_inner_product",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_inner_product" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint64_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisUint64_inner_product" "', argument " "3"" of type '" "double *""'"); 
+  }
+  arg3 = reinterpret_cast< double * >(argp3);
+  try {
+    result = (double)((madoka::Croquis< unsigned long long > const *)arg1)->inner_product((madoka::Croquis< unsigned long long > const &)*arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_inner_product__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< unsigned long long > *arg1 = (madoka::Croquis< unsigned long long > *) 0 ;
+  madoka::Croquis< unsigned long long > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisUint64_inner_product",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisUint64_inner_product" "', argument " "1"" of type '" "madoka::Croquis< unsigned long long > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisUint64_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisUint64_inner_product" "', argument " "2"" of type '" "madoka::Croquis< unsigned long long > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< unsigned long long > * >(argp2);
+  try {
+    result = (double)((madoka::Croquis< unsigned long long > const *)arg1)->inner_product((madoka::Croquis< unsigned long long > const &)*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisUint64_inner_product(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[5];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisUint64_inner_product__SWIG_2(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_CroquisUint64_inner_product__SWIG_1(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          void *vptr = 0;
+          int res = SWIG_ConvertPtr(argv[3], &vptr, SWIGTYPE_p_double, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_CroquisUint64_inner_product__SWIG_0(self, args);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisUint64_inner_product'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< unsigned long long >::inner_product(madoka::Croquis< unsigned long long > const &,double *,double *) const\n"
+    "    madoka::Croquis< unsigned long long >::inner_product(madoka::Croquis< unsigned long long > const &,double *) const\n"
+    "    madoka::Croquis< unsigned long long >::inner_product(madoka::Croquis< unsigned long long > const &) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *CroquisUint64_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_madoka__CroquisT_unsigned_long_long_t, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_new_CroquisFloat(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_CroquisFloat")) SWIG_fail;
+  result = (madoka::Croquis< float > *)new madoka::Croquis< float >();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_madoka__CroquisT_float_t, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_CroquisFloat(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_CroquisFloat",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_CroquisFloat" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_create__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  madoka::UInt64 arg6 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  unsigned long long val6 ;
+  int ecode6 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  PyObject * obj5 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOOO:CroquisFloat_create",&obj0,&obj1,&obj2,&obj3,&obj4,&obj5)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_create" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisFloat_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisFloat_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisFloat_create" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  ecode5 = SWIG_AsVal_int(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "CroquisFloat_create" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = static_cast< int >(val5);
+  ecode6 = SWIG_AsVal_unsigned_SS_long_SS_long(obj5, &val6);
+  if (!SWIG_IsOK(ecode6)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode6), "in method '" "CroquisFloat_create" "', argument " "6"" of type '" "madoka::UInt64""'");
+  } 
+  arg6 = static_cast< madoka::UInt64 >(val6);
+  try {
+    (arg1)->create(arg2,arg3,(char const *)arg4,arg5,arg6);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_create__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOO:CroquisFloat_create",&obj0,&obj1,&obj2,&obj3,&obj4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_create" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisFloat_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisFloat_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisFloat_create" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  ecode5 = SWIG_AsVal_int(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "CroquisFloat_create" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = static_cast< int >(val5);
+  try {
+    (arg1)->create(arg2,arg3,(char const *)arg4,arg5);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_create__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisFloat_create",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_create" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisFloat_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisFloat_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisFloat_create" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  try {
+    (arg1)->create(arg2,arg3,(char const *)arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_create__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisFloat_create",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_create" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisFloat_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisFloat_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  try {
+    (arg1)->create(arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_create__SWIG_4(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  madoka::UInt64 arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisFloat_create",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_create" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisFloat_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  try {
+    (arg1)->create(arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_create__SWIG_5(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisFloat_create",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_create" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  try {
+    (arg1)->create();
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_create(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[7];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 6) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_CroquisFloat_create__SWIG_5(self, args);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_CroquisFloat_create__SWIG_4(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisFloat_create__SWIG_3(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_CroquisFloat_create__SWIG_2(self, args);
+          }
+        }
+      }
+    }
+  }
+  if (argc == 5) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            {
+              int res = SWIG_AsVal_int(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              return _wrap_CroquisFloat_create__SWIG_1(self, args);
+            }
+          }
+        }
+      }
+    }
+  }
+  if (argc == 6) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            {
+              int res = SWIG_AsVal_int(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              {
+                int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[5], NULL);
+                _v = SWIG_CheckState(res);
+              }
+              if (_v) {
+                return _wrap_CroquisFloat_create__SWIG_0(self, args);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisFloat_create'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< float >::create(madoka::UInt64,madoka::UInt64,char const *,int,madoka::UInt64)\n"
+    "    madoka::Croquis< float >::create(madoka::UInt64,madoka::UInt64,char const *,int)\n"
+    "    madoka::Croquis< float >::create(madoka::UInt64,madoka::UInt64,char const *)\n"
+    "    madoka::Croquis< float >::create(madoka::UInt64,madoka::UInt64)\n"
+    "    madoka::Croquis< float >::create(madoka::UInt64)\n"
+    "    madoka::Croquis< float >::create()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_open__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisFloat_open",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_open" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_open" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisFloat_open" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  try {
+    (arg1)->open((char const *)arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_open__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisFloat_open",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_open" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_open" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  try {
+    (arg1)->open((char const *)arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_open(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisFloat_open__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisFloat_open__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisFloat_open'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< float >::open(char const *,int)\n"
+    "    madoka::Croquis< float >::open(char const *)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_close(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisFloat_close",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_close" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  (arg1)->close();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_load__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisFloat_load",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_load" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_load" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisFloat_load" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  try {
+    (arg1)->load((char const *)arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_load__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisFloat_load",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_load" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_load" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  try {
+    (arg1)->load((char const *)arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_load(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisFloat_load__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisFloat_load__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisFloat_load'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< float >::load(char const *,int)\n"
+    "    madoka::Croquis< float >::load(char const *)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_save__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisFloat_save",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_save" "', argument " "1"" of type '" "madoka::Croquis< float > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_save" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisFloat_save" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  try {
+    ((madoka::Croquis< float > const *)arg1)->save((char const *)arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_save__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisFloat_save",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_save" "', argument " "1"" of type '" "madoka::Croquis< float > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_save" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  try {
+    ((madoka::Croquis< float > const *)arg1)->save((char const *)arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_save(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisFloat_save__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisFloat_save__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisFloat_save'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< float >::save(char const *,int) const\n"
+    "    madoka::Croquis< float >::save(char const *) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_width(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisFloat_width",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_width" "', argument " "1"" of type '" "madoka::Croquis< float > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< float > const *)arg1)->width();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_width_mask(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisFloat_width_mask",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_width_mask" "', argument " "1"" of type '" "madoka::Croquis< float > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< float > const *)arg1)->width_mask();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_depth(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisFloat_depth",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_depth" "', argument " "1"" of type '" "madoka::Croquis< float > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< float > const *)arg1)->depth();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_max_value(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  float result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisFloat_max_value",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_max_value" "', argument " "1"" of type '" "madoka::Croquis< float > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  result = (float)((madoka::Croquis< float > const *)arg1)->max_value();
+  resultobj = SWIG_From_float(static_cast< float >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_value_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisFloat_value_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_value_size" "', argument " "1"" of type '" "madoka::Croquis< float > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< float > const *)arg1)->value_size();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_seed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisFloat_seed",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_seed" "', argument " "1"" of type '" "madoka::Croquis< float > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< float > const *)arg1)->seed();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_table_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisFloat_table_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_table_size" "', argument " "1"" of type '" "madoka::Croquis< float > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< float > const *)arg1)->table_size();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_file_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisFloat_file_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_file_size" "', argument " "1"" of type '" "madoka::Croquis< float > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< float > const *)arg1)->file_size();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_flags(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisFloat_flags",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_flags" "', argument " "1"" of type '" "madoka::Croquis< float > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  result = (int)((madoka::Croquis< float > const *)arg1)->flags();
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  void *arg2 = (void *) 0 ;
+  std::size_t arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  float result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisFloat_get",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_get" "', argument " "1"" of type '" "madoka::Croquis< float > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_get" "', argument " "2"" of type '" "void const *""'");
+  }
+  arg2 = reinterpret_cast< void * >(buf2);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisFloat_get" "', argument " "3"" of type '" "std::size_t""'");
+  } 
+  arg3 = static_cast< std::size_t >(val3);
+  result = (float)((madoka::Croquis< float > const *)arg1)->get((void const *)arg2,arg3);
+  resultobj = SWIG_From_float(static_cast< float >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_get__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  float result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisFloat_get__",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_get__" "', argument " "1"" of type '" "madoka::Croquis< float > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisFloat_get__" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisFloat_get__" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  result = (float)((madoka::Croquis< float > const *)arg1)->get__(arg2,arg3);
+  resultobj = SWIG_From_float(static_cast< float >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  void *arg2 = (void *) 0 ;
+  std::size_t arg3 ;
+  float arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  float val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisFloat_set",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_set" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_set" "', argument " "2"" of type '" "void const *""'");
+  }
+  arg2 = reinterpret_cast< void * >(buf2);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisFloat_set" "', argument " "3"" of type '" "std::size_t""'");
+  } 
+  arg3 = static_cast< std::size_t >(val3);
+  ecode4 = SWIG_AsVal_float(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisFloat_set" "', argument " "4"" of type '" "float""'");
+  } 
+  arg4 = static_cast< float >(val4);
+  (arg1)->set((void const *)arg2,arg3,arg4);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_set__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  float arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  float val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisFloat_set__",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_set__" "', argument " "1"" of type '" "madoka::Croquis< float > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisFloat_set__" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisFloat_set__" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  ecode4 = SWIG_AsVal_float(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisFloat_set__" "', argument " "4"" of type '" "float""'");
+  } 
+  arg4 = static_cast< float >(val4);
+  ((madoka::Croquis< float > const *)arg1)->set__(arg2,arg3,arg4);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_add(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  void *arg2 = (void *) 0 ;
+  std::size_t arg3 ;
+  float arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  float val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  float result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisFloat_add",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_add" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_add" "', argument " "2"" of type '" "void const *""'");
+  }
+  arg2 = reinterpret_cast< void * >(buf2);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisFloat_add" "', argument " "3"" of type '" "std::size_t""'");
+  } 
+  arg3 = static_cast< std::size_t >(val3);
+  ecode4 = SWIG_AsVal_float(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisFloat_add" "', argument " "4"" of type '" "float""'");
+  } 
+  arg4 = static_cast< float >(val4);
+  result = (float)(arg1)->add((void const *)arg2,arg3,arg4);
+  resultobj = SWIG_From_float(static_cast< float >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_clear(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisFloat_clear",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_clear" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  (arg1)->clear();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_swap(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  madoka::Croquis< float > *arg2 = (madoka::Croquis< float > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisFloat_swap",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_swap" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_swap" "', argument " "2"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< float > * >(argp2);
+  (arg1)->swap(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_copy__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  madoka::Croquis< float > *arg2 = 0 ;
+  char *arg3 = (char *) 0 ;
+  int arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int res3 ;
+  char *buf3 = 0 ;
+  int alloc3 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisFloat_copy",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_copy" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_float_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_copy" "', argument " "2"" of type '" "madoka::Croquis< float > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisFloat_copy" "', argument " "2"" of type '" "madoka::Croquis< float > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< float > * >(argp2);
+  res3 = SWIG_AsCharPtrAndSize(obj2, &buf3, NULL, &alloc3);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisFloat_copy" "', argument " "3"" of type '" "char const *""'");
+  }
+  arg3 = reinterpret_cast< char * >(buf3);
+  ecode4 = SWIG_AsVal_int(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisFloat_copy" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = static_cast< int >(val4);
+  try {
+    (arg1)->copy(*arg2,(char const *)arg3,arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return resultobj;
+fail:
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_copy__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  madoka::Croquis< float > *arg2 = 0 ;
+  char *arg3 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int res3 ;
+  char *buf3 = 0 ;
+  int alloc3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisFloat_copy",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_copy" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_float_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_copy" "', argument " "2"" of type '" "madoka::Croquis< float > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisFloat_copy" "', argument " "2"" of type '" "madoka::Croquis< float > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< float > * >(argp2);
+  res3 = SWIG_AsCharPtrAndSize(obj2, &buf3, NULL, &alloc3);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisFloat_copy" "', argument " "3"" of type '" "char const *""'");
+  }
+  arg3 = reinterpret_cast< char * >(buf3);
+  try {
+    (arg1)->copy(*arg2,(char const *)arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return resultobj;
+fail:
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_copy__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  madoka::Croquis< float > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisFloat_copy",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_copy" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_float_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_copy" "', argument " "2"" of type '" "madoka::Croquis< float > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisFloat_copy" "', argument " "2"" of type '" "madoka::Croquis< float > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< float > * >(argp2);
+  try {
+    (arg1)->copy(*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_copy(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[5];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisFloat_copy__SWIG_2(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_AsCharPtrAndSize(argv[2], 0, NULL, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_CroquisFloat_copy__SWIG_1(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_AsCharPtrAndSize(argv[2], 0, NULL, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          {
+            int res = SWIG_AsVal_int(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_CroquisFloat_copy__SWIG_0(self, args);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisFloat_copy'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< float >::copy(madoka::Croquis< float > &,char const *,int)\n"
+    "    madoka::Croquis< float >::copy(madoka::Croquis< float > &,char const *)\n"
+    "    madoka::Croquis< float >::copy(madoka::Croquis< float > &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_shrink__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  madoka::Croquis< float > *arg2 = 0 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOO:CroquisFloat_shrink",&obj0,&obj1,&obj2,&obj3,&obj4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_shrink" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_float_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_shrink" "', argument " "2"" of type '" "madoka::Croquis< float > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisFloat_shrink" "', argument " "2"" of type '" "madoka::Croquis< float > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< float > * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisFloat_shrink" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisFloat_shrink" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  ecode5 = SWIG_AsVal_int(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "CroquisFloat_shrink" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = static_cast< int >(val5);
+  try {
+    (arg1)->shrink(*arg2,arg3,(char const *)arg4,arg5);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_shrink__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  madoka::Croquis< float > *arg2 = 0 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisFloat_shrink",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_shrink" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_float_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_shrink" "', argument " "2"" of type '" "madoka::Croquis< float > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisFloat_shrink" "', argument " "2"" of type '" "madoka::Croquis< float > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< float > * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisFloat_shrink" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisFloat_shrink" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  try {
+    (arg1)->shrink(*arg2,arg3,(char const *)arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_shrink__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  madoka::Croquis< float > *arg2 = 0 ;
+  madoka::UInt64 arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisFloat_shrink",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_shrink" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_float_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_shrink" "', argument " "2"" of type '" "madoka::Croquis< float > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisFloat_shrink" "', argument " "2"" of type '" "madoka::Croquis< float > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< float > * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisFloat_shrink" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  try {
+    (arg1)->shrink(*arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_shrink__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  madoka::Croquis< float > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisFloat_shrink",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_shrink" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_float_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_shrink" "', argument " "2"" of type '" "madoka::Croquis< float > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisFloat_shrink" "', argument " "2"" of type '" "madoka::Croquis< float > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< float > * >(argp2);
+  try {
+    (arg1)->shrink(*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_shrink(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[6];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 5) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisFloat_shrink__SWIG_3(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisFloat_shrink__SWIG_2(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_CroquisFloat_shrink__SWIG_1(self, args);
+          }
+        }
+      }
+    }
+  }
+  if (argc == 5) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            {
+              int res = SWIG_AsVal_int(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              return _wrap_CroquisFloat_shrink__SWIG_0(self, args);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisFloat_shrink'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< float >::shrink(madoka::Croquis< float > &,madoka::UInt64,char const *,int)\n"
+    "    madoka::Croquis< float >::shrink(madoka::Croquis< float > &,madoka::UInt64,char const *)\n"
+    "    madoka::Croquis< float >::shrink(madoka::Croquis< float > &,madoka::UInt64)\n"
+    "    madoka::Croquis< float >::shrink(madoka::Croquis< float > &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_merge(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  madoka::Croquis< float > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisFloat_merge",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_merge" "', argument " "1"" of type '" "madoka::Croquis< float > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_float_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_merge" "', argument " "2"" of type '" "madoka::Croquis< float > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisFloat_merge" "', argument " "2"" of type '" "madoka::Croquis< float > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< float > * >(argp2);
+  try {
+    (arg1)->merge((madoka::Croquis< float > const &)*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_inner_product__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  madoka::Croquis< float > *arg2 = 0 ;
+  double *arg3 = (double *) 0 ;
+  double *arg4 = (double *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisFloat_inner_product",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_inner_product" "', argument " "1"" of type '" "madoka::Croquis< float > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_float_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_inner_product" "', argument " "2"" of type '" "madoka::Croquis< float > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisFloat_inner_product" "', argument " "2"" of type '" "madoka::Croquis< float > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< float > * >(argp2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisFloat_inner_product" "', argument " "3"" of type '" "double *""'"); 
+  }
+  arg3 = reinterpret_cast< double * >(argp3);
+  res4 = SWIG_ConvertPtr(obj3, &argp4,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisFloat_inner_product" "', argument " "4"" of type '" "double *""'"); 
+  }
+  arg4 = reinterpret_cast< double * >(argp4);
+  try {
+    result = (double)((madoka::Croquis< float > const *)arg1)->inner_product((madoka::Croquis< float > const &)*arg2,arg3,arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_inner_product__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  madoka::Croquis< float > *arg2 = 0 ;
+  double *arg3 = (double *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisFloat_inner_product",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_inner_product" "', argument " "1"" of type '" "madoka::Croquis< float > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_float_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_inner_product" "', argument " "2"" of type '" "madoka::Croquis< float > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisFloat_inner_product" "', argument " "2"" of type '" "madoka::Croquis< float > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< float > * >(argp2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisFloat_inner_product" "', argument " "3"" of type '" "double *""'"); 
+  }
+  arg3 = reinterpret_cast< double * >(argp3);
+  try {
+    result = (double)((madoka::Croquis< float > const *)arg1)->inner_product((madoka::Croquis< float > const &)*arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_inner_product__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< float > *arg1 = (madoka::Croquis< float > *) 0 ;
+  madoka::Croquis< float > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisFloat_inner_product",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_float_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisFloat_inner_product" "', argument " "1"" of type '" "madoka::Croquis< float > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< float > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_float_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisFloat_inner_product" "', argument " "2"" of type '" "madoka::Croquis< float > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisFloat_inner_product" "', argument " "2"" of type '" "madoka::Croquis< float > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< float > * >(argp2);
+  try {
+    result = (double)((madoka::Croquis< float > const *)arg1)->inner_product((madoka::Croquis< float > const &)*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisFloat_inner_product(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[5];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisFloat_inner_product__SWIG_2(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_CroquisFloat_inner_product__SWIG_1(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_madoka__CroquisT_float_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          void *vptr = 0;
+          int res = SWIG_ConvertPtr(argv[3], &vptr, SWIGTYPE_p_double, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_CroquisFloat_inner_product__SWIG_0(self, args);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisFloat_inner_product'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< float >::inner_product(madoka::Croquis< float > const &,double *,double *) const\n"
+    "    madoka::Croquis< float >::inner_product(madoka::Croquis< float > const &,double *) const\n"
+    "    madoka::Croquis< float >::inner_product(madoka::Croquis< float > const &) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *CroquisFloat_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_madoka__CroquisT_float_t, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_new_CroquisDouble(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_CroquisDouble")) SWIG_fail;
+  result = (madoka::Croquis< double > *)new madoka::Croquis< double >();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_madoka__CroquisT_double_t, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_CroquisDouble(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_CroquisDouble",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_CroquisDouble" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_create__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  madoka::UInt64 arg6 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  unsigned long long val6 ;
+  int ecode6 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  PyObject * obj5 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOOO:CroquisDouble_create",&obj0,&obj1,&obj2,&obj3,&obj4,&obj5)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_create" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisDouble_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisDouble_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisDouble_create" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  ecode5 = SWIG_AsVal_int(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "CroquisDouble_create" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = static_cast< int >(val5);
+  ecode6 = SWIG_AsVal_unsigned_SS_long_SS_long(obj5, &val6);
+  if (!SWIG_IsOK(ecode6)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode6), "in method '" "CroquisDouble_create" "', argument " "6"" of type '" "madoka::UInt64""'");
+  } 
+  arg6 = static_cast< madoka::UInt64 >(val6);
+  try {
+    (arg1)->create(arg2,arg3,(char const *)arg4,arg5,arg6);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_create__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOO:CroquisDouble_create",&obj0,&obj1,&obj2,&obj3,&obj4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_create" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisDouble_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisDouble_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisDouble_create" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  ecode5 = SWIG_AsVal_int(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "CroquisDouble_create" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = static_cast< int >(val5);
+  try {
+    (arg1)->create(arg2,arg3,(char const *)arg4,arg5);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_create__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisDouble_create",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_create" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisDouble_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisDouble_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisDouble_create" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  try {
+    (arg1)->create(arg2,arg3,(char const *)arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_create__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisDouble_create",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_create" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisDouble_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisDouble_create" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  try {
+    (arg1)->create(arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_create__SWIG_4(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  madoka::UInt64 arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisDouble_create",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_create" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisDouble_create" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  try {
+    (arg1)->create(arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_create__SWIG_5(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisDouble_create",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_create" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  try {
+    (arg1)->create();
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_create(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[7];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 6) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_CroquisDouble_create__SWIG_5(self, args);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_CroquisDouble_create__SWIG_4(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisDouble_create__SWIG_3(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_CroquisDouble_create__SWIG_2(self, args);
+          }
+        }
+      }
+    }
+  }
+  if (argc == 5) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            {
+              int res = SWIG_AsVal_int(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              return _wrap_CroquisDouble_create__SWIG_1(self, args);
+            }
+          }
+        }
+      }
+    }
+  }
+  if (argc == 6) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            {
+              int res = SWIG_AsVal_int(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              {
+                int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[5], NULL);
+                _v = SWIG_CheckState(res);
+              }
+              if (_v) {
+                return _wrap_CroquisDouble_create__SWIG_0(self, args);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisDouble_create'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< double >::create(madoka::UInt64,madoka::UInt64,char const *,int,madoka::UInt64)\n"
+    "    madoka::Croquis< double >::create(madoka::UInt64,madoka::UInt64,char const *,int)\n"
+    "    madoka::Croquis< double >::create(madoka::UInt64,madoka::UInt64,char const *)\n"
+    "    madoka::Croquis< double >::create(madoka::UInt64,madoka::UInt64)\n"
+    "    madoka::Croquis< double >::create(madoka::UInt64)\n"
+    "    madoka::Croquis< double >::create()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_open__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisDouble_open",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_open" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_open" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisDouble_open" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  try {
+    (arg1)->open((char const *)arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_open__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisDouble_open",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_open" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_open" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  try {
+    (arg1)->open((char const *)arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_open(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisDouble_open__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisDouble_open__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisDouble_open'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< double >::open(char const *,int)\n"
+    "    madoka::Croquis< double >::open(char const *)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_close(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisDouble_close",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_close" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  (arg1)->close();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_load__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisDouble_load",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_load" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_load" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisDouble_load" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  try {
+    (arg1)->load((char const *)arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_load__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisDouble_load",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_load" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_load" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  try {
+    (arg1)->load((char const *)arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_load(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisDouble_load__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisDouble_load__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisDouble_load'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< double >::load(char const *,int)\n"
+    "    madoka::Croquis< double >::load(char const *)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_save__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisDouble_save",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_save" "', argument " "1"" of type '" "madoka::Croquis< double > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_save" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisDouble_save" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  try {
+    ((madoka::Croquis< double > const *)arg1)->save((char const *)arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_save__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisDouble_save",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_save" "', argument " "1"" of type '" "madoka::Croquis< double > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_save" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  try {
+    ((madoka::Croquis< double > const *)arg1)->save((char const *)arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_save(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisDouble_save__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisDouble_save__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisDouble_save'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< double >::save(char const *,int) const\n"
+    "    madoka::Croquis< double >::save(char const *) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_width(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisDouble_width",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_width" "', argument " "1"" of type '" "madoka::Croquis< double > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< double > const *)arg1)->width();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_width_mask(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisDouble_width_mask",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_width_mask" "', argument " "1"" of type '" "madoka::Croquis< double > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< double > const *)arg1)->width_mask();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_depth(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisDouble_depth",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_depth" "', argument " "1"" of type '" "madoka::Croquis< double > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< double > const *)arg1)->depth();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_max_value(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisDouble_max_value",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_max_value" "', argument " "1"" of type '" "madoka::Croquis< double > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  result = (double)((madoka::Croquis< double > const *)arg1)->max_value();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_value_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisDouble_value_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_value_size" "', argument " "1"" of type '" "madoka::Croquis< double > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< double > const *)arg1)->value_size();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_seed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisDouble_seed",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_seed" "', argument " "1"" of type '" "madoka::Croquis< double > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< double > const *)arg1)->seed();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_table_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisDouble_table_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_table_size" "', argument " "1"" of type '" "madoka::Croquis< double > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< double > const *)arg1)->table_size();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_file_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  madoka::UInt64 result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisDouble_file_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_file_size" "', argument " "1"" of type '" "madoka::Croquis< double > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  result = (madoka::UInt64)((madoka::Croquis< double > const *)arg1)->file_size();
+  resultobj = SWIG_From_unsigned_SS_long_SS_long(static_cast< unsigned long long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_flags(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisDouble_flags",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_flags" "', argument " "1"" of type '" "madoka::Croquis< double > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  result = (int)((madoka::Croquis< double > const *)arg1)->flags();
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  void *arg2 = (void *) 0 ;
+  std::size_t arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisDouble_get",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_get" "', argument " "1"" of type '" "madoka::Croquis< double > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_get" "', argument " "2"" of type '" "void const *""'");
+  }
+  arg2 = reinterpret_cast< void * >(buf2);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisDouble_get" "', argument " "3"" of type '" "std::size_t""'");
+  } 
+  arg3 = static_cast< std::size_t >(val3);
+  result = (double)((madoka::Croquis< double > const *)arg1)->get((void const *)arg2,arg3);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_get__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisDouble_get__",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_get__" "', argument " "1"" of type '" "madoka::Croquis< double > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisDouble_get__" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisDouble_get__" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  result = (double)((madoka::Croquis< double > const *)arg1)->get__(arg2,arg3);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  void *arg2 = (void *) 0 ;
+  std::size_t arg3 ;
+  double arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisDouble_set",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_set" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_set" "', argument " "2"" of type '" "void const *""'");
+  }
+  arg2 = reinterpret_cast< void * >(buf2);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisDouble_set" "', argument " "3"" of type '" "std::size_t""'");
+  } 
+  arg3 = static_cast< std::size_t >(val3);
+  ecode4 = SWIG_AsVal_double(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisDouble_set" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  (arg1)->set((void const *)arg2,arg3,arg4);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_set__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  madoka::UInt64 arg2 ;
+  madoka::UInt64 arg3 ;
+  double arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long long val2 ;
+  int ecode2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisDouble_set__",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_set__" "', argument " "1"" of type '" "madoka::Croquis< double > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CroquisDouble_set__" "', argument " "2"" of type '" "madoka::UInt64""'");
+  } 
+  arg2 = static_cast< madoka::UInt64 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisDouble_set__" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  ecode4 = SWIG_AsVal_double(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisDouble_set__" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  ((madoka::Croquis< double > const *)arg1)->set__(arg2,arg3,arg4);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_add(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  void *arg2 = (void *) 0 ;
+  std::size_t arg3 ;
+  double arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisDouble_add",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_add" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_add" "', argument " "2"" of type '" "void const *""'");
+  }
+  arg2 = reinterpret_cast< void * >(buf2);
+  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisDouble_add" "', argument " "3"" of type '" "std::size_t""'");
+  } 
+  arg3 = static_cast< std::size_t >(val3);
+  ecode4 = SWIG_AsVal_double(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisDouble_add" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  result = (double)(arg1)->add((void const *)arg2,arg3,arg4);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_clear(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:CroquisDouble_clear",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_clear" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  (arg1)->clear();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_swap(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  madoka::Croquis< double > *arg2 = (madoka::Croquis< double > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisDouble_swap",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_swap" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_swap" "', argument " "2"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< double > * >(argp2);
+  (arg1)->swap(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_copy__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  madoka::Croquis< double > *arg2 = 0 ;
+  char *arg3 = (char *) 0 ;
+  int arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int res3 ;
+  char *buf3 = 0 ;
+  int alloc3 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisDouble_copy",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_copy" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_double_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_copy" "', argument " "2"" of type '" "madoka::Croquis< double > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisDouble_copy" "', argument " "2"" of type '" "madoka::Croquis< double > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< double > * >(argp2);
+  res3 = SWIG_AsCharPtrAndSize(obj2, &buf3, NULL, &alloc3);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisDouble_copy" "', argument " "3"" of type '" "char const *""'");
+  }
+  arg3 = reinterpret_cast< char * >(buf3);
+  ecode4 = SWIG_AsVal_int(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "CroquisDouble_copy" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = static_cast< int >(val4);
+  try {
+    (arg1)->copy(*arg2,(char const *)arg3,arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return resultobj;
+fail:
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_copy__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  madoka::Croquis< double > *arg2 = 0 ;
+  char *arg3 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int res3 ;
+  char *buf3 = 0 ;
+  int alloc3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisDouble_copy",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_copy" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_double_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_copy" "', argument " "2"" of type '" "madoka::Croquis< double > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisDouble_copy" "', argument " "2"" of type '" "madoka::Croquis< double > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< double > * >(argp2);
+  res3 = SWIG_AsCharPtrAndSize(obj2, &buf3, NULL, &alloc3);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisDouble_copy" "', argument " "3"" of type '" "char const *""'");
+  }
+  arg3 = reinterpret_cast< char * >(buf3);
+  try {
+    (arg1)->copy(*arg2,(char const *)arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return resultobj;
+fail:
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_copy__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  madoka::Croquis< double > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisDouble_copy",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_copy" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_double_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_copy" "', argument " "2"" of type '" "madoka::Croquis< double > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisDouble_copy" "', argument " "2"" of type '" "madoka::Croquis< double > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< double > * >(argp2);
+  try {
+    (arg1)->copy(*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_copy(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[5];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisDouble_copy__SWIG_2(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_AsCharPtrAndSize(argv[2], 0, NULL, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_CroquisDouble_copy__SWIG_1(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_AsCharPtrAndSize(argv[2], 0, NULL, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          {
+            int res = SWIG_AsVal_int(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_CroquisDouble_copy__SWIG_0(self, args);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisDouble_copy'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< double >::copy(madoka::Croquis< double > &,char const *,int)\n"
+    "    madoka::Croquis< double >::copy(madoka::Croquis< double > &,char const *)\n"
+    "    madoka::Croquis< double >::copy(madoka::Croquis< double > &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_shrink__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  madoka::Croquis< double > *arg2 = 0 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOO:CroquisDouble_shrink",&obj0,&obj1,&obj2,&obj3,&obj4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_shrink" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_double_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_shrink" "', argument " "2"" of type '" "madoka::Croquis< double > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisDouble_shrink" "', argument " "2"" of type '" "madoka::Croquis< double > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< double > * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisDouble_shrink" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisDouble_shrink" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  ecode5 = SWIG_AsVal_int(obj4, &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "CroquisDouble_shrink" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = static_cast< int >(val5);
+  try {
+    (arg1)->shrink(*arg2,arg3,(char const *)arg4,arg5);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_shrink__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  madoka::Croquis< double > *arg2 = 0 ;
+  madoka::UInt64 arg3 ;
+  char *arg4 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisDouble_shrink",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_shrink" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_double_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_shrink" "', argument " "2"" of type '" "madoka::Croquis< double > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisDouble_shrink" "', argument " "2"" of type '" "madoka::Croquis< double > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< double > * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisDouble_shrink" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisDouble_shrink" "', argument " "4"" of type '" "char const *""'");
+  }
+  arg4 = reinterpret_cast< char * >(buf4);
+  try {
+    (arg1)->shrink(*arg2,arg3,(char const *)arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return resultobj;
+fail:
+  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_shrink__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  madoka::Croquis< double > *arg2 = 0 ;
+  madoka::UInt64 arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned long long val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisDouble_shrink",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_shrink" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_double_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_shrink" "', argument " "2"" of type '" "madoka::Croquis< double > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisDouble_shrink" "', argument " "2"" of type '" "madoka::Croquis< double > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< double > * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long_SS_long(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "CroquisDouble_shrink" "', argument " "3"" of type '" "madoka::UInt64""'");
+  } 
+  arg3 = static_cast< madoka::UInt64 >(val3);
+  try {
+    (arg1)->shrink(*arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_shrink__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  madoka::Croquis< double > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisDouble_shrink",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_shrink" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_double_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_shrink" "', argument " "2"" of type '" "madoka::Croquis< double > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisDouble_shrink" "', argument " "2"" of type '" "madoka::Croquis< double > &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< double > * >(argp2);
+  try {
+    (arg1)->shrink(*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_shrink(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[6];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 5) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisDouble_shrink__SWIG_3(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_CroquisDouble_shrink__SWIG_2(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_CroquisDouble_shrink__SWIG_1(self, args);
+          }
+        }
+      }
+    }
+  }
+  if (argc == 5) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            {
+              int res = SWIG_AsVal_int(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              return _wrap_CroquisDouble_shrink__SWIG_0(self, args);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisDouble_shrink'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< double >::shrink(madoka::Croquis< double > &,madoka::UInt64,char const *,int)\n"
+    "    madoka::Croquis< double >::shrink(madoka::Croquis< double > &,madoka::UInt64,char const *)\n"
+    "    madoka::Croquis< double >::shrink(madoka::Croquis< double > &,madoka::UInt64)\n"
+    "    madoka::Croquis< double >::shrink(madoka::Croquis< double > &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_merge(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  madoka::Croquis< double > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisDouble_merge",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_merge" "', argument " "1"" of type '" "madoka::Croquis< double > *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_merge" "', argument " "2"" of type '" "madoka::Croquis< double > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisDouble_merge" "', argument " "2"" of type '" "madoka::Croquis< double > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< double > * >(argp2);
+  try {
+    (arg1)->merge((madoka::Croquis< double > const &)*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_inner_product__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  madoka::Croquis< double > *arg2 = 0 ;
+  double *arg3 = (double *) 0 ;
+  double *arg4 = (double *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:CroquisDouble_inner_product",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_inner_product" "', argument " "1"" of type '" "madoka::Croquis< double > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_inner_product" "', argument " "2"" of type '" "madoka::Croquis< double > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisDouble_inner_product" "', argument " "2"" of type '" "madoka::Croquis< double > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< double > * >(argp2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisDouble_inner_product" "', argument " "3"" of type '" "double *""'"); 
+  }
+  arg3 = reinterpret_cast< double * >(argp3);
+  res4 = SWIG_ConvertPtr(obj3, &argp4,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "CroquisDouble_inner_product" "', argument " "4"" of type '" "double *""'"); 
+  }
+  arg4 = reinterpret_cast< double * >(argp4);
+  try {
+    result = (double)((madoka::Croquis< double > const *)arg1)->inner_product((madoka::Croquis< double > const &)*arg2,arg3,arg4);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_inner_product__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  madoka::Croquis< double > *arg2 = 0 ;
+  double *arg3 = (double *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:CroquisDouble_inner_product",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_inner_product" "', argument " "1"" of type '" "madoka::Croquis< double > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_inner_product" "', argument " "2"" of type '" "madoka::Croquis< double > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisDouble_inner_product" "', argument " "2"" of type '" "madoka::Croquis< double > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< double > * >(argp2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "CroquisDouble_inner_product" "', argument " "3"" of type '" "double *""'"); 
+  }
+  arg3 = reinterpret_cast< double * >(argp3);
+  try {
+    result = (double)((madoka::Croquis< double > const *)arg1)->inner_product((madoka::Croquis< double > const &)*arg2,arg3);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_inner_product__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  madoka::Croquis< double > *arg1 = (madoka::Croquis< double > *) 0 ;
+  madoka::Croquis< double > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CroquisDouble_inner_product",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_madoka__CroquisT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CroquisDouble_inner_product" "', argument " "1"" of type '" "madoka::Croquis< double > const *""'"); 
+  }
+  arg1 = reinterpret_cast< madoka::Croquis< double > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_madoka__CroquisT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "CroquisDouble_inner_product" "', argument " "2"" of type '" "madoka::Croquis< double > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "CroquisDouble_inner_product" "', argument " "2"" of type '" "madoka::Croquis< double > const &""'"); 
+  }
+  arg2 = reinterpret_cast< madoka::Croquis< double > * >(argp2);
+  try {
+    result = (double)((madoka::Croquis< double > const *)arg1)->inner_product((madoka::Croquis< double > const &)*arg2);
+  }
+  catch(madoka::Exception &_e) {
+    SWIG_Python_Raise(SWIG_NewPointerObj((new madoka::Exception(static_cast< const madoka::Exception& >(_e))),SWIGTYPE_p_madoka__Exception,SWIG_POINTER_OWN), "madoka::Exception", SWIGTYPE_p_madoka__Exception); SWIG_fail;
+  }
+  
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_CroquisDouble_inner_product(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[5];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? (int)PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_CroquisDouble_inner_product__SWIG_2(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_CroquisDouble_inner_product__SWIG_1(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_madoka__CroquisT_double_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          void *vptr = 0;
+          int res = SWIG_ConvertPtr(argv[3], &vptr, SWIGTYPE_p_double, 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_CroquisDouble_inner_product__SWIG_0(self, args);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'CroquisDouble_inner_product'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    madoka::Croquis< double >::inner_product(madoka::Croquis< double > const &,double *,double *) const\n"
+    "    madoka::Croquis< double >::inner_product(madoka::Croquis< double > const &,double *) const\n"
+    "    madoka::Croquis< double >::inner_product(madoka::Croquis< double > const &) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *CroquisDouble_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_madoka__CroquisT_double_t, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
 
@@ -7607,20 +21304,196 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"Sketch_merge", _wrap_Sketch_merge, METH_VARARGS, NULL},
 	 { (char *)"Sketch_swap", _wrap_Sketch_swap, METH_VARARGS, NULL},
 	 { (char *)"Sketch_inner_product", _wrap_Sketch_inner_product, METH_VARARGS, NULL},
-	 { (char *)"Sketch__get_", _wrap_Sketch__get_, METH_VARARGS, NULL},
-	 { (char *)"Sketch__set_", _wrap_Sketch__set_, METH_VARARGS, NULL},
+	 { (char *)"Sketch_get__", _wrap_Sketch_get__, METH_VARARGS, NULL},
+	 { (char *)"Sketch_set__", _wrap_Sketch_set__, METH_VARARGS, NULL},
 	 { (char *)"Sketch_swigregister", Sketch_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_CroquisUint8", _wrap_new_CroquisUint8, METH_VARARGS, NULL},
+	 { (char *)"delete_CroquisUint8", _wrap_delete_CroquisUint8, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_create", _wrap_CroquisUint8_create, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_open", _wrap_CroquisUint8_open, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_close", _wrap_CroquisUint8_close, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_load", _wrap_CroquisUint8_load, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_save", _wrap_CroquisUint8_save, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_width", _wrap_CroquisUint8_width, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_width_mask", _wrap_CroquisUint8_width_mask, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_depth", _wrap_CroquisUint8_depth, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_max_value", _wrap_CroquisUint8_max_value, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_value_size", _wrap_CroquisUint8_value_size, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_seed", _wrap_CroquisUint8_seed, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_table_size", _wrap_CroquisUint8_table_size, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_file_size", _wrap_CroquisUint8_file_size, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_flags", _wrap_CroquisUint8_flags, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_get", _wrap_CroquisUint8_get, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_get__", _wrap_CroquisUint8_get__, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_set", _wrap_CroquisUint8_set, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_set__", _wrap_CroquisUint8_set__, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_add", _wrap_CroquisUint8_add, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_clear", _wrap_CroquisUint8_clear, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_swap", _wrap_CroquisUint8_swap, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_copy", _wrap_CroquisUint8_copy, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_shrink", _wrap_CroquisUint8_shrink, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_merge", _wrap_CroquisUint8_merge, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_inner_product", _wrap_CroquisUint8_inner_product, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint8_swigregister", CroquisUint8_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_CroquisUint16", _wrap_new_CroquisUint16, METH_VARARGS, NULL},
+	 { (char *)"delete_CroquisUint16", _wrap_delete_CroquisUint16, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_create", _wrap_CroquisUint16_create, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_open", _wrap_CroquisUint16_open, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_close", _wrap_CroquisUint16_close, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_load", _wrap_CroquisUint16_load, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_save", _wrap_CroquisUint16_save, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_width", _wrap_CroquisUint16_width, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_width_mask", _wrap_CroquisUint16_width_mask, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_depth", _wrap_CroquisUint16_depth, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_max_value", _wrap_CroquisUint16_max_value, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_value_size", _wrap_CroquisUint16_value_size, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_seed", _wrap_CroquisUint16_seed, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_table_size", _wrap_CroquisUint16_table_size, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_file_size", _wrap_CroquisUint16_file_size, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_flags", _wrap_CroquisUint16_flags, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_get", _wrap_CroquisUint16_get, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_get__", _wrap_CroquisUint16_get__, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_set", _wrap_CroquisUint16_set, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_set__", _wrap_CroquisUint16_set__, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_add", _wrap_CroquisUint16_add, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_clear", _wrap_CroquisUint16_clear, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_swap", _wrap_CroquisUint16_swap, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_copy", _wrap_CroquisUint16_copy, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_shrink", _wrap_CroquisUint16_shrink, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_merge", _wrap_CroquisUint16_merge, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_inner_product", _wrap_CroquisUint16_inner_product, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint16_swigregister", CroquisUint16_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_CroquisUint32", _wrap_new_CroquisUint32, METH_VARARGS, NULL},
+	 { (char *)"delete_CroquisUint32", _wrap_delete_CroquisUint32, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_create", _wrap_CroquisUint32_create, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_open", _wrap_CroquisUint32_open, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_close", _wrap_CroquisUint32_close, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_load", _wrap_CroquisUint32_load, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_save", _wrap_CroquisUint32_save, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_width", _wrap_CroquisUint32_width, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_width_mask", _wrap_CroquisUint32_width_mask, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_depth", _wrap_CroquisUint32_depth, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_max_value", _wrap_CroquisUint32_max_value, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_value_size", _wrap_CroquisUint32_value_size, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_seed", _wrap_CroquisUint32_seed, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_table_size", _wrap_CroquisUint32_table_size, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_file_size", _wrap_CroquisUint32_file_size, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_flags", _wrap_CroquisUint32_flags, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_get", _wrap_CroquisUint32_get, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_get__", _wrap_CroquisUint32_get__, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_set", _wrap_CroquisUint32_set, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_set__", _wrap_CroquisUint32_set__, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_add", _wrap_CroquisUint32_add, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_clear", _wrap_CroquisUint32_clear, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_swap", _wrap_CroquisUint32_swap, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_copy", _wrap_CroquisUint32_copy, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_shrink", _wrap_CroquisUint32_shrink, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_merge", _wrap_CroquisUint32_merge, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_inner_product", _wrap_CroquisUint32_inner_product, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint32_swigregister", CroquisUint32_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_CroquisUint64", _wrap_new_CroquisUint64, METH_VARARGS, NULL},
+	 { (char *)"delete_CroquisUint64", _wrap_delete_CroquisUint64, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_create", _wrap_CroquisUint64_create, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_open", _wrap_CroquisUint64_open, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_close", _wrap_CroquisUint64_close, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_load", _wrap_CroquisUint64_load, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_save", _wrap_CroquisUint64_save, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_width", _wrap_CroquisUint64_width, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_width_mask", _wrap_CroquisUint64_width_mask, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_depth", _wrap_CroquisUint64_depth, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_max_value", _wrap_CroquisUint64_max_value, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_value_size", _wrap_CroquisUint64_value_size, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_seed", _wrap_CroquisUint64_seed, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_table_size", _wrap_CroquisUint64_table_size, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_file_size", _wrap_CroquisUint64_file_size, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_flags", _wrap_CroquisUint64_flags, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_get", _wrap_CroquisUint64_get, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_get__", _wrap_CroquisUint64_get__, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_set", _wrap_CroquisUint64_set, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_set__", _wrap_CroquisUint64_set__, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_add", _wrap_CroquisUint64_add, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_clear", _wrap_CroquisUint64_clear, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_swap", _wrap_CroquisUint64_swap, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_copy", _wrap_CroquisUint64_copy, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_shrink", _wrap_CroquisUint64_shrink, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_merge", _wrap_CroquisUint64_merge, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_inner_product", _wrap_CroquisUint64_inner_product, METH_VARARGS, NULL},
+	 { (char *)"CroquisUint64_swigregister", CroquisUint64_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_CroquisFloat", _wrap_new_CroquisFloat, METH_VARARGS, NULL},
+	 { (char *)"delete_CroquisFloat", _wrap_delete_CroquisFloat, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_create", _wrap_CroquisFloat_create, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_open", _wrap_CroquisFloat_open, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_close", _wrap_CroquisFloat_close, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_load", _wrap_CroquisFloat_load, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_save", _wrap_CroquisFloat_save, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_width", _wrap_CroquisFloat_width, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_width_mask", _wrap_CroquisFloat_width_mask, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_depth", _wrap_CroquisFloat_depth, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_max_value", _wrap_CroquisFloat_max_value, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_value_size", _wrap_CroquisFloat_value_size, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_seed", _wrap_CroquisFloat_seed, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_table_size", _wrap_CroquisFloat_table_size, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_file_size", _wrap_CroquisFloat_file_size, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_flags", _wrap_CroquisFloat_flags, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_get", _wrap_CroquisFloat_get, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_get__", _wrap_CroquisFloat_get__, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_set", _wrap_CroquisFloat_set, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_set__", _wrap_CroquisFloat_set__, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_add", _wrap_CroquisFloat_add, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_clear", _wrap_CroquisFloat_clear, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_swap", _wrap_CroquisFloat_swap, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_copy", _wrap_CroquisFloat_copy, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_shrink", _wrap_CroquisFloat_shrink, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_merge", _wrap_CroquisFloat_merge, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_inner_product", _wrap_CroquisFloat_inner_product, METH_VARARGS, NULL},
+	 { (char *)"CroquisFloat_swigregister", CroquisFloat_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_CroquisDouble", _wrap_new_CroquisDouble, METH_VARARGS, NULL},
+	 { (char *)"delete_CroquisDouble", _wrap_delete_CroquisDouble, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_create", _wrap_CroquisDouble_create, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_open", _wrap_CroquisDouble_open, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_close", _wrap_CroquisDouble_close, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_load", _wrap_CroquisDouble_load, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_save", _wrap_CroquisDouble_save, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_width", _wrap_CroquisDouble_width, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_width_mask", _wrap_CroquisDouble_width_mask, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_depth", _wrap_CroquisDouble_depth, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_max_value", _wrap_CroquisDouble_max_value, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_value_size", _wrap_CroquisDouble_value_size, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_seed", _wrap_CroquisDouble_seed, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_table_size", _wrap_CroquisDouble_table_size, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_file_size", _wrap_CroquisDouble_file_size, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_flags", _wrap_CroquisDouble_flags, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_get", _wrap_CroquisDouble_get, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_get__", _wrap_CroquisDouble_get__, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_set", _wrap_CroquisDouble_set, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_set__", _wrap_CroquisDouble_set__, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_add", _wrap_CroquisDouble_add, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_clear", _wrap_CroquisDouble_clear, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_swap", _wrap_CroquisDouble_swap, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_copy", _wrap_CroquisDouble_copy, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_shrink", _wrap_CroquisDouble_shrink, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_merge", _wrap_CroquisDouble_merge, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_inner_product", _wrap_CroquisDouble_inner_product, METH_VARARGS, NULL},
+	 { (char *)"CroquisDouble_swigregister", CroquisDouble_swigregister, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
+static swig_type_info _swigt__p_Croquis = {"_p_Croquis", "Croquis *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Filter = {"_p_Filter", "Filter *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Mode = {"_p_Mode", "Mode *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_UInt64 = {"_p_UInt64", "UInt64 *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_double = {"_p_double", "double *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_f_unsigned_long_long__unsigned_long_long = {"_p_f_unsigned_long_long__unsigned_long_long", "madoka_sketch_filter|madoka::Sketch::Filter|unsigned long long (*)(unsigned long long)", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_madoka__CroquisT_double_t = {"_p_madoka__CroquisT_double_t", "madoka::Croquis< double > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_madoka__CroquisT_float_t = {"_p_madoka__CroquisT_float_t", "madoka::Croquis< float > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_madoka__CroquisT_unsigned_char_t = {"_p_madoka__CroquisT_unsigned_char_t", "madoka::Croquis< unsigned char > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_madoka__CroquisT_unsigned_int_t = {"_p_madoka__CroquisT_unsigned_int_t", "madoka::Croquis< unsigned int > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_madoka__CroquisT_unsigned_long_long_t = {"_p_madoka__CroquisT_unsigned_long_long_t", "madoka::Croquis< unsigned long long > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_madoka__CroquisT_unsigned_short_t = {"_p_madoka__CroquisT_unsigned_short_t", "madoka::Croquis< unsigned short > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_madoka__Exception = {"_p_madoka__Exception", "madoka::Exception *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_madoka__Sketch = {"_p_madoka__Sketch", "madoka::Sketch *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_madoka_sketch_ = {"_p_madoka_sketch_", "madoka_sketch_ *|madoka_sketch *", 0, 0, (void*)0, 0};
@@ -7633,11 +21506,19 @@ static swig_type_info _swigt__p_unsigned_int = {"_p_unsigned_int", "madoka_uint3
 static swig_type_info _swigt__p_unsigned_long_long = {"_p_unsigned_long_long", "madoka_uint64 *|uint64_t *|madoka::UInt64 *|unsigned long long *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
+  &_swigt__p_Croquis,
   &_swigt__p_Filter,
   &_swigt__p_Mode,
+  &_swigt__p_UInt64,
   &_swigt__p_char,
   &_swigt__p_double,
   &_swigt__p_f_unsigned_long_long__unsigned_long_long,
+  &_swigt__p_madoka__CroquisT_double_t,
+  &_swigt__p_madoka__CroquisT_float_t,
+  &_swigt__p_madoka__CroquisT_unsigned_char_t,
+  &_swigt__p_madoka__CroquisT_unsigned_int_t,
+  &_swigt__p_madoka__CroquisT_unsigned_long_long_t,
+  &_swigt__p_madoka__CroquisT_unsigned_short_t,
   &_swigt__p_madoka__Exception,
   &_swigt__p_madoka__Sketch,
   &_swigt__p_madoka_sketch_,
@@ -7650,11 +21531,19 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_unsigned_long_long,
 };
 
+static swig_cast_info _swigc__p_Croquis[] = {  {&_swigt__p_Croquis, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Filter[] = {  {&_swigt__p_Filter, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Mode[] = {  {&_swigt__p_Mode, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_UInt64[] = {  {&_swigt__p_UInt64, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_double[] = {  {&_swigt__p_double, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_f_unsigned_long_long__unsigned_long_long[] = {  {&_swigt__p_f_unsigned_long_long__unsigned_long_long, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_madoka__CroquisT_double_t[] = {  {&_swigt__p_madoka__CroquisT_double_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_madoka__CroquisT_float_t[] = {  {&_swigt__p_madoka__CroquisT_float_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_madoka__CroquisT_unsigned_char_t[] = {  {&_swigt__p_madoka__CroquisT_unsigned_char_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_madoka__CroquisT_unsigned_int_t[] = {  {&_swigt__p_madoka__CroquisT_unsigned_int_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_madoka__CroquisT_unsigned_long_long_t[] = {  {&_swigt__p_madoka__CroquisT_unsigned_long_long_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_madoka__CroquisT_unsigned_short_t[] = {  {&_swigt__p_madoka__CroquisT_unsigned_short_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_madoka__Exception[] = {  {&_swigt__p_madoka__Exception, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_madoka__Sketch[] = {  {&_swigt__p_madoka__Sketch, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_madoka_sketch_[] = {  {&_swigt__p_madoka_sketch_, 0, 0, 0},{0, 0, 0, 0}};
@@ -7667,11 +21556,19 @@ static swig_cast_info _swigc__p_unsigned_int[] = {  {&_swigt__p_unsigned_int, 0,
 static swig_cast_info _swigc__p_unsigned_long_long[] = {  {&_swigt__p_unsigned_long_long, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
+  _swigc__p_Croquis,
   _swigc__p_Filter,
   _swigc__p_Mode,
+  _swigc__p_UInt64,
   _swigc__p_char,
   _swigc__p_double,
   _swigc__p_f_unsigned_long_long__unsigned_long_long,
+  _swigc__p_madoka__CroquisT_double_t,
+  _swigc__p_madoka__CroquisT_float_t,
+  _swigc__p_madoka__CroquisT_unsigned_char_t,
+  _swigc__p_madoka__CroquisT_unsigned_int_t,
+  _swigc__p_madoka__CroquisT_unsigned_long_long_t,
+  _swigc__p_madoka__CroquisT_unsigned_short_t,
   _swigc__p_madoka__Exception,
   _swigc__p_madoka__Sketch,
   _swigc__p_madoka_sketch_,
@@ -8384,6 +22281,16 @@ SWIG_init(void) {
   SWIG_addvarlink(SWIG_globals(),(char*)"SKETCH_APPROX_VALUE_SIZE",Swig_var_SKETCH_APPROX_VALUE_SIZE_get, Swig_var_SKETCH_APPROX_VALUE_SIZE_set);
   SWIG_addvarlink(SWIG_globals(),(char*)"SKETCH_OWNER_OFFSET",Swig_var_SKETCH_OWNER_OFFSET_get, Swig_var_SKETCH_OWNER_OFFSET_set);
   SWIG_addvarlink(SWIG_globals(),(char*)"SKETCH_OWNER_MASK",Swig_var_SKETCH_OWNER_MASK_get, Swig_var_SKETCH_OWNER_MASK_set);
+  SWIG_addvarlink(SWIG_globals(),(char*)"CROQUIS_HASH_SIZE",Swig_var_CROQUIS_HASH_SIZE_get, Swig_var_CROQUIS_HASH_SIZE_set);
+  SWIG_addvarlink(SWIG_globals(),(char*)"CROQUIS_ID_SIZE",Swig_var_CROQUIS_ID_SIZE_get, Swig_var_CROQUIS_ID_SIZE_set);
+  SWIG_addvarlink(SWIG_globals(),(char*)"CROQUIS_MAX_ID",Swig_var_CROQUIS_MAX_ID_get, Swig_var_CROQUIS_MAX_ID_set);
+  SWIG_addvarlink(SWIG_globals(),(char*)"CROQUIS_ID_MASK",Swig_var_CROQUIS_ID_MASK_get, Swig_var_CROQUIS_ID_MASK_set);
+  SWIG_addvarlink(SWIG_globals(),(char*)"CROQUIS_MIN_WIDTH",Swig_var_CROQUIS_MIN_WIDTH_get, Swig_var_CROQUIS_MIN_WIDTH_set);
+  SWIG_addvarlink(SWIG_globals(),(char*)"CROQUIS_MAX_WIDTH",Swig_var_CROQUIS_MAX_WIDTH_get, Swig_var_CROQUIS_MAX_WIDTH_set);
+  SWIG_addvarlink(SWIG_globals(),(char*)"CROQUIS_DEFAULT_WIDTH",Swig_var_CROQUIS_DEFAULT_WIDTH_get, Swig_var_CROQUIS_DEFAULT_WIDTH_set);
+  SWIG_addvarlink(SWIG_globals(),(char*)"CROQUIS_MIN_DEPTH",Swig_var_CROQUIS_MIN_DEPTH_get, Swig_var_CROQUIS_MIN_DEPTH_set);
+  SWIG_addvarlink(SWIG_globals(),(char*)"CROQUIS_MAX_DEPTH",Swig_var_CROQUIS_MAX_DEPTH_get, Swig_var_CROQUIS_MAX_DEPTH_set);
+  SWIG_addvarlink(SWIG_globals(),(char*)"CROQUIS_DEFAULT_DEPTH",Swig_var_CROQUIS_DEFAULT_DEPTH_get, Swig_var_CROQUIS_DEFAULT_DEPTH_set);
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else

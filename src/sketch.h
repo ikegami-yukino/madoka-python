@@ -208,8 +208,8 @@ class Sketch {
   double inner_product(const Sketch &rhs, double *lhs_square_length = NULL,
       double *rhs_square_length = NULL) const throw(Exception);
 
-  UInt64 _get_(UInt64 table_id, UInt64 cell_id) const throw();
-  void _set_(UInt64 table_id, UInt64 cell_id, UInt64 value) throw();
+  UInt64 get__(UInt64 table_id, UInt64 cell_id) const throw();
+  void set__(UInt64 table_id, UInt64 cell_id, UInt64 value) throw();
 
  private:
   File file_;

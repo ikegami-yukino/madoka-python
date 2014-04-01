@@ -22,3 +22,10 @@ typedef unsigned long long uint64_t;
 %include "src/util.h"
 %include "src/exception.h"
 %include "src/sketch.h"
+%include "src/croquis.h"
+%template(CroquisUint8) madoka::Croquis<unsigned char>;
+%template(CroquisUint16) madoka::Croquis<unsigned short>;
+%template(CroquisUint32) madoka::Croquis<unsigned int>;
+%template(CroquisUint64) madoka::Croquis<unsigned long long>;
+%template(CroquisFloat) madoka::Croquis<float>;
+%template(CroquisDouble) madoka::Croquis<double>;
