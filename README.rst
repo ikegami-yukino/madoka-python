@@ -264,7 +264,10 @@ Get inner product of two sketches
 
  >>> sketch.inner_product(other_sketch)
 
-- int inner_product(Sketch)
+- float inner_product(Sketch[, length=False])
+
+  - If length is True, then inner_product method returns inner product, square length of left hands sketch (float), and square length of right hands sketch (float)
+
 
 Apply filter into all values
 --------------------------------------------

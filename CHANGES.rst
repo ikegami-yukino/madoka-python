@@ -2,6 +2,13 @@
 CHANGES
 =======
 
+0.5 (2014-04-08)
+----------------
+
+- Add Croquis classes handling some data types (e.g., float, uint8)
+- Given length=True to inner product method, returns also square length of both left hands and right hands sketch
+- Add fromdict method
+
 0.4 (2014-03-30)
 ----------------
 
