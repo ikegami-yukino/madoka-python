@@ -123,13 +123,14 @@ class MadokaTest(object):
         sketch['mami'] = 2
         sketch['homura'] = 1
         sketch['kyouko'] = 2
-        sketch['sayaka'] = 2
 
         new_sketch = madoka.Sketch(width=100)
         new_sketch['mami'] = 2
         new_sketch['kyouko'] = 3
-        new_sketch['sayaka'] = 10
-        assert_equal(new_sketch.inner_product(sketch), 30)
+        assert_equal(sketch.inner_product(new_sketch), 10)
+
+        got = sketch.inner_product(new_sketch, length=True)
+        assert_equal(got, (10, 8, 13))
 
     def test_filter(self):
         sketch = madoka.Sketch(width=100)
