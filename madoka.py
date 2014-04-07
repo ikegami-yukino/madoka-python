@@ -404,14 +404,34 @@ class _Madoka(_object):
         else:
             self.merge_method(self, rhs)
 
-    def inner_product(self, sketch):
+    def inner_product(self, sketch, length=False):
         """Inner product of two sketches
         Params:
             <Sketch> sketch
         Return:
-            <float> inner_product
+            if length:
+                <float> inner_product
+                <float> lhs_square_length
+                <float> rhs_square_length
+            else:
+                <float> inner_product
         """
-        return self.inner_product_method(self, sketch)
+        if length:
+            table_id = 0
+            inner_product = 0.0
+            lhs_square_length = 0
+            rhs_square_length = 0.0
+            get = self.get___method
+            for cell_id in range(self.width()):
+                lhs_value = get(self, table_id, cell_id)
+                rhs_value = sketch.get___method(sketch, table_id, cell_id)
+                if lhs_value and rhs_value:
+                    inner_product += lhs_value * rhs_value
+                    lhs_square_length += lhs_value * lhs_value
+                    rhs_square_length += rhs_value * rhs_value
+            return (inner_product, lhs_square_length, rhs_square_length)
+        else:
+            return self.inner_product_method(self, sketch)
 
     def filter(self, given_filter, only_nonzero=False):
         """Apply filter into all values
