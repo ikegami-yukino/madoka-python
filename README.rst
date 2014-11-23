@@ -5,7 +5,8 @@ madoka
 .. image:: https://travis-ci.org/ikegami-yukino/madoka-python.svg?branch=master
     :target: https://travis-ci.org/ikegami-yukino/madoka-python
 .. image:: https://coveralls.io/repos/ikegami-yukino/madoka-python/badge.png
-  :target: https://coveralls.io/r/ikegami-yukino/madoka-python
+    :target: https://coveralls.io/r/ikegami-yukino/madoka-python
+
 
 Madoka is an implementation of a Count-Min sketch data structure for summarizing data streams.
 
@@ -16,7 +17,6 @@ Based on `madoka`_ C++ library.
 .. _madoka: https://github.com/s-yata/madoka
 
 NOTE: Madoka-Sketch does not have index of keys. so Madoka-Sketch can not dump all keys such as Python dict's `dict.keys()`.
-
 
 Installation
 ============
@@ -47,7 +47,6 @@ For example, if you wants to count float data, it's preferable to choose Croquis
 - CroquisUint64
   - storing unsigned long long (64bit)
 
-
 Usage
 =====
 
@@ -55,6 +54,7 @@ From here, I will describe about Sketch class.
 But, Croquis classes have also same interfaces mostly.
 So you can use other classes by the same way as Sketch class.
 In that case, you should replace to intended class from "Sketch".
+
 
 Create a new sketch
 --------------------------------------------
@@ -64,11 +64,11 @@ Create a new sketch
  >>> import madoka
  >>> sketch = madoka.Sketch()
 
-
 - Sketch madoka.Sketch([width=0, max_value=0, path='', flags=0, seed=0])
 
   - Permission of file given to `path` should be 644
-  - `madoka.Sketch()` calls `madoka.Sketch.create()`, so you don't have to explicitly call `create() ` in initialization
+
+  - `madoka.Sketch()` calls `madoka.Sketch.create()`, so you don't have to explicitly call `create()` in initialization
 
 
 Increment a key value
@@ -107,6 +107,7 @@ or
 - int add(key, value[, key_length=0])
 
   - Note that `key_length` is automatically determined when not giving `key_length`. Thus, the order of parameters differs from original madoka C++ library.
+
 
 
 Update a key value
@@ -207,7 +208,6 @@ Initialize a sketch with settings change
 
   - Permission of file given to `path` should be 644
 
-
 Copy a sketch
 --------------------------------------------
 
@@ -246,6 +246,7 @@ Shrink a sketch
 - void shrink(Sketch[, width=0, max_value=0, filter=None, path=None, flags=0])
 
   - When width > 0, width must be less than source sketch
+
   - Permission of file given to `path` should be 644
 
 
@@ -259,7 +260,7 @@ Get summed sketch
 - Create summed sketch, So it does not break original sketches
 
 Get summed sketch by dict
------------------------
+--------------------------
 
 ::
 
@@ -298,6 +299,7 @@ Apply filter into all values
 - void filter(Callable[, apply_zerovalue=False])
 
   - If apply_zerovalue = True, filter_method is applied also 0 values (It may be slow) (from version 0.6 or later)
+
   - Note that processing time increases according to sketch's width. If you feel this method is slow, I recommend setting width to less than 1000000 when creating sketch
 
 Set values from dict
@@ -317,6 +319,7 @@ or
 - void fromdict(dict)
 
 
+
 TODO
 =========
 
@@ -330,5 +333,4 @@ License
 
 - Wrapper code is licensed under New BSD License.
 - Bundled `madoka`_ C++ library is licensed under the Simplified BSD License.
-
 

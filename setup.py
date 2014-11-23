@@ -17,7 +17,7 @@ setup(
         author_email='yukinoik@icloud.com',
         url='https://github.com/ikegami-yukino/madoka-python',
         description = """Memory-efficient CountMin Sketch key-value structure (based on Madoka C++ library)""",
-        long_description = open('README.rst').read() + "\n\n" + open('CHANGES.rst').read(),
+        long_description = open('README.rst').read() + "\n" + open('CHANGES.rst').read(),
 
         packages=['madoka'],
         ext_modules=[
