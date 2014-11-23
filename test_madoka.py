@@ -2,6 +2,7 @@
 from nose.tools import assert_equal, assert_true
 import madoka
 import os
+import tempfile
 
 
 class MadokaTest(object):
@@ -89,20 +90,21 @@ class MadokaTest(object):
 
     def test_save_and_load(self):
         try:
-            filename = 'test.madoka'
-            sketch = self.target_class(width=100)
-            sketch['mami'] = 14
-            sketch.save(filename)
-            assert_true(os.path.exists(filename))
+            sketch_file = tempfile.mktemp()
 
             sketch = self.target_class(width=100)
-            sketch.load(filename)
+            sketch['mami'] = 14
+            sketch.save(sketch_file)
+            assert_true(os.path.exists(sketch_file))
+
+            sketch = self.target_class(width=100)
+            sketch.load(sketch_file)
             assert_equal(sketch['mami'], 14)
             sketch = self.target_class(width=100)
-            sketch.open(filename)
+            sketch.open(sketch_file)
             assert_equal(sketch['mami'], 14)
         finally:
-            os.remove(filename)
+            os.remove(sketch_file)
 
     def test_copy(self):
         sketch = self.target_class(width=100)
