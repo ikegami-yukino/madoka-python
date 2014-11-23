@@ -409,7 +409,7 @@ class _Madoka(_object):
         """
         return self.inner_product_method(self, sketch)
 
-    def filter(self, given_filter, only_nonzero=False):
+    def filter(self, given_filter, apply_zerovalue=False):
         """Apply filter into all values
         Params
             <lambda> | <function> given_filter
@@ -421,7 +421,7 @@ class _Madoka(_object):
         for table_id in range(self.depth):
             for cell_id in range(self.width):
                 val = get_(self, table_id, cell_id)
-                if (not only_nonzero) or (only_nonzero and val > 0):
+                if val or apply_zerovalue:
                     val = given_filter(val)
                     val = max_value if val > max_value else val
                     set_(self, table_id, cell_id, val)

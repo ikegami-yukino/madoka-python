@@ -130,8 +130,13 @@ class MadokaTest(object):
         filter_method = lambda x: x * 2
         sketch.filter(filter_method)
         assert_equal(sketch['mami'], 4)
-        sketch.filter(filter_method, only_nonzero=True)
-        assert_equal(sketch['mami'], 8)
+
+        sketch = self.target_class(width=100)
+        sketch['mami'] = 2
+        neg_sign = lambda x: 0 if x else 1
+        sketch.filter(neg_sign, apply_zerovalue=True)
+        assert_equal(sketch['mami'], 0)
+        assert_equal(sketch['homura'], 1)
 
     def test_merge(self):
         sketch = self.target_class(width=1000)
