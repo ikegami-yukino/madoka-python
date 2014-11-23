@@ -149,6 +149,11 @@ class MadokaTest(object):
         got = [i for i in sketch.values()]
         assert_equal(set(got), set([2, 3]))
 
+    def test_with_statement(self):
+        with self.target_class() as m:
+            m['test'] += 1
+        assert_true(True)
+
 
 class Test_Sketch(MadokaTest):
 

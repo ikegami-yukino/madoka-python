@@ -151,6 +151,13 @@ class _Madoka(_object):
             method_name += '_method'
             setattr(self, method_name, method)
 
+    def __enter__(self, *args, **kargs):
+        self.create(*args, **kargs)
+        return self
+
+    def __exit__(self, type, value, traceback):
+        self.close()
+
     def __len__(self):
         return self.file_size
 
