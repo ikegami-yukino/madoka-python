@@ -26,7 +26,7 @@ Installation
 Class
 ============
 
-Madoka has some classes having same interface. So you can choose for your purpose.
+Madoka has some classes having same interface. These classes are vary in value data type. So you can choose for your purpose.
 
 For example, if you wants to count float data, it's preferable to choose CroquisFloat class or CroquisDouble class.
 
@@ -49,8 +49,9 @@ For example, if you wants to count float data, it's preferable to choose Croquis
 Usage
 =====
 
-I will describe about Sketch class.
-You can use other classes by the same way as Sketch class.
+From here, I will describe about Sketch class.
+But, Croquis classes have also same interfaces mostly.
+So you can use other classes by the same way as Sketch class.
 In that case, you should replace to intended class from "Sketch".
 
 Create a new sketch
@@ -64,7 +65,8 @@ Create a new sketch
 
 - Sketch madoka.Sketch([width=0, max_value=0, path='', flags=0, seed=0])
 
-  - `madoka.Sketch()` calls `madoka.Sketch.create()`, so you don't have to explicitly call `create()`
+  - Permission of file given to `path` should be 644
+  - `madoka.Sketch()` calls `madoka.Sketch.create()`, so you don't have to explicitly call `create() ` in initialization
 
 
 Increment a key value
@@ -156,7 +158,7 @@ Get all values
 
 - generator<int> values()
 
-  - Note that processing time increases according to sketch's width. If you feel slow, I recommend setting width to less than 1000000 when creating sketch.
+  - Note that processing time increases according to sketch's width. But this method may be slow, so I recommend setting width to less than 1000000 when creating sketch.
 
 Save a sketch to a file
 --------------------------------------------
@@ -165,8 +167,9 @@ Save a sketch to a file
 
  >>> sketch.save('example.madoka')
 
-- void save(filename)
+- void save(path)
 
+  - Permission of file given to `path` should be 644
 
 Load a sketch from a file
 --------------------------------------------
@@ -175,8 +178,9 @@ Load a sketch from a file
 
  >>> sketch.load('example.madoka')
 
-- void load(filename)
+- void load(path)
 
+  - Permission of file given to `path` should be 644
 
 Clear a sketch
 --------------------------------------------
@@ -187,7 +191,7 @@ Clear a sketch
 
 - void clear()
 
-  * Delete all key-value pairs. It differs from create() in maintaining current settings.
+  * Delete all key-value pairs. It differs from `create()` in maintaining current settings.
 
 
 Initialize a sketch with settings change
@@ -198,6 +202,8 @@ Initialize a sketch with settings change
  >>> sketch.create()
 
 - void create([width=0, max_value=0, path=NULL, flags=0, seed=0])
+
+  - Permission of file given to `path` should be 644
 
 
 Copy a sketch
@@ -238,6 +244,7 @@ Shrink a sketch
 - void shrink(Sketch[, width=0, max_value=0, filter=None, path=None, flags=0])
 
   - When width > 0, width must be less than source sketch
+  - Permission of file given to `path` should be 644
 
 
 Get summed sketch
@@ -247,7 +254,17 @@ Get summed sketch
 
  >>> summed_sketch = sketch + other_sketch
 
-- It does not break original sketches
+- Create summed sketch, So it does not break original sketches
+
+Get summed sketch by dict
+-----------------------
+
+::
+
+ >>> summed_sketch = sketch + {'mami': 1, 'kyoko': 2}
+
+- Create summed sketch, So it does not break original sketches
+
 
 Check whether sketch contains key value
 -----------------------------------------
@@ -264,9 +281,9 @@ Get inner product of two sketches
 
  >>> sketch.inner_product(other_sketch)
 
-- float inner_product(Sketch[, length=False])
+- list<float> inner_product(Sketch)
 
-  - If length is True, then inner_product method returns inner product, square length of left hands sketch (float), and square length of right hands sketch (float)
+  - Returns [inner product, square length of left hands sketch (float), square length of right hands sketch (float)]
 
 
 Apply filter into all values
@@ -276,8 +293,9 @@ Apply filter into all values
 
  >>> sketch.filter(lambda x: x + 1)
 
-- void filter(Callable[, only_nonzero=False])
+- void filter(Callable[, apply_zerovalue=False])
 
+  - If apply_zerovalue = True, filter_method is applied also 0 values (It may be slow) (from version 0.6 or later)
   - Note that processing time increases according to sketch's width. If you feel this method is slow, I recommend setting width to less than 1000000 when creating sketch
 
 Set values from dict
@@ -287,12 +305,20 @@ Set values from dict
 
  >>> sketch.fromdict({'mami': 14, 'madoka': 13})
 
+or 
+
+::
+
+ >>> sketch += {'mami': 14, 'madoka': 13}
+
+
 - void fromdict(dict)
+
 
 TODO
 =========
 
-- Implement getting sketch length on inner_product method
+- Benchmark score about memory usage compared with Python standard dict and Redis
 
 Contributions are welcome!
 
