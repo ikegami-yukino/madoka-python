@@ -3,13 +3,14 @@ from nose.tools import assert_equal, assert_true
 import madoka
 import os
 import tempfile
+import numbers
 
 
 class MadokaTest(object):
 
     def test___len__(self):
         sketch = self.target_class(width=100)
-        assert_equal(type(len(sketch)), int)
+        assert_true(isinstance(len(sketch), numbers.Integral))
 
     def test___contains__(self):
         sketch = self.target_class(width=100)
@@ -173,19 +174,19 @@ class MadokaTest(object):
 
     def test_width_mask(self):
         sketch = self.target_class(width=100)
-        assert_equal(type(sketch.width_mask), int)
+        assert_true(isinstance(sketch.width_mask, numbers.Integral))
 
     def test_value_size(self):
         sketch = self.target_class(width=100)
-        assert_equal(type(sketch.value_size), int)
+        assert_true(isinstance(sketch.value_size, numbers.Integral))
 
     def test_table_size(self):
         sketch = self.target_class(width=100)
-        assert_equal(type(sketch.table_size), int)
+        assert_true(isinstance(sketch.table_size, numbers.Integral))
 
     def test_flags(self):
         sketch = self.target_class(width=100)
-        assert_equal(type(sketch.flags), int)
+        assert_true(isinstance(sketch.flags, numbers.Integral))
 
 
 class Test_Sketch(MadokaTest):
@@ -218,11 +219,11 @@ class Test_Sketch(MadokaTest):
 
     def test_value_mask(self):
         sketch = self.target_class(width=100)
-        assert_equal(type(sketch.value_mask), int)
+        assert_true(isinstance(sketch.value_mask, numbers.Integral))
 
     def test_mode(self):
         sketch = self.target_class(width=100)
-        assert_equal(type(sketch.mode), int)
+        assert_true(isinstance(sketch.mode, numbers.Integral))
 
 
 class Test_CroquisUint8(MadokaTest):
