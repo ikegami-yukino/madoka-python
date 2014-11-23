@@ -2,6 +2,19 @@
 CHANGES
 =======
 
+0.6 (2014-11-23)
+----------------
+
+- Support Python 3.4
+- Improve processing time of `inner_product()`
+- Fix `shrink()` method bug
+- Change `filter()` methods param
+- Support with-statement
+- Implement increment-add from dict
+  - (e.g.) summed_sketch = sketch + dict
+    sketch += dict
+
+
 0.5 (2014-04-08)
 ----------------
 

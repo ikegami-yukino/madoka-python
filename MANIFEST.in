@@ -1,3 +1,4 @@
 include *.rst
 include src/*
 include LICENSE
+include madoka/*

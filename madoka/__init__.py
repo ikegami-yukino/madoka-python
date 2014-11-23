@@ -1,5 +1,7 @@
 from . import madoka
 
+VERSION = (0, 6)
+__version__ = '0.6'
 __all__ = ['Sketch', 'CroquisUint8', 'CroquisUint16', 'CroquisUint32',
            'CroquisUint64', 'CroquisFloat', 'CroquisDouble']
 
