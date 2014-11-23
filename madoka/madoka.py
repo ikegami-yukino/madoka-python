@@ -187,28 +187,32 @@ class _Madoka(_object):
         """
         return self.get_method(self, key, len(key)) > 0
 
-    def __add__(self, given_sketch):
+    def __add__(self, given_data):
         """Get merged sketch
         summed_sketch = sketch + sketch
+        or
+        summed_sketch = sketch + dict
         Param:
-            <Sketch> given_sketch
+            <Sketch> | <dict> given_data
         Return:
             <Sketch> summed_sketch
         """
         summed_sketch = self.__class__(width=self.width, depth=self.depth, seed=self.seed)
         summed_sketch.copy(self)
-        self.merge_method(summed_sketch, given_sketch)
-        return summed_sketch
+        return summed_sketch.__iadd__(given_data)
 
-    def __iadd__(self, given_sketch):
+    def __iadd__(self, given_data):
         """Merge sketch
         sketch += sketch
         Param:
-            <Sketch> given_sketch
+            <Sketch> | <dict> given_data
         Return:
             <Sketch> sketch
         """
-        self.merge_method(self, given_sketch)
+        if hasattr(given_data, 'items'):
+            self.fromdict(given_data, 'add')
+        else:
+            self.merge_method(self, given_data)
         return self
 
     def create(self, width=0, depth=0, path=None, flags=0, seed=0):
@@ -434,18 +438,21 @@ class _Madoka(_object):
             if val:
                 yield val
 
-    def fromdict(self, src_dict):
+    def fromdict(self, src_dict, method='set'):
         """Set values from dict
         Params:
-            <dict> <str> <int> src_dict
+            <dict <str> <int>> src_dict
         """
-        set_method = self.set_method
+        if method == 'set':
+            _method = self.set_method
+        else:
+            _method = self.add_method
         if hasattr(src_dict, 'iteritems'):
             for (key, val) in src_dict.iteritems():
-                set_method(self, key, len(key), val)
+                _method(self, key, len(key), val)
         else:
             for (key, val) in src_dict.items():
-                set_method(self, key, len(key), val)
+                _method(self, key, len(key), val)
 
     @property
     def width(self):
@@ -496,18 +503,17 @@ class Sketch(_Madoka):
         self.setattrs()
         return _madoka.Sketch_create(self, width, max_value, path, flags, seed)
 
-    def __add__(self, given_sketch):
+    def __add__(self, given_data):
         """Get merged sketch
         summed_sketch = sketch + sketch
         Param:
-            <Sketch> given_sketch
+            <Sketch> | <dict> given_data
         Return:
             <Sketch> summed_sketch
         """
         summed_sketch = Sketch(width=self.width, max_value=self.max_value, seed=self.seed)
         summed_sketch.copy(self)
-        _madoka.Sketch_merge(summed_sketch, given_sketch)
-        return summed_sketch
+        return summed_sketch.__iadd__(given_data)
 
     def create(self, width=0, max_value=0, path=None, flags=0, seed=0):
         """Create new sketch

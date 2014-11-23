@@ -30,8 +30,9 @@ class MadokaTest(object):
         other_sketch.inc('mami')
         new_sketch = sketch + other_sketch
         assert_equal(new_sketch['mami'], 2)
-        assert_equal(sketch['mami'], 1)
-        assert_equal(other_sketch['mami'], 1)
+
+        new_sketch = sketch + {'mami': 1, 'madoka': 2}
+        assert_equal(new_sketch['mami'], 2)
 
     def test___iadd__(self):
         sketch = self.target_class(width=100)
@@ -41,6 +42,11 @@ class MadokaTest(object):
         sketch += other_sketch
         assert_equal(sketch['mami'], 2)
         assert_equal(other_sketch['mami'], 1)
+
+        sketch = self.target_class(width=100)
+        sketch.inc('mami')
+        sketch += {'mami': 2}
+        assert_equal(sketch['mami'], 3)
 
     def test_add(self):
         sketch = self.target_class(width=100)
