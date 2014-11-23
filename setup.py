@@ -38,6 +38,7 @@ setup(
             'Programming Language :: Python :: 3',
             'Programming Language :: Python :: 3.2',
             'Programming Language :: Python :: 3.3',
+            'Programming Language :: Python :: 3.4',
             'Topic :: Software Development :: Libraries :: Python Modules',
             'Topic :: Scientific/Engineering :: Information Analysis',
             'Topic :: Text Processing :: Linguistic',
