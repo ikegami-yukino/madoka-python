@@ -31,10 +31,6 @@
 #include "header.h"
 #include "random.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif  // __cplusplus
-
 typedef madoka_uint64 (*madoka_sketch_filter)(madoka_uint64);
 
 typedef enum {
@@ -44,65 +40,6 @@ typedef enum {
 
 typedef struct madoka_sketch_ madoka_sketch;
 
-madoka_sketch *madoka_create(madoka_uint64 width, madoka_uint64 max_value,
-                             const char *path, int flags, madoka_uint64 seed,
-                             const char **what);
-
-madoka_sketch *madoka_open(const char *path, int flags, const char **what);
-
-void madoka_close(madoka_sketch *sketch);
-
-madoka_sketch *madoka_load(const char *path, int flags, const char **what);
-
-int madoka_save(const madoka_sketch *sketch, const char *path, int flags,
-                const char **what);
-
-madoka_uint64 madoka_get_width(const madoka_sketch *sketch);
-madoka_uint64 madoka_get_width_mask(const madoka_sketch *sketch);
-madoka_uint64 madoka_get_depth(const madoka_sketch *sketch);
-madoka_uint64 madoka_get_max_value(const madoka_sketch *sketch);
-madoka_uint64 madoka_get_value_mask(const madoka_sketch *sketch);
-madoka_uint64 madoka_get_value_size(const madoka_sketch *sketch);
-madoka_uint64 madoka_get_seed(const madoka_sketch *sketch);
-madoka_uint64 madoka_get_table_size(const madoka_sketch *sketch);
-madoka_uint64 madoka_get_file_size(const madoka_sketch *sketch);
-int madoka_get_flags(const madoka_sketch *sketch);
-madoka_sketch_mode madoka_get_mode(const madoka_sketch *sketch);
-
-madoka_uint64 madoka_get(const madoka_sketch *sketch, const void *key_addr,
-                         size_t key_size);
-void madoka_set(madoka_sketch *sketch, const void *key_addr,
-                size_t key_size, madoka_uint64 value);
-madoka_uint64 madoka_inc(madoka_sketch *sketch, const void *key_addr,
-                         size_t key_size);
-madoka_uint64 madoka_add(madoka_sketch *sketch, const void *key_addr,
-                         size_t key_size, madoka_uint64 value);
-
-void madoka_clear(madoka_sketch *sketch);
-
-madoka_sketch *madoka_copy(const madoka_sketch *src, const char *path,
-                           int flags, const char **what);
-
-void madoka_filter(madoka_sketch *sketch, madoka_sketch_filter filter);
-
-madoka_sketch *madoka_shrink(const madoka_sketch *src,
-                             madoka_uint64 width, madoka_uint64 max_value,
-                             madoka_sketch_filter filter, const char *path,
-                             int flags, const char **what);
-
-int madoka_merge(madoka_sketch *lhs, const madoka_sketch *rhs,
-                 madoka_sketch_filter lhs_filter,
-                 madoka_sketch_filter rhs_filter, const char **what);
-
-void madoka_swap(madoka_sketch *lhs, madoka_sketch *rhs);
-
-int madoka_inner_product(const madoka_sketch *lhs, const madoka_sketch *rhs,
-                         double *inner_product, double *lhs_square_length,
-                         double *rhs_square_length, const char **what);
-
-#ifdef __cplusplus
-}  // extern "C"
-#endif  // __cplusplus
 
 #ifdef __cplusplus
 namespace madoka {
