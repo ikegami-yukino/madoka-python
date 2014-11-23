@@ -4,7 +4,7 @@ from distutils.extension import Extension
 import glob
 
 MADOKA_FILES = glob.glob('src/*.cc')
-setup (
+setup(
         name = 'madoka',
         version = '0.5',
         author = "Yukino Ikegami",
@@ -13,7 +13,7 @@ setup (
         description = """Memory-efficient CountMin Sketch key-value structure (based on Madoka C++ library)""",
         long_description = open('README.rst').read() + "\n\n" + open('CHANGES.rst').read(),
 
-        py_modules = ["madoka"],
+        packages=['madoka'],
         ext_modules = [
             Extension('_madoka',
             sources=['madoka_wrap.cxx'] + MADOKA_FILES,
@@ -21,7 +21,7 @@ setup (
             ),
         ],
 
-        cmdclass = {'build_ext': build_ext },
+        cmdclass = {'build_ext': build_ext},
 
         license = 'New BSD License',
         keywords = ['Count-Min Sketch', 'counter', 'word count'],
