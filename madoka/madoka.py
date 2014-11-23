@@ -152,7 +152,7 @@ class _Madoka(_object):
             setattr(self, method_name, method)
 
     def __len__(self):
-        return self.file_size()
+        return self.file_size
 
     def __getitem__(self, key):
         """
@@ -188,7 +188,7 @@ class _Madoka(_object):
         Return:
             <Sketch> summed_sketch
         """
-        summed_sketch = self.__class__(width=self.width(), depth=self.depth(), seed=self.seed())
+        summed_sketch = self.__class__(width=self.width, depth=self.depth, seed=self.seed)
         summed_sketch.copy(self)
         self.merge_method(summed_sketch, given_sketch)
         return summed_sketch
@@ -362,9 +362,9 @@ class _Madoka(_object):
         if filter_method:
             get_ = self.get__method
             set_ = self.set__method
-            new_sketch = Sketch(width, max_value, path, flags, src.seed())
-            for table_id in range(self.depth()):
-                for offset in range(width, src.width(), width):
+            new_sketch = Sketch(width, max_value, path, flags, src.seed)
+            for table_id in range(self.depth):
+                for offset in range(width, src.width, width):
                     for cell_id in range(width):
                         val = get_(src, table_id, offset + cell_id)
                         val = filter_method(val)
@@ -386,8 +386,8 @@ class _Madoka(_object):
             get_ = self.get___method
             set_ = self.set___method
             max_value = _madoka.Sketch_max_value(self)
-            for table_id in range(self.depth()):
-                for cell_id in range(self.width()):
+            for table_id in range(self.depth):
+                for cell_id in range(self.width):
                     lhs_val = get_(self, table_id, cell_id)
                     rhs_val = get_(rhs, table_id, cell_id)
                     if lhs_filter:
@@ -439,13 +439,13 @@ class _Madoka(_object):
         """
         get_ = self.get___method
         set_ = self.set___method
-        max_value = self.max_value()
-        for table_id in range(self.depth()):
-            for cell_id in range(self.width()):
+        max_value = self.max_value
+        for table_id in range(self.depth):
+            for cell_id in range(self.width):
                 val = get_(self, table_id, cell_id)
-                if only_nonzero is False or (only_nonzero and val > 0):
+                if (not only_nonzero) or (only_nonzero and val > 0):
                     val = given_filter(val)
-                    val = val if val <= max_value else max_value
+                    val = max_value if val > max_value else val
                     set_(self, table_id, cell_id, val)
 
     def values(self):
@@ -455,7 +455,7 @@ class _Madoka(_object):
         """
         table_id = 0
         get = self.get___method
-        for cell_id in range(self.width()):
+        for cell_id in range(self.width):
             val = get(self, table_id, cell_id)
             if val:
                 yield val
@@ -473,30 +473,39 @@ class _Madoka(_object):
             for (key, val) in src_dict.items():
                 set_method(self, key, len(key), val)
 
+    @property
     def width(self):
         return self.width_method(self)
 
+    @property
     def width_mask(self):
         return self.width_mask_method(self)
 
+    @property
     def depth(self):
         return self.depth_method(self)
 
+    @property
     def max_value(self):
         return self.max_value_method(self)
 
+    @property
     def value_size(self):
         return self.value_size_method(self)
 
+    @property
     def seed(self):
         return self.seed_method(self)
 
+    @property
     def table_size(self):
         return self.table_size_method(self)
 
+    @property
     def file_size(self):
         return self.file_size_method(self)
 
+    @property
     def flags(self):
         return self.flags_method(self)
 
@@ -521,7 +530,7 @@ class Sketch(_Madoka):
         Return:
             <Sketch> summed_sketch
         """
-        summed_sketch = Sketch(width=self.width(), max_value=self.max_value(), seed=self.seed())
+        summed_sketch = Sketch(width=self.width, max_value=self.max_value, seed=self.seed)
         summed_sketch.copy(self)
         _madoka.Sketch_merge(summed_sketch, given_sketch)
         return summed_sketch
@@ -563,9 +572,9 @@ class Sketch(_Madoka):
         if filter_method:
             get_ = _madoka.Sketch_get__
             set_ = _madoka.Sketch_set__
-            new_sketch = Sketch(width, max_value, path, flags, src.seed())
+            new_sketch = Sketch(width, max_value, path, flags, src.seed)
             for table_id in range(SKETCH_DEPTH):
-                for offset in range(width, src.width(), width):
+                for offset in range(width, src.width, width):
                     for cell_id in range(width):
                         val = get_(src, table_id, offset + cell_id)
                         val = filter_method(val)
@@ -576,9 +585,11 @@ class Sketch(_Madoka):
         else:
             _madoka.Sketch_shrink(self, src, width, max_value, None, path, flags)
 
+    @property
     def value_mask(self):
         return _madoka.Sketch_value_mask(self)
 
+    @property
     def mode(self):
         return _madoka.Sketch_mode(self)
 

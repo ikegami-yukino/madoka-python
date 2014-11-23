@@ -146,7 +146,7 @@ class MadokaTest(object):
         sketch['mami'] = 2
         sketch.shrink(sketch, width=1000, max_value=100)
         assert_equal(sketch['mami'], 2)
-        assert_equal(sketch.width(), 1000)
+        assert_equal(sketch.width, 1000)
         filter_method = lambda x: x * 2
         sketch.shrink(sketch, width=100, max_value=100, filter_method=filter_method)
         assert_equal(sketch['mami'], 4)
