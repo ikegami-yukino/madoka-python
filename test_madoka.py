@@ -7,6 +7,10 @@ import tempfile
 
 class MadokaTest(object):
 
+    def test___len__(self):
+        sketch = self.target_class(width=100)
+        assert_equal(type(len(sketch)), int)
+
     def test___contains__(self):
         sketch = self.target_class(width=100)
         sketch.add('mami', 1)
@@ -167,6 +171,22 @@ class MadokaTest(object):
             m['test'] += 1
         assert_true(True)
 
+    def test_width_mask(self):
+        sketch = self.target_class(width=100)
+        assert_equal(type(sketch.width_mask), int)
+
+    def test_value_size(self):
+        sketch = self.target_class(width=100)
+        assert_equal(type(sketch.value_size), int)
+
+    def test_table_size(self):
+        sketch = self.target_class(width=100)
+        assert_equal(type(sketch.table_size), int)
+
+    def test_flags(self):
+        sketch = self.target_class(width=100)
+        assert_equal(type(sketch.flags), int)
+
 
 class Test_Sketch(MadokaTest):
 
@@ -195,6 +215,14 @@ class Test_Sketch(MadokaTest):
         sketch.shrink(sketch, width=100, max_value=100,
                       filter_method=filter_method)
         assert_equal(sketch['mami'], 4)
+
+    def test_value_mask(self):
+        sketch = self.target_class(width=100)
+        assert_equal(type(sketch.value_mask), int)
+
+    def test_mode(self):
+        sketch = self.target_class(width=100)
+        assert_equal(type(sketch.mode), int)
 
 
 class Test_CroquisUint8(MadokaTest):
