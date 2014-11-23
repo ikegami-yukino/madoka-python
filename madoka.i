@@ -6,6 +6,9 @@ typedef unsigned long long uint64_t;
 %typemap(in) void * = char*;
 %typemap(in) const void * = char*;
 %apply (char *STRING) { (const void *)}
+%apply double *OUTPUT { double *lhs_square_length, double *rhs_square_length };
+extern double madoka::Sketch::inner_product(const Sketch &rhs, double *lhs_square_length,
+                                            double *rhs_square_length);
 
 %{
 #include "src/util.h"
