@@ -24,9 +24,9 @@ class MadokaTest(object):
         assert_equal(sketch['mami'], 1)
 
     def test___add__(self):
-        sketch = madoka.Sketch(width=100)
+        sketch = self.target_class(width=100)
         sketch.inc('mami')
-        other_sketch = madoka.Sketch(width=100)
+        other_sketch = self.target_class(width=100)
         other_sketch.inc('mami')
         new_sketch = sketch + other_sketch
         assert_equal(new_sketch['mami'], 2)
@@ -34,9 +34,9 @@ class MadokaTest(object):
         assert_equal(other_sketch['mami'], 1)
 
     def test___iadd__(self):
-        sketch = madoka.Sketch(width=100)
+        sketch = self.target_class(width=100)
         sketch.inc('mami')
-        other_sketch = madoka.Sketch(width=100)
+        other_sketch = self.target_class(width=100)
         other_sketch.inc('mami')
         sketch += other_sketch
         assert_equal(sketch['mami'], 2)
@@ -99,12 +99,61 @@ class MadokaTest(object):
             os.remove(filename)
 
     def test_copy(self):
-        sketch = madoka.Sketch(width=100)
+        sketch = self.target_class(width=100)
         sketch['mami'] = 14
 
-        new_sketch = madoka.Sketch(width=100)
+        new_sketch = self.target_class(width=100)
         new_sketch.copy(sketch)
         assert_equal(new_sketch['mami'], 14)
+
+    def test_inner_product(self):
+        sketch = self.target_class(width=100)
+        sketch['mami'] = 2
+        sketch['homura'] = 1
+        sketch['kyouko'] = 2
+
+        new_sketch = self.target_class(width=100)
+        new_sketch['mami'] = 2
+        new_sketch['kyouko'] = 3
+        got = sketch.inner_product(new_sketch)
+        assert_equal(got, [10, 9, 13])
+
+    def test_filter(self):
+        sketch = self.target_class(width=100)
+        sketch['mami'] = 2
+        filter_method = lambda x: x * 2
+        sketch.filter(filter_method)
+        assert_equal(sketch['mami'], 4)
+        sketch.filter(filter_method, only_nonzero=True)
+        assert_equal(sketch['mami'], 8)
+
+    def test_merge(self):
+        sketch = self.target_class(width=1000)
+        sketch['mami'] = 14
+        new_sketch = self.target_class(width=1000)
+        new_sketch['mami'] = 14
+        new_sketch.merge(sketch)
+        assert_equal(new_sketch['mami'], 28)
+
+    def test_shrink(self):
+        sketch = self.target_class(width=10000)
+        sketch['mami'] = 2
+        sketch.shrink(sketch, width=1000)
+        assert_equal(sketch['mami'], 2)
+        assert_equal(sketch.width, 1000)
+
+    def test_values(self):
+        sketch = self.target_class(width=100)
+        sketch['mami'] = 2
+        sketch['madoka'] = 3
+        got = [i for i in sketch.values()]
+        assert_equal(set(got), set([2, 3]))
+
+
+class Test_Sketch(MadokaTest):
+
+    def __init__(self):
+        self.target_class = madoka.Sketch
 
     def test_merge(self):
         sketch = madoka.Sketch(width=1000)
@@ -118,27 +167,6 @@ class MadokaTest(object):
         new_sketch.merge(new_sketch, filter_method, filter_method)
         assert_equal(new_sketch['mami'], 4)
 
-    def test_inner_product(self):
-        sketch = madoka.Sketch(width=100)
-        sketch['mami'] = 2
-        sketch['homura'] = 1
-        sketch['kyouko'] = 2
-
-        new_sketch = madoka.Sketch(width=100)
-        new_sketch['mami'] = 2
-        new_sketch['kyouko'] = 3
-        got = sketch.inner_product(new_sketch)
-        assert_equal(got, [10, 9, 13])
-
-    def test_filter(self):
-        sketch = madoka.Sketch(width=100)
-        sketch['mami'] = 2
-        filter_method = lambda x: x * 2
-        sketch.filter(filter_method)
-        assert_equal(sketch['mami'], 4)
-        sketch.filter(filter_method, only_nonzero=True)
-        assert_equal(sketch['mami'], 8)
-
     def test_shrink(self):
         sketch = madoka.Sketch(width=10000)
         sketch['mami'] = 2
@@ -148,20 +176,6 @@ class MadokaTest(object):
         filter_method = lambda x: x * 2
         sketch.shrink(sketch, width=100, max_value=100, filter_method=filter_method)
         assert_equal(sketch['mami'], 4)
-
-    def test_values(self):
-        sketch = madoka.Sketch(width=100)
-        sketch['mami'] = 2
-        sketch['madoka'] = 3
-        got = [i for i in sketch.values()]
-        assert_equal(set(got), set([2, 3]))
-
-
-class Test_Sketch(MadokaTest):
-
-    def __init__(self):
-        self.target_class = madoka.Sketch
-
 
 class Test_CroquisUint8(MadokaTest):
 
