@@ -4,6 +4,8 @@ madoka
     :target: http://badge.fury.io/py/madoka
 .. image:: https://travis-ci.org/ikegami-yukino/madoka-python.svg?branch=master
     :target: https://travis-ci.org/ikegami-yukino/madoka-python
+.. image:: https://coveralls.io/repos/ikegami-yukino/madoka-python/badge.png
+  :target: https://coveralls.io/r/ikegami-yukino/madoka-python
 
 Madoka is an implementation of a Count-Min sketch data structure for summarizing data streams.
 

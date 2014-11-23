@@ -1,0 +1,16 @@
+[report]
+exclude_lines =
+    pragma: no cover
+    if fp is not None:
+    import _madoka
+    range = xrange
+    except NameError
+    def _swig_setattr_nondynamic
+    return self.this.own()
+    return method(self)
+    _swig_getattr
+    strthis
+    return "<%s.%s; %s >"
+    except AttributeError
+    class _object
+    _newclass = 0

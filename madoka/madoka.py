@@ -12,7 +12,8 @@ if version_info >= (2, 6, 0):
         import imp
         fp = None
         try:
-            fp, pathname, description = imp.find_module('_madoka', [dirname(__file__)])
+            (fp, pathname, description) = imp.find_module('_madoka',
+                                                          [dirname(__file__)])
         except ImportError:
             import _madoka
             return _madoka
@@ -26,7 +27,7 @@ if version_info >= (2, 6, 0):
     del swig_import_helper
 else:
     import _madoka
-if version_info < (3,):
+if version_info < (3,):  # pragma: no cover
     range = xrange
 del version_info
 try:
@@ -51,11 +52,11 @@ def _swig_setattr_nondynamic(self, class_type, name, value, static=1):
         raise AttributeError("You cannot add attributes to %s" % self)
 
 
-def _swig_setattr(self, class_type, name, value):
+def _swig_setattr(self, class_type, name, value):  # pragma: no cover
     return _swig_setattr_nondynamic(self, class_type, name, value, 0)
 
 
-def _swig_getattr(self, class_type, name):
+def _swig_getattr(self, class_type, name):  # pragma: no cover
     if (name == "thisown"):
         return self.this.own()
     method = class_type.__swig_getmethods__.get(name, None)
@@ -64,14 +65,14 @@ def _swig_getattr(self, class_type, name):
     raise AttributeError(name)
 
 
-def _swig_repr(self):
+def _swig_repr(self):  # pragma: no cover
     try:
         strthis = "proxy of " + self.this.__repr__()
     except:
         strthis = ""
     return "<%s.%s; %s >" % (self.__class__.__module__, self.__class__.__name__, strthis,)
 
-try:
+try:  # pragma: no cover
     _object = object
     _newclass = 1
 except AttributeError:
@@ -127,7 +128,6 @@ class _Madoka(_object):
     __swig_setmethods__ = {}
     __swig_getmethods__ = {}
     __repr__ = _swig_repr
-    __del__ = lambda self: None
 
     def __setattr__(self, name, value):
         _swig_setattr(self, self.__class__, name, value)
@@ -136,7 +136,7 @@ class _Madoka(_object):
         _swig_getattr(self, self.__class__, name)
 
     def __init__(self, width=0, depth=0, path=None, flags=0, seed=0):
-        self.setattrs()
+        self._setattrs()
         this = getattr(_madoka, 'new_%s' % self.__class__.__name__)()
         try:
             self.this.append(this)
@@ -144,7 +144,10 @@ class _Madoka(_object):
             self.this = this
         return self.create_method(self, width, depth, path, flags, seed)
 
-    def setattrs(self):
+    def __del__(self):
+        self.close()
+
+    def _setattrs(self):
         class_name = self.__class__.__name__
         for method_name in _COMMON_METHODS:
             method = getattr(_madoka, '%s_%s' % (class_name, method_name))
@@ -231,15 +234,15 @@ class _Madoka(_object):
         open() uses memory mapped I/O instead of reading the whole sketch into memory
 
         file_flag as following:
-            FILE_CREATE    1 << 0,
-            FILE_TRUNCATE  1 << 1,
-            FILE_READONLY  1 << 2,
-            FILE_WRITABLE  1 << 3,
-            FILE_SHARED    1 << 4,
-            FILE_PRIVATE   1 << 5,
-            FILE_ANONYMOUS 1 << 6,
-            FILE_HUGETLB   1 << 7,
-            FILE_PRELOAD   1 << 8
+            FILE_CREATE    1,
+            FILE_TRUNCATE  2,
+            FILE_READONLY  4,
+            FILE_WRITABLE  8,
+            FILE_SHARED    16,
+            FILE_PRIVATE   32,
+            FILE_ANONYMOUS 64,
+            FILE_HUGETLB   128,
+            FILE_PRELOAD   256
 
         Params:
             <str> filepath
@@ -254,15 +257,15 @@ class _Madoka(_object):
         """Load sketch from file
 
         file_flag as following:
-            FILE_CREATE    1 << 0,
-            FILE_TRUNCATE  1 << 1,
-            FILE_READONLY  1 << 2,
-            FILE_WRITABLE  1 << 3,
-            FILE_SHARED    1 << 4,
-            FILE_PRIVATE   1 << 5,
-            FILE_ANONYMOUS 1 << 6,
-            FILE_HUGETLB   1 << 7,
-            FILE_PRELOAD   1 << 8
+            FILE_CREATE    1,
+            FILE_TRUNCATE  2,
+            FILE_READONLY  4,
+            FILE_WRITABLE  8,
+            FILE_SHARED    16,
+            FILE_PRIVATE   32,
+            FILE_ANONYMOUS 64,
+            FILE_HUGETLB   128,
+            FILE_PRELOAD   256
 
         Params:
             <str> filepath
@@ -274,15 +277,15 @@ class _Madoka(_object):
         """Save sketch to file
 
         file_flag as following:
-            FILE_CREATE    1 << 0,
-            FILE_TRUNCATE  1 << 1,
-            FILE_READONLY  1 << 2,
-            FILE_WRITABLE  1 << 3,
-            FILE_SHARED    1 << 4,
-            FILE_PRIVATE   1 << 5,
-            FILE_ANONYMOUS 1 << 6,
-            FILE_HUGETLB   1 << 7,
-            FILE_PRELOAD   1 << 8
+            FILE_CREATE    1,
+            FILE_TRUNCATE  2,
+            FILE_READONLY  4,
+            FILE_WRITABLE  8,
+            FILE_SHARED    16,
+            FILE_PRIVATE   32,
+            FILE_ANONYMOUS 64,
+            FILE_HUGETLB   128,
+            FILE_PRELOAD   256
 
         Params:
             <str> filepath
@@ -500,7 +503,7 @@ class Sketch(_Madoka):
             self.this.append(this)
         except:
             self.this = this
-        self.setattrs()
+        self._setattrs()
         return _madoka.Sketch_create(self, width, max_value, path, flags, seed)
 
     def __add__(self, given_data):

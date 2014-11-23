@@ -6,8 +6,11 @@ python:
   - "3.4"
 install:
   - "python setup.py install"
+  - "pip install coveralls"
 script:
-  - nosetests
+  - "nosetests --with-coverage --cover-package=madoka"
+after_success:
+  - coveralls
 notifications:
   email:
     recipients:
