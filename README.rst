@@ -10,7 +10,7 @@ madoka
 
 Madoka is an implementation of a Count-Min sketch data structure for summarizing data streams.
 
-String-int pairs in a Madoka-Sketch may take less memory than in a standard Python dict.
+String-int pairs in a Madoka-Sketch may take less memory than in a standard Python dict or Counter.
 
 Based on `madoka`_ C++ library.
 
@@ -64,7 +64,9 @@ Create a new sketch
  >>> import madoka
  >>> sketch = madoka.Sketch()
 
-- Sketch madoka.Sketch([width=0, max_value=0, path='', flags=0, seed=0])
+- Sketch madoka.Sketch([width=1048576, max_value=35184372088831, path='', flags=0, seed=0])
+
+  - `width` is a size of register. If you are worrying about gap, you should increase `width` value. The larger `width` is, the fewer mistakes madoka makes in estimating value. But, the larger `width` is, the larger memory consumption is.
 
   - Permission of file given to `path` should be 644
 
