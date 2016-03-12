@@ -109,6 +109,7 @@ class MadokaTest(object):
             sketch.open(sketch_file)
             assert_equal(sketch['mami'], 14)
         finally:
+            del sketch
             os.remove(sketch_file)
 
     def test_copy(self):
