@@ -1,12 +1,7 @@
 madoka
 ===========
-.. image:: https://badge.fury.io/py/madoka.png
-    :target: http://badge.fury.io/py/madoka
-.. image:: https://travis-ci.org/ikegami-yukino/madoka-python.svg?branch=master
-    :target: https://travis-ci.org/ikegami-yukino/madoka-python
-.. image:: https://coveralls.io/repos/ikegami-yukino/madoka-python/badge.png
-    :target: https://coveralls.io/r/ikegami-yukino/madoka-python
 
+|travis| |coveralls| |downloads| |version| |license|
 
 Madoka is an implementation of a Count-Min sketch data structure for summarizing data streams.
 
@@ -336,3 +331,22 @@ License
 - Wrapper code is licensed under New BSD License.
 - Bundled `madoka`_ C++ library is licensed under the Simplified BSD License.
 
+
+.. |travis| image:: https://travis-ci.org/ikegami-yukino/madoka-python.svg?branch=master
+    :target: https://travis-ci.org/ikegami-yukino/madoka-python
+    :alt: travis-ci.org
+.. |coveralls| image:: https://coveralls.io/repos/ikegami-yukino/madoka-python/badge.png
+    :target: https://coveralls.io/r/ikegami-yukino/madoka-python
+    :alt: coveralls.io
+
+.. |downloads| image:: https://img.shields.io/pypi/dm/madoka.svg
+    :target: http://pypi.python.org/pypi/madoka/
+    :alt: downloads
+
+.. |version| image:: https://img.shields.io/pypi/v/madoka.svg
+    :target: http://pypi.python.org/pypi/madoka/
+    :alt: latest version
+
+.. |license| image:: https://img.shields.io/pypi/l/madoka.svg
+    :target: http://pypi.python.org/pypi/madoka/
+    :alt: license
