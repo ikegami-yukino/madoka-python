@@ -1,7 +1,7 @@
 madoka
 ===========
 
-|travis| |coveralls| |downloads| |version| |license|
+|travis| |coveralls| |version| |license|
 
 Madoka is an implementation of a Count-Min sketch data structure for summarizing data streams.
 
@@ -338,10 +338,6 @@ License
 .. |coveralls| image:: https://coveralls.io/repos/ikegami-yukino/madoka-python/badge.png
     :target: https://coveralls.io/r/ikegami-yukino/madoka-python
     :alt: coveralls.io
-
-.. |downloads| image:: https://img.shields.io/pypi/dm/madoka.svg
-    :target: http://pypi.python.org/pypi/madoka/
-    :alt: downloads
 
 .. |version| image:: https://img.shields.io/pypi/v/madoka.svg
     :target: http://pypi.python.org/pypi/madoka/
