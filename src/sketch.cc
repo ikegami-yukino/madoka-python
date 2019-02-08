@@ -36,14 +36,14 @@ Sketch::Sketch() throw()
 Sketch::~Sketch() throw() {}
 
 void Sketch::create(UInt64 width, UInt64 max_value, const char *path,
-                    int flags, UInt64 seed) throw(Exception) {
+                    int flags, UInt64 seed) {
   Sketch new_sketch;
   new_sketch.create_(width, max_value, path, flags, seed);
   new_sketch.clear();
   new_sketch.swap(this);
 }
 
-void Sketch::open(const char *path, int flags) throw(Exception) {
+void Sketch::open(const char *path, int flags) {
   Sketch new_sketch;
   new_sketch.open_(path, flags);
   new_sketch.swap(this);
@@ -53,13 +53,13 @@ void Sketch::close() throw() {
   Sketch().swap(this);
 }
 
-void Sketch::load(const char *path, int flags) throw(Exception) {
+void Sketch::load(const char *path, int flags) {
   Sketch new_sketch;
   new_sketch.load_(path, flags);
   new_sketch.swap(this);
 }
 
-void Sketch::save(const char *path, int flags) const throw(Exception) {
+void Sketch::save(const char *path, int flags) const {
   file_.save(path, flags);
 }
 
@@ -118,7 +118,7 @@ void Sketch::clear() throw() {
 }
 
 void Sketch::copy(const Sketch &src, const char *path,
-                  int flags) throw(Exception) {
+                  int flags) {
   Sketch new_sketch;
   new_sketch.copy_(src, path, flags);
   new_sketch.swap(this);
@@ -137,14 +137,14 @@ void Sketch::filter(Filter filter) throw() {
 
 void Sketch::shrink(const Sketch &src, UInt64 width,
                     UInt64 max_value, Filter filter,
-                    const char *path, int flags) throw(Exception) {
+                    const char *path, int flags) {
   Sketch new_sketch;
   new_sketch.shrink_(src, width, max_value, filter, path, flags);
   new_sketch.swap(this);
 }
 
 void Sketch::merge(const Sketch &rhs, Filter lhs_filter,
-                   Filter rhs_filter) throw(Exception) {
+                   Filter rhs_filter) {
   MADOKA_THROW_IF(width() != rhs.width());
   MADOKA_THROW_IF(seed() != rhs.seed());
 
@@ -161,7 +161,7 @@ void Sketch::merge(const Sketch &rhs, Filter lhs_filter,
 }
 
 double Sketch::inner_product(const Sketch &rhs, double *lhs_square_length,
-    double *rhs_square_length) const throw(Exception) {
+    double *rhs_square_length) const {
   MADOKA_THROW_IF(width() != rhs.width());
   MADOKA_THROW_IF(seed() != rhs.seed());
 
@@ -203,7 +203,7 @@ void Sketch::swap(Sketch *sketch) throw() {
 }
 
 void Sketch::create_(UInt64 width, UInt64 max_value, const char *path,
-                     int flags, UInt64 seed) throw(Exception) {
+                     int flags, UInt64 seed) {
   if (width == 0) {
     width = SKETCH_DEFAULT_WIDTH;
   }
@@ -254,7 +254,7 @@ void Sketch::create_(UInt64 width, UInt64 max_value, const char *path,
   random_->reset(seed);
 }
 
-void Sketch::open_(const char *path, int flags) throw(Exception) {
+void Sketch::open_(const char *path, int flags) {
   file_.open(path, flags);
   header_ = static_cast<Header *>(file_.addr());
   random_ = reinterpret_cast<Random *>(header_ + 1);
@@ -262,7 +262,7 @@ void Sketch::open_(const char *path, int flags) throw(Exception) {
   check_header();
 }
 
-void Sketch::load_(const char *path, int flags) throw(Exception) {
+void Sketch::load_(const char *path, int flags) {
   file_.load(path, flags);
   header_ = static_cast<Header *>(file_.addr());
   random_ = reinterpret_cast<Random *>(header_ + 1);
@@ -270,7 +270,7 @@ void Sketch::load_(const char *path, int flags) throw(Exception) {
   check_header();
 }
 
-void Sketch::check_header() const throw(Exception) {
+void Sketch::check_header() const {
   MADOKA_THROW_IF(width() < SKETCH_MIN_WIDTH);
   MADOKA_THROW_IF(width() > SKETCH_MAX_WIDTH);
   MADOKA_THROW_IF((width_mask() != 0) && (width_mask() != (width() - 1)));
@@ -677,7 +677,7 @@ void Sketch::hash(const void *key_addr, std::size_t key_size,
 }
 
 void Sketch::copy_(const Sketch &src, const char *path,
-                   int flags) throw(Exception) {
+                   int flags) {
   create_(src.width(), src.max_value(), path, flags, src.seed());
   std::memcpy(random_, src.random_, sizeof(Random));
   std::memcpy(table_, src.table_, static_cast<std::size_t>(table_size()));
@@ -758,7 +758,7 @@ void Sketch::approx_merge_(const Sketch &rhs) throw() {
 
 void Sketch::shrink_(const Sketch &src, UInt64 width,
                      UInt64 max_value, Filter filter,
-                     const char *path, int flags) throw(Exception) {
+                     const char *path, int flags) {
   if (width == 0) {
     width = src.width();
   }
