@@ -33,7 +33,7 @@ namespace madoka {
 class Hash {
  public:
   void operator()(const void *key_addr, std::size_t key_size,
-                  UInt64 seed, UInt64 hash_values[2]) const throw() {
+                  UInt64 seed, UInt64 hash_values[2]) const noexcept {
     const UInt8 * const bytes = static_cast<const UInt8 *>(key_addr);
     const std::size_t num_blocks = key_size / 16;
 
@@ -75,21 +75,27 @@ class Hash {
       case 15: {
         k2 ^= static_cast<UInt64>(tail[14]) << 48;
       }
+      /* FALLTHRU */
       case 14: {
         k2 ^= static_cast<UInt64>(tail[13]) << 40;
       }
+      /* FALLTHRU */
       case 13: {
         k2 ^= static_cast<UInt64>(tail[12]) << 32;
       }
+      /* FALLTHRU */
       case 12: {
         k2 ^= static_cast<UInt64>(tail[11]) << 24;
       }
+      /* FALLTHRU */
       case 11: {
         k2 ^= static_cast<UInt64>(tail[10]) << 16;
       }
+      /* FALLTHRU */
       case 10: {
         k2 ^= static_cast<UInt64>(tail[ 9]) << 8;
       }
+      /* FALLTHRU */
       case 9: {
         k2 ^= static_cast<UInt64>(tail[8]) << 0;
         k2 *= C2;
@@ -97,27 +103,35 @@ class Hash {
         k2 *= C1;
         h2 ^= k2;
       }
+      /* FALLTHRU */
       case 8: {
         k1 ^= static_cast<UInt64>(tail[7]) << 56;
       }
+      /* FALLTHRU */
       case 7: {
         k1 ^= static_cast<UInt64>(tail[6]) << 48;
       }
+      /* FALLTHRU */
       case 6: {
         k1 ^= static_cast<UInt64>(tail[5]) << 40;
       }
+      /* FALLTHRU */
       case 5: {
         k1 ^= static_cast<UInt64>(tail[4]) << 32;
       }
+      /* FALLTHRU */
       case 4: {
         k1 ^= static_cast<UInt64>(tail[3]) << 24;
       }
+      /* FALLTHRU */
       case 3: {
         k1 ^= static_cast<UInt64>(tail[2]) << 16;
       }
+      /* FALLTHRU */
       case 2: {
         k1 ^= static_cast<UInt64>(tail[1]) << 8;
       }
+      /* FALLTHRU */
       case 1: {
         k1 ^= static_cast<UInt64>(tail[0]) << 0;
         k1 *= C1;
@@ -147,11 +161,11 @@ class Hash {
   static const UInt64 C1 = 0x87C37B91114253D5ULL;
   static const UInt64 C2 = 0x4CF5AD432745937FULL;
 
-  static UInt64 rotate(UInt64 x, UInt64 y) throw() {
+  static UInt64 rotate(UInt64 x, UInt64 y) noexcept {
     return (x << y) | (x >> (64 - y));
   }
 
-  static UInt64 mix(UInt64 x) throw() {
+  static UInt64 mix(UInt64 x) noexcept {
     x ^= x >> 33;
     x *= 0xFF51AFD7ED558CCDULL;
     x ^= x >> 33;
