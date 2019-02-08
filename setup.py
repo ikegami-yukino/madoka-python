@@ -25,7 +25,8 @@ setup(
     ext_modules=[
         Extension('_madoka',
                   sources=['madoka_wrap.cxx'] + MADOKA_FILES,
-                  language="c++"
+                  language="c++",
+                  extra_compile_args=["-std=c++11"]
                   ),
     ],
 
