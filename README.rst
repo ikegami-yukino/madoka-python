@@ -54,7 +54,7 @@ In that case, you should replace to intended class from "Sketch".
 Create a new sketch
 --------------------------------------------
 
-::
+.. code:: python
 
  >>> import madoka
  >>> sketch = madoka.Sketch()
@@ -71,13 +71,13 @@ Create a new sketch
 Increment a key value
 --------------------------------------------
 
-::
+.. code:: python
 
  >>> sketch['mami'] += 1
- 
+
 or
 
-:: 
+.. code:: python
 
  >>> sketch.inc('mami')
 
@@ -90,13 +90,13 @@ or
 Add a value to the current key value
 --------------------------------------------
 
-::
+.. code:: python
 
  >>> sketch['mami'] += 6
- 
+
 or
 
-::
+.. code:: python
 
  >>> sketch.add('mami', 6)
 
@@ -110,13 +110,13 @@ or
 Update a key value
 --------------------------------------------
 
-::
+.. code:: python
 
  >>> sketch['mami'] = 6
- 
+
 or
 
-::
+.. code:: python
 
  >>> sketch.set('mami', 6)
 
@@ -133,13 +133,13 @@ or
 Get a key value
 --------------------------------------------
 
-::
+.. code:: python
 
  >>> sketch['mami']
- 
+
 or
 
-::
+.. code:: python
 
  >>> sketch.get('mami')
 
@@ -151,7 +151,7 @@ or
 Get all values
 --------------------------------------------
 
-::
+.. code:: python
 
  >>> sketch.values()
 
@@ -163,7 +163,7 @@ Get all values
 Save a sketch to a file
 --------------------------------------------
 
-::
+.. code:: python
 
  >>> sketch.save('example.madoka')
 
@@ -174,7 +174,7 @@ Save a sketch to a file
 Load a sketch from a file
 --------------------------------------------
 
-::
+.. code:: python
 
  >>> sketch.load('example.madoka')
 
@@ -185,7 +185,7 @@ Load a sketch from a file
 Clear a sketch
 --------------------------------------------
 
-::
+.. code:: python
 
  >>> sketch.clear()
 
@@ -197,7 +197,7 @@ Clear a sketch
 Initialize a sketch with settings change
 --------------------------------------------
 
-::
+.. code:: python
 
  >>> sketch.create()
 
@@ -208,7 +208,7 @@ Initialize a sketch with settings change
 Copy a sketch
 --------------------------------------------
 
-::
+.. code:: python
 
  >>> sketch.copy(othersketch)
 
@@ -218,13 +218,13 @@ Copy a sketch
 Merge two sketches
 --------------------------------------------
 
-::
+.. code:: python
 
  >>> sketch += other_sketch
 
 or
 
-::
+.. code:: python
 
  >>> sketch.merge(othersketch)
 
@@ -236,7 +236,7 @@ or
 Shrink a sketch
 --------------------------------------------
 
-::
+.. code:: python
 
  >>> sketch.shrink(sketch, width=1000)
 
@@ -250,7 +250,7 @@ Shrink a sketch
 Get summed sketch
 -----------------------
 
-::
+.. code:: python
 
  >>> summed_sketch = sketch + other_sketch
 
@@ -259,7 +259,7 @@ Get summed sketch
 Get summed sketch by dict
 --------------------------
 
-::
+.. code:: python
 
  >>> summed_sketch = sketch + {'mami': 1, 'kyoko': 2}
 
@@ -269,7 +269,7 @@ Get summed sketch by dict
 Check whether sketch contains key value
 -----------------------------------------
 
-::
+.. code:: python
 
  >>> 'mami' in sketch
 
@@ -277,7 +277,7 @@ Check whether sketch contains key value
 Get inner product of two sketches
 --------------------------------------------
 
-::
+.. code:: python
 
  >>> sketch.inner_product(other_sketch)
 
@@ -289,7 +289,7 @@ Get inner product of two sketches
 Apply filter into all values
 --------------------------------------------
 
-::
+.. code:: python
 
  >>> sketch.filter(lambda x: x + 1)
 
@@ -302,13 +302,13 @@ Apply filter into all values
 Set values from dict
 --------------------------------------------
 
-::
+.. code:: python
 
  >>> sketch.fromdict({'mami': 14, 'madoka': 13})
 
-or 
+or
 
-::
+.. code:: python
 
  >>> sketch += {'mami': 14, 'madoka': 13}
 
@@ -335,6 +335,7 @@ License
 .. |travis| image:: https://travis-ci.org/ikegami-yukino/madoka-python.svg?branch=master
     :target: https://travis-ci.org/ikegami-yukino/madoka-python
     :alt: travis-ci.org
+
 .. |coveralls| image:: https://coveralls.io/repos/ikegami-yukino/madoka-python/badge.png
     :target: https://coveralls.io/r/ikegami-yukino/madoka-python
     :alt: coveralls.io
