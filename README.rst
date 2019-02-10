@@ -19,6 +19,8 @@ This module is based on `madoka`_ C++ library.
 
 NOTE: Madoka-Sketch does not have index of keys. so Madoka-Sketch can not dump all keys such as Python dict's `dict.keys()`.
 
+Contributions are welcome!
+
 Installation
 ============
 
@@ -320,15 +322,6 @@ or
 
 
 - void fromdict(dict)
-
-
-
-TODO
-=========
-
-- Benchmark score about memory usage compared with Python standard dict and Redis
-
-Contributions are welcome!
 
 
 License
