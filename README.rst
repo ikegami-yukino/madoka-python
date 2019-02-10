@@ -71,7 +71,8 @@ Create a new sketch
 
   - `width` is a size of register. If you are worrying about gap, you should increase `width` value. The larger `width` is, the fewer mistakes madoka makes in estimating value. But, the larger `width` is, the larger memory consumption is.
 
-  - Permission of file given to `path` should be 644
+  - Permission of `path` should be 644
+
   - `k` means Top-K used by `most_common` method. if you don't want to use `most_common` method, then I recommend to set `k=0` so it is slightly fast.
 
   - `madoka.Sketch()` calls `madoka.Sketch.create()`, so you don't have to explicitly call `create()` in initialization
@@ -178,7 +179,7 @@ Save a sketch to a file
 
 - void save(path)
 
-  - Permission of file given to `path` should be 644
+  - Permission of `path` should be 644
 
 Load a sketch from a file
 --------------------------------------------
@@ -189,7 +190,7 @@ Load a sketch from a file
 
 - void load(path)
 
-  - Permission of file given to `path` should be 644
+  - Permission of `path` should be 644
 
 Clear a sketch
 --------------------------------------------
@@ -253,7 +254,7 @@ Shrink a sketch
 
   - When width > 0, width must be less than source sketch
 
-  - Permission of file given to `path` should be 644
+  - Permission of `path` should be 644
 
 
 Get summed sketch
