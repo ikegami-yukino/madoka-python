@@ -5,9 +5,15 @@ madoka
 
 Madoka is an implementation of a Count-Min sketch data structure for summarizing data streams.
 
-String-int pairs in a Madoka-Sketch may take less memory than in a standard Python dict or Counter.
+String-int pairs in a Madoka-Sketch may take less memory than in a standard Python dict, Counter, Redis.
 
-Based on `madoka`_ C++ library.
+Counting error rate is about 0.0911 %
+
+More details are described in `Benchmark.ipynb`_
+
+.. _Benchmark.ipynb: https://github.com/ikegami-yukino/madoka-python/blob/master/Benchmark.ipynb
+
+This module is based on `madoka`_ C++ library.
 
 .. _madoka: https://github.com/s-yata/madoka
 
