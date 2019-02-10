@@ -508,7 +508,7 @@ class _Madoka(_object):
             for (key, val) in src_dict.iteritems():
                 _method(self, key, len(key), val)
                 if self.k:
-                    self._update(key, value)
+                    self._update(key, val)
         else:
             for (key, val) in src_dict.items():
                 _method(self, key, len(key), val)
