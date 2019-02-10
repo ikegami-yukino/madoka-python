@@ -145,6 +145,8 @@ class Sketch {
   double inner_product(const Sketch &rhs, double *lhs_square_length = NULL,
       double *rhs_square_length = NULL) const;
 
+  UInt64 median() const;
+
   UInt64 get__(UInt64 table_id, UInt64 cell_id) const noexcept;
   void set__(UInt64 table_id, UInt64 cell_id, UInt64 value) noexcept;
 

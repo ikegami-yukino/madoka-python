@@ -118,7 +118,7 @@ CROQUIS_DEFAULT_DEPTH = cvar.CROQUIS_DEFAULT_DEPTH
 
 _COMMON_METHODS = ('open', 'load', 'close', 'save', 'clear', 'get',
                    'get__', 'set', 'set__', 'add', 'create', 'copy',
-                   'swap', 'inner_product', 'merge', 'shrink',
+                   'swap', 'inner_product', 'median', 'merge', 'shrink',
                    'width', 'width_mask', 'depth', 'max_value',
                    'value_size', 'seed', 'table_size', 'file_size',
                    'flags')
@@ -411,6 +411,9 @@ class _Madoka(_object):
             <float> rhs_square_length
         """
         return self.inner_product_method(self, sketch)
+
+    def median(self):
+        return self.median_method(self)
 
     def filter(self, given_filter, apply_zerovalue=False):
         """Apply filter into all values

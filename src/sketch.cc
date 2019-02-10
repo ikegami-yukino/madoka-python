@@ -27,6 +27,8 @@
 #include <cstring>
 #include <limits>
 #include <new>
+#include <algorithm>
+#include <vector>
 
 namespace madoka {
 
@@ -195,6 +197,22 @@ double Sketch::inner_product(const Sketch &rhs, double *lhs_square_length,
   }
   return inner_product;
 }
+
+UInt64 Sketch::median() const {
+  std::vector<int> v;
+  for (UInt64 table_id = 0; table_id < SKETCH_DEPTH; ++table_id) {
+    for (UInt64 cell_id = 0; cell_id < width(); ++cell_id) {
+      UInt64 value = get_(table_id, cell_id);
+      if (value > 0) {
+        v.push_back(value);
+      }
+    }
+  }
+  size_t n = v.size() / 2;
+  std::nth_element(v.begin(), v.begin() + n, v.end());
+  return v[n];
+}
+
 void Sketch::swap(Sketch *sketch) throw() {
   file_.swap(&sketch->file_);
   util::swap(header_, sketch->header_);
@@ -527,7 +545,7 @@ UInt64 Sketch::approx_get(const UInt64 cell_ids[3]) const throw() {
   } else if (approx < min_approx) {
     min_approx = approx;
   }
-  
+
   approx = approx_get_(2, cell_ids[2]);
   if (approx < min_approx) {
     min_approx = approx;

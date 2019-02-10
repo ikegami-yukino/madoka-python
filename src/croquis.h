@@ -28,6 +28,8 @@
 #ifdef __cplusplus
  #include <cstring>
  #include <limits>
+ #include <algorithm>
+ #include <vector>
 #endif  // __cplusplus
 
 #include "file.h"
@@ -262,6 +264,21 @@ class Croquis {
       }
     }
     return inner_product;
+  }
+
+  T median() const {
+    std::vector<T> v;
+    for (UInt64 table_id = 0; table_id < SKETCH_DEPTH; ++table_id) {
+      for (UInt64 cell_id = 0; cell_id < width(); ++cell_id) {
+        T value = get__(table_id, cell_id);
+        if (value > 0) {
+          v.push_back(value);
+        }
+      }
+    }
+    size_t n = v.size() / 2;
+    std::nth_element(v.begin(), v.begin() + n, v.end());
+    return v[n];
   }
 
  private:

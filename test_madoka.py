@@ -132,6 +132,15 @@ class MadokaTest(object):
         got = sketch.inner_product(new_sketch)
         assert_equal(got, [10, 9, 13])
 
+    def test_median(self):
+        sketch = self.target_class(width=100)
+        sketch['mami'] = 1
+        sketch['madoka'] = 2
+        sketch['sayaka'] = 3
+        sketch['kyouko'] = 4
+        sketch['homura'] = 5
+        assert_equal(sketch.median(), 3)
+
     def test_filter(self):
         sketch = self.target_class(width=100)
         sketch['mami'] = 2

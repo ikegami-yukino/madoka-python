@@ -293,6 +293,19 @@ Get inner product of two sketches
 
   - Returns [inner product, square length of left hands sketch (float), square length of right hands sketch (float)]
 
+Get median value
+--------------------------------------------
+
+.. code:: python
+
+ >>> sketch['madoka'] = 1
+ >>> sketch['mami'] = 2
+ >>> sketch['sayaka'] = 3
+ >>> sketch['kyouko'] = 4
+ >>> sketch['homura'] = 5
+ >>> sketch.median()  # => 3
+
+- int or float median()
 
 Apply filter into all values
 --------------------------------------------
