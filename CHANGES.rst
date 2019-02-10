@@ -1,6 +1,15 @@
 CHANGES
 ========
 
+0.7 (2018-02-11)
+----------------
+
+- Support Python 3.5 - 3.7
+- Unsupport Python 2.6
+- Add `most_common()` function (requiring to give `k=n` parameter to constructer)
+- Add `median()` function
+- Fixed a bug that madoka::FILE_PRELOAD does not work
+
 0.6 (2014-11-23)
 ----------------
 
