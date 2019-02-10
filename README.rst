@@ -347,9 +347,9 @@ Get most common keys
 
 - generator most_common([k=5])
 
- - returns key-value pair as many as `k`
+  - returns key-value pair as many as `k`
 
- - Note that this method is required to set `k` parameter in constructer.
+  - Note that this method is required to set `k` parameter in constructer.
 
 License
 =========
