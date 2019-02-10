@@ -17,7 +17,7 @@ This module is based on `madoka`_ C++ library.
 
 .. _madoka: https://github.com/s-yata/madoka
 
-NOTE: Madoka-Sketch does not have index of keys. so Madoka-Sketch can not dump all keys such as Python dict's `dict.keys()`.
+NOTE: Madoka-Sketch does not have index of keys. so Madoka-Sketch can not dump all keys such as Python dict's `dict.keys()`. However, when set `k` parameter to costructer, `most_common` method (returns key and value as many as `k`) is available.
 
 Contributions are welcome!
 
@@ -67,11 +67,12 @@ Create a new sketch
  >>> import madoka
  >>> sketch = madoka.Sketch()
 
-- Sketch madoka.Sketch([width=1048576, max_value=35184372088831, path='', flags=0, seed=0])
+- Sketch madoka.Sketch([width=1048576, max_value=35184372088831, path='', flags=0, seed=0, k=5])
 
   - `width` is a size of register. If you are worrying about gap, you should increase `width` value. The larger `width` is, the fewer mistakes madoka makes in estimating value. But, the larger `width` is, the larger memory consumption is.
 
   - Permission of file given to `path` should be 644
+  - `k` means Top-K used by `most_common` method. if you don't want to use `most_common` method, then I recommend to set `k=0` so it is slightly fast.
 
   - `madoka.Sketch()` calls `madoka.Sketch.create()`, so you don't have to explicitly call `create()` in initialization
 
@@ -336,6 +337,18 @@ or
 
 - void fromdict(dict)
 
+Get most common keys
+--------------------------------------------
+
+.. code:: python
+
+ >>> sketch.most_common()
+
+- generator most_common([k=5])
+
+ - returns key-value pair as many as `k`
+
+ - Note that this method is required to set `k` parameter in constructer.
 
 License
 =========

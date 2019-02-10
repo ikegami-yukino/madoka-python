@@ -177,6 +177,14 @@ class MadokaTest(object):
         got = [i for i in sketch.values()]
         assert_equal(set(got), set([2, 3]))
 
+    def test_most_common(self):
+        sketch = self.target_class(width=100)
+        sketch['mami'] = 14
+        sketch['madoka'] = 13
+        sketch['sayaka'] = 13
+        got = list(sketch.most_common())
+        assert_equal(got, [('mami', 14), ('sayaka', 13), ('madoka', 13)])
+
     def test_with_statement(self):
         with self.target_class() as m:
             m['test'] += 1

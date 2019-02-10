@@ -135,13 +135,18 @@ class _Madoka(_object):
     def __getattr__(self, name):
         _swig_getattr(self, self.__class__, name)
 
-    def __init__(self, width=0, depth=0, path=None, flags=0, seed=0):
         self._setattrs()
+    def __init__(self, width=0, depth=0, path=None, flags=0, seed=0, k=5):
         this = getattr(_madoka, 'new_%s' % self.__class__.__name__)()
         try:
             self.this.append(this)
         except:
             self.this = this
+        self.k = k
+        self.ranking = []
+        heapq.heapify(self.ranking)
+        self.dq = deque(maxlen=self.k)
+        self.num = 0
         return self.create_method(self, width, depth, path, flags, seed)
 
     def __del__(self):
@@ -179,6 +184,8 @@ class _Madoka(_object):
             <str> key
             <int> value
         """
+        if self.k:
+            self._update(key, value)
         return self.set_method(self, key, len(key), value)
 
     def __contains__(self, key):
@@ -200,7 +207,7 @@ class _Madoka(_object):
         Return:
             <Sketch> summed_sketch
         """
-        summed_sketch = self.__class__(width=self.width, depth=self.depth, seed=self.seed)
+        summed_sketch = self.__class__(width=self.width, depth=self.depth, seed=self.seed, k=self.k)
         summed_sketch.copy(self)
         return summed_sketch.__iadd__(given_data)
 
@@ -216,6 +223,9 @@ class _Madoka(_object):
             self.fromdict(given_data, 'add')
         else:
             self.merge_method(self, given_data)
+            if given_data.k:
+                for (key, val) in given_data.most_common(given_data.k):
+                    self._update(key, val)
         return self
 
     def create(self, width=0, depth=0, path=None, flags=0, seed=0):
@@ -293,6 +303,18 @@ class _Madoka(_object):
         """
         return self.save_method(self, *args)
 
+    def _update(self, key, val):
+        if key not in self.dq:
+            if self.num < self.k:
+                heapq.heappush(self.ranking, (val, key))
+                self.dq.append(key)
+                self.num += 1
+            else:
+                (min_val, min_key) = heapq.heappushpop(self.ranking, (val, key))
+                if key != min_key:
+                    self.dq.remove(min_key)
+                    self.dq.append(key)
+
     def get(self, key, key_length=0):
         """Add key-value
         Params:
@@ -316,6 +338,8 @@ class _Madoka(_object):
         """
         if key_length < 1:
             key_length = len(key)
+        if self.k:
+            self._update(key, value)
         return self.set_method(self, key, key_length, value)
 
     def add(self, key, value, key_length=0):
@@ -329,7 +353,10 @@ class _Madoka(_object):
         """
         if key_length < 1:
             key_length = len(key)
-        return self.add_method(self, key, key_length, value)
+        val = self.add_method(self, key, key_length, value)
+        if self.k:
+            self._update(key, value)
+        return val
 
     def inc(self, key, key_length=0):
         """Add value to key-value
@@ -342,10 +369,17 @@ class _Madoka(_object):
         """
         if key_length < 1:
             key_length = len(key)
-        return self.add_method(self, key, key_length, 1)
+        val = self.add_method(self, key, key_length, 1)
+        if self.k:
+            self._update(key, val)
+        return val
 
     def clear(self):
         """Clear sketch"""
+        self.ranking = []
+        heapq.heapify(self.ranking)
+        self.dq = deque(maxlen=self.k)
+        self.num = 0
         return self.clear_method(self)
 
     def copy(self, *args):
@@ -400,6 +434,9 @@ class _Madoka(_object):
                     set_(self, table_id, cell_id, lhs_val)
         else:
             self.merge_method(self, rhs)
+            if rhs.k:
+                for (key, val) in rhs.most_common(rhs.k):
+                    self._update(key, val)
 
     def inner_product(self, sketch):
         """Inner product of two sketches
@@ -456,9 +493,17 @@ class _Madoka(_object):
         if hasattr(src_dict, 'iteritems'):
             for (key, val) in src_dict.iteritems():
                 _method(self, key, len(key), val)
+                if self.k:
+                    self._update(key, value)
         else:
             for (key, val) in src_dict.items():
                 _method(self, key, len(key), val)
+                if self.k:
+                    self._update(key, val)
+
+    def most_common(self, k=5):
+        for (val, key) in heapq.nlargest(k, self.ranking):
+            yield (key, val)
 
     @property
     def width(self):
@@ -500,13 +545,18 @@ class _Madoka(_object):
 class Sketch(_Madoka):
     __swig_destroy__ = _madoka.delete_Sketch
 
-    def __init__(self, width=0, max_value=0, path=None, flags=0, seed=0):
+    def __init__(self, width=0, max_value=0, path=None, flags=0, seed=0, k=5):
         this = _madoka.new_Sketch()
         try:
             self.this.append(this)
         except:
             self.this = this
-        self._setattrs()
+        self._rename_method()
+        self.k = k
+        self.ranking = []
+        heapq.heapify(self.ranking)
+        self.dq = deque(maxlen=self.k)
+        self.num = 0
         return _madoka.Sketch_create(self, width, max_value, path, flags, seed)
 
     def __add__(self, given_data):
