@@ -1,0 +1,29 @@
+name: pip
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  pip:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        module: ["madoka", "pondpond"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: 3.x
+      # pip install works.
+      # - run: python3 -m pip install --upgrade pip
+      #- run: pip install ${{ matrix.module }}
+      - uses: astral-sh/setup-uv@v7
+      # uv pip install works.
+      #  with:
+      #    activate-environment: true
+      # - run: uv pip install ${{ matrix.module }}
+      # uv pip install fails!
+      - run: uv add --dev ${{ matrix.module }}
+      - run: uv sync --upgrade
