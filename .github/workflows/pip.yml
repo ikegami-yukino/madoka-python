@@ -28,3 +28,4 @@ jobs:
       - run: uv init || true
       - run: uv add --dev ${{ matrix.module }}
       - run: uv sync --upgrade
+      - run: cat pyproject.toml
