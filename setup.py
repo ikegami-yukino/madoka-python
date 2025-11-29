@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
-from codecs import open
 import glob
 import os
 import re
-from distutils.core import setup, Extension
-from distutils.command.build_ext import build_ext
+
+from setuptools import Extension, setup
 
 with open(os.path.join('madoka', '__init__.py'), 'r', encoding='utf8') as f:
     version = re.compile(
         r".*__version__ = '(.*?)'", re.S).match(f.read()).group(1)
 
 MADOKA_FILES = glob.glob('src/*.cc')
+
 setup(
     name='madoka',
     version=version,
     author="Yukino Ikegami",
-    author_email='yukinoik@icloud.com',
+    author_email="yknikgm@gmail.com",
     url='https://github.com/ikegami-yukino/madoka-python',
     description="""Memory-efficient CountMin Sketch key-value structure (based on Madoka C++ library)""",
     long_description='%s\n\n%s' % (open('README.rst', encoding='utf8').read(),
@@ -30,15 +30,12 @@ setup(
                   ),
     ],
 
-    cmdclass={'build_ext': build_ext},
-
     license='New BSD License',
     keywords=['Count-Min Sketch', 'counter', 'word count'],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: BSD License',
         'Programming Language :: C++',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
