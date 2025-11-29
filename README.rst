@@ -1,7 +1,7 @@
 madoka
 ===========
 
-|travis| |coveralls| |pyversion| |version| |license|
+|pyversion| |version| |license| |download| |nowarnonukes|
 
 Madoka is an implementation of a Count-Min sketch data structure for summarizing data streams.
 
@@ -357,15 +357,6 @@ License
 - Wrapper code is licensed under New BSD License.
 - Bundled `madoka`_ C++ library is licensed under the Simplified BSD License.
 
-
-.. |travis| image:: https://travis-ci.org/ikegami-yukino/madoka-python.svg?branch=master
-    :target: https://travis-ci.org/ikegami-yukino/madoka-python
-    :alt: travis-ci.org
-
-.. |coveralls| image:: https://coveralls.io/repos/ikegami-yukino/madoka-python/badge.svg
-    :target: https://coveralls.io/r/ikegami-yukino/madoka-python
-    :alt: coveralls.io
-
 .. |pyversion| image:: https://img.shields.io/pypi/pyversions/madoka.svg
 
 .. |version| image:: https://img.shields.io/pypi/v/madoka.svg
@@ -375,3 +366,10 @@ License
 .. |license| image:: https://img.shields.io/pypi/l/madoka.svg
     :target: http://pypi.python.org/pypi/madoka/
     :alt: license
+
+.. |download| image:: https://static.pepy.tech/personalized-badge/madoka?period=total&units=international_system&left_color=black&right_color=blue&left_text=Downloads
+    :target: https://pepy.tech/project/madoka
+    :alt: download
+
+.. |nowarnonukes| image:: https://img.shields.io/badge/NO%20WAR-NO%20NUKES-brightgreen
+    :alt: NO WAR
