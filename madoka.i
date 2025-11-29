@@ -1,5 +1,11 @@
 %module madoka
 
+%init %{
+#ifdef Py_GIL_DISABLED
+    PyUnstable_Module_SetGIL(m, Py_MOD_GIL_NOT_USED);
+#endif
+%}
+
 typedef unsigned int uint32_t;
 typedef unsigned long long uint64_t;
 
