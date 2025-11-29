@@ -1,6 +1,14 @@
 CHANGES
 ========
 
+0.7.2 (2025-11-30)
+------------------
+
+- Support free-threaded Python
+- Add many wheels
+- Fix bug for Python 2.7
+
+
 0.7.1 (2018-02-11)
 ------------------
 
