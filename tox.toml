@@ -1,0 +1,24 @@
+env_list =  ["format", "build", "3.14", "3.13", "3.12", "3.11", "3.10", "3.9"]
+parallel_show_output = true
+
+[env.format]
+description = "install ruff in a virtual environment and invoke it"
+deps = ["ruff>=0.14"]
+skip_install = true
+commands = [
+    [ "ruff", "check", "--select", "I", "--diff", "--fix", "madoka" ],
+    [ "ruff", "check", "--select", "I", "--diff", "--fix", "setup.py" ],
+    [ "ruff", "check", "--select", "I", "--diff", "--fix", "test_madoka.py" ]
+]
+
+[env.build]
+description = "Build the package using setuptools"
+deps = ["build"]
+commands = [
+    ["python", "-m", "build"]
+]
+
+[env_run_base]
+description = "run unit tests"
+deps = ["pytest"]
+commands = [["pytest", { replace = "posargs", default = ["test_madoka.py"], extend = true }]]

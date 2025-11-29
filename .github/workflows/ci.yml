@@ -4,7 +4,7 @@ on:
   pull_request:
   workflow_dispatch:
 jobs:
-  nosetests:
+  pytests:
     strategy:
       fail-fast: false
       matrix:  # https://github.com/actions/python-versions/releases
@@ -21,7 +21,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
           allow-prereleases: true
       - run: python3 -m pip install --upgrade pip
-      - run: pip install nose-py3 pytest pytest-asyncio
+      - run: pip install pytest pytest-asyncio
       - run: pip install --editable .
-      - run: nosetests
       - run: pytest || true
