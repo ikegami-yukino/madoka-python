@@ -459,15 +459,15 @@ void FileImpl::open_(const char *path, int flags) {
     flags |= FILE_SHARED;
   }
 
+  fd_ = ::open(path, get_open_flags(flags));
+  MADOKA_THROW_IF(fd_ == -1);
+
   struct stat stat;
-  MADOKA_THROW_IF(::stat(path, &stat) == -1);
+  MADOKA_THROW_IF(::fstat(fd_, &stat) == -1);
   MADOKA_THROW_IF(stat.st_size < 0);
   MADOKA_THROW_IF(static_cast<UInt64>(stat.st_size) >
                   std::numeric_limits<std::size_t>::max());
   const std::size_t size = static_cast<std::size_t>(stat.st_size);
-
-  fd_ = ::open(path, get_open_flags(flags));
-  MADOKA_THROW_IF(fd_ == -1);
 
   if (size == 0) {
     static char DUMMY_BUF[1];
