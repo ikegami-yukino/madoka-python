@@ -1,6 +1,11 @@
 CHANGES
 ========
 
+0.7.2.1 (2025-11-30)
+------------------
+
+- Fix Python package classifiers about Python versions
+
 0.7.2 (2025-11-30)
 ------------------
 
