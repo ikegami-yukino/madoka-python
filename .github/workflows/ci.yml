@@ -6,6 +6,18 @@ on:
   pull_request:
   workflow_dispatch:
 jobs:
+  rst_check:
+    name: rst format validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+      - name: Install dependencies
+        run: python -m pip install -U pip readme-renderer
+      - name: rst validation
+        run: |
+          python -m readme_renderer -f rst README.rst -o /dev/null
+          python -m readme_renderer -f rst CHANGES.rst -o /dev/null
   pytests:
     strategy:
       fail-fast: false
