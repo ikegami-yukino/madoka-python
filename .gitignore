@@ -8,3 +8,4 @@ dist/*
 *.swo
 .DS_Store
 .coverage
+.vscode
